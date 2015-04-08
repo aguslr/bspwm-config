@@ -37,8 +37,11 @@ super + {_,shift + }{h,j,k,l}
 alt + {_,shift + }c
 	bspc window -f {next,prev}
 
-{alt,super} + Tab
-	bspc {window,desktop} -f last
+alt + Tab
+	bspc window -f last
+
+super + Tab
+	bspc desktop -f last.occupied
 
 super + {comma,period}
 	bspc desktop -C {backward,forward}
@@ -62,7 +65,7 @@ super + {_,shift + }{1-9,0}
 	bspc {desktop -f,window -d} ^{1-9,10}
 
 super + {_,shift + }{Left,Right}
-	bspc {desktop -f,window -d} {prev,next}
+	bspc {desktop -f,window -d} {prev,next}.occupied
 
 ~button1
 	bspc pointer -g focus
