@@ -5,7 +5,7 @@
 super + alt + Escape
 	bspc quit
 
-super + w
+alt + F4
 	bspc window -c
 
 super + t
@@ -14,7 +14,7 @@ super + t
 super + b
 	bspc desktop -B
 
-super + {s,f}
+super + {d,f}
 	bspc window -t {floating,fullscreen}
 
 super + {grave,Tab}
