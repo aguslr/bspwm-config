@@ -17,9 +17,6 @@ super + b
 super + {d,f}
 	bspc window -t {floating,fullscreen}
 
-super + {grave,Tab}
-	bspc {window,desktop} -f last
-
 super + apostrophe
 	bspc window -s last
 
@@ -37,8 +34,11 @@ super + m
 super + {_,shift + }{h,j,k,l}
 	bspc window -{f,s} {left,down,up,right}
 
-super + {_,shift + }c
+alt + {_,shift + }c
 	bspc window -f {next,prev}
+
+{alt,super} + Tab
+	bspc {window,desktop} -f last
 
 super + {comma,period}
 	bspc desktop -C {backward,forward}
