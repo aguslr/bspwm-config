@@ -6,75 +6,75 @@ super + alt + Escape
 	bspc quit
 
 alt + F4
-	bspc window -c
+	bspc window --close
 
 super + t
-	bspc desktop -l next
+	bspc desktop --layout next
 
 super + b
-	bspc desktop -B
+	bspc desktop --balance
 
 super + {d,f}
-	bspc window -t {floating,fullscreen}
+	bspc window --toggle {floating,fullscreen}
 
 super + apostrophe
-	bspc window -s last
+	bspc window --swap last
 
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc window {older,newer} --focus; \
 	bspc control --record-history on
 
 super + y
-	bspc window -w last.manual
+	bspc window --to-window last.manual
 
 super + m
-	bspc window -s biggest
+	bspc window --swap biggest
 
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc window --{focus,swap} {left,down,up,right}
 
 alt + {_,shift + }c
-	bspc window -f {next,prev}
+	bspc window --focus {next,prev}
 
 alt + Tab
-	bspc window -f last
+	bspc window --focus last
 
 super + Tab
-	bspc desktop -f last.occupied
+	bspc desktop --focus last.occupied
 
 super + {comma,period}
-	bspc desktop -C {backward,forward}
+	bspc desktop --circulate {backward,forward}
 
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc window --presel {left,down,up,right}
 
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {window --presel cancel,desktop --cancel-presel}
 
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc window --edge {left -10,down +10,up -10,right +10}
 
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+	bspc window --edge {right -10,up +10,down -10,left +10}
 
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc window --ratio .{1-9}
 
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop --focus,window --to-desktop} ^{1-9,10}
 
 super + {_,shift + }{Left,Right}
-	bspc {desktop -f,window -d} {prev,next}.occupied
+	bspc {desktop --focus,window --to-desktop} {prev,next}.occupied
 
 ~button1
-	bspc pointer -g focus
+	bspc pointer --grab focus
 
 alt + button{1-3}
-	; bspc pointer -g {move,resize_side,resize_corner}
+	; bspc pointer --grab {move,resize_side,resize_corner}
 
 alt + @button{1-3}
-	bspc pointer -u
+	bspc pointer --ungrab
 
 #
 # wm independent hotkeys
