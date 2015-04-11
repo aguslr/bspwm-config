@@ -46,6 +46,9 @@ super + Tab
 super + {comma,period}
 	bspc desktop --circulate {backward,forward}
 
+super + {s,v}
+	bspc desktop --flip {horizontal,vertical}
+
 super + ctrl + {h,j,k,l}
 	bspc window --presel {left,down,up,right}
 
@@ -65,6 +68,9 @@ super + {_,shift + }{1-9,0}
 	bspc {desktop --focus,window --to-desktop} ^{1-9,10}
 
 super + {_,shift + }{Left,Right}
+	bspc {desktop --focus,window --to-desktop} {prev,next}.occupied
+
+ctrl + alt + {_,shift + }{Left,Right}
 	bspc {desktop --focus,window --to-desktop} {prev,next}.occupied
 
 ~button1
