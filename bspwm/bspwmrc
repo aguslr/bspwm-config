@@ -9,13 +9,11 @@ bspc config gapless_monocle         true
 bspc config focus_by_distance       true
 bspc config focus_follows_pointer   true
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor --reset-desktops main www dev chat edit play virt 8 9
 
-bspc rule -a Iceweasel desktop=^2 follow=on
-bspc rule -a Gimp desktop=^5 follow=on
-bspc rule -a mplayer2 floating=on
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
+bspc rule --add Iceweasel desktop=^2 follow=on
+bspc rule --add Gimp desktop=^5 follow=on
+bspc rule --add mplayer2 floating=on
 
 # Launch panel
 panel &
