@@ -17,4 +17,4 @@ bspc rule --add Gimp desktop=^5 follow=on
 bspc rule --add mplayer2 floating=on
 
 # Launch panel
-panel &
+~/.config/bspwm/scripts/panel &
