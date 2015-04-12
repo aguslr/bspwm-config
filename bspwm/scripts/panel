@@ -107,6 +107,9 @@ while true; do
 	WAIT=10
 	# Create line
 	MISCLINE="R"
+	# Temperature information
+	TEM=`curl -s "http://api.openweathermap.org/data/2.5/weather?q=a-coruna&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/'` \
+	    && MISCLINE="${MISCLINE} %{F$COLOR_FREE_FG}tem%{F-} $TEM°"
 	# Mail messages
 	MSG=`curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/'` \
 	    && MISCLINE="${MISCLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
