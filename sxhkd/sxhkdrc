@@ -95,11 +95,11 @@ alt + @button{1-3}
 # wm independent hotkeys
 #
 
-super + Return
-	urxvt
+ctrl + alt + l
+	xscreensaver-command -lock
 
-super + space
-	dmenu_run
+super + Return
+	urxvtc
 
 # make sxhkd reload its configuration files:
 super + Escape
