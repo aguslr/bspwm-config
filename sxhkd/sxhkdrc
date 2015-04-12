@@ -64,14 +64,23 @@ super + alt + shift + {h,j,k,l}
 super + ctrl + {1-9}
 	bspc window --ratio .{1-9}
 
-super + {_,shift + }{1-9,0}
-	bspc {desktop --focus,window --to-desktop} ^{1-9,10}
+super + shift + {1-9,0}
+	bspc window --to-desktop ^{1-9,10} --focus
 
-super + {_,shift + }{Left,Right}
-	bspc {desktop --focus,window --to-desktop} {prev,next}.occupied
+super + shift + {Left,Right}
+	bspc window --to-desktop {prev,next} --focus
 
-ctrl + alt + {_,shift + }{Left,Right}
-	bspc {desktop --focus,window --to-desktop} {prev,next}.occupied
+ctrl + alt + shift + {Left,Right}
+	bspc window --to-desktop {prev,next} --focus
+
+super + {1-9,0}
+	bspc desktop --focus ^{1-9,10}
+
+super + {Left,Right}
+	bspc desktop --focus {prev,next}.occupied
+
+ctrl + alt + {Left,Right}
+	bspc desktop --focus {prev,next}.occupied
 
 ~button1
 	bspc pointer --grab focus
