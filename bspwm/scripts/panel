@@ -61,6 +61,9 @@ while true; do
 	WAIT=0.5
 	# Create line
 	SYSLINE="S"
+	# ToDo information
+	TSK=`wc -l ~/todo.txt | awk '{print $1}'` \
+	    && SYSLINE="${SYSLINE} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${TSK}%{A}"
 	# CPU information
 	CPU=`awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat` \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%"
