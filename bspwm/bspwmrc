@@ -16,5 +16,5 @@ bspc rule --add Iceweasel desktop=^2 follow=on
 bspc rule --add Gimp desktop=^5 follow=on
 bspc rule --add mplayer2 floating=on
 
-# Launch panel
-~/.config/bspwm/scripts/panel &
+# Autostart
+~/.config/bspwm/autostart &

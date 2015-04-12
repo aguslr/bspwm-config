@@ -1,0 +1,16 @@
+#! /bin/sh
+
+# Launch keybinding daemon
+sxhkd &
+
+# Start ScreenSaver daemon
+[ ! "`pgrep -u $USER xscreensaver`" ] && xscreensaver -no-splash &
+
+# Start Terminal daemon
+[ ! "`pgrep -u $USER urxvtd`" ] && urxvtd --quiet --opendisplay &
+
+# Start Udisks-glue for device automonting
+[ ! "`pgrep -u $USER udisks-glue`" ] && udisks-glue &
+
+# Launch panel
+~/.config/bspwm/scripts/panel &
