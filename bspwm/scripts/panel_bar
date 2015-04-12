@@ -36,35 +36,35 @@ while read -r line ; do
 					M*)
 						# active monitor
 						if [ $num_mon -gt 1 ] ; then
-							wm_infos="$wm_infos %{F$COLOR_ACTIVE_MONITOR_FG}%{B$COLOR_ACTIVE_MONITOR_BG} ${name} %{B-}%{F-}  "
+							wm_infos="$wm_infos %{F$COLOR_ACTIVE_MONITOR_FG}%{B$COLOR_ACTIVE_MONITOR_BG}%{A4:bspc monitor --focus prev.occupied:}%{A5:bspc monitor --focus next.occupied:} ${name} %{A}%{A}%{B-}%{F-}  "
 						fi
 						;;
 					m*)
 						# inactive monitor
 						if [ $num_mon -gt 1 ] ; then
 							wm_infos="$wm_infos
-							%{F$COLOR_INACTIVE_MONITOR_FG}%{B$COLOR_INACTIVE_MONITOR_BG}%{A:bspc monitor --focus ${name}:} ${name} %{A}%{B-}%{F-}  "
+							%{F$COLOR_INACTIVE_MONITOR_FG}%{B$COLOR_INACTIVE_MONITOR_BG}%{A:bspc monitor --focus ${name}:}%{A4:bspc monitor --focus prev.occupied:}%{A5:bspc monitor --focus next.occupied:} ${name} %{A}%{A}%{A}%{B-}%{F-}  "
 						fi
 						;;
 					O*)
 						# focused occupied desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_OCCUPIED_FG}%{B$COLOR_FOCUSED_OCCUPIED_BG}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_OCCUPIED_FG}%{B$COLOR_FOCUSED_OCCUPIED_BG}%{U$COLOR_FOREGROUND}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					F*)
 						# focused free desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_FOCUSED_FREE_BG}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_FOCUSED_FREE_BG}%{U$COLOR_FOREGROUND}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					U*)
 						# focused urgent desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_URGENT_FG}%{B$COLOR_FOCUSED_URGENT_BG}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_URGENT_FG}%{B$COLOR_FOCUSED_URGENT_BG}%{U$COLOR_FOREGROUND}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					o*)
 						# occupied desktop
-						wm_infos="${wm_infos}%{F$COLOR_OCCUPIED_FG}%{B$COLOR_OCCUPIED_BG}%{A:bspc desktop --focus ${name}:} ${name} %{A}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_OCCUPIED_FG}%{B$COLOR_OCCUPIED_BG}%{A1:bspc desktop --focus ${name}:}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
 						;;
 					u*)
 						# urgent desktop
-						wm_infos="${wm_infos}%{F$COLOR_URGENT_FG}%{B$COLOR_URGENT_BG}%{A:bspc desktop --focus ${name}:} ${name} %{A}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_URGENT_FG}%{B$COLOR_URGENT_BG}%{A1:bspc desktop --focus ${name}:}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
 						;;
 				esac
 				shift
