@@ -16,5 +16,16 @@ bspc rule --add Iceweasel desktop=^2 follow=on
 bspc rule --add Gimp desktop=^5 follow=on
 bspc rule --add mplayer2 floating=on
 
+# Colors
+. ~/.config/bspwm/colors.cfg
+bspc config focused_border_color                $bold_white
+bspc config active_border_color                 $bold_white
+bspc config normal_border_color                 $black
+bspc config urgent_border_color                 $magenta
+bspc config presel_border_color                 $blue
+
+# Set wallpaper
+hsetroot -tile ~/Imágenes/pattern
+
 # Autostart
 ~/.config/bspwm/autostart &
