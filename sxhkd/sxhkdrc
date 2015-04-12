@@ -8,14 +8,14 @@ super + alt + Escape
 alt + F4
 	bspc window --close
 
-super + t
-	bspc desktop --layout next
+super + {_,shift + }space
+	bspc desktop --layout {next,prev}
 
-super + b
+super + equal
 	bspc desktop --balance
 
-super + {d,f}
-	bspc window --toggle {floating,fullscreen}
+super + {shift + f,f}
+	bspc window --toggle {fullscreen,floating}
 
 super + apostrophe
 	bspc window --swap last
