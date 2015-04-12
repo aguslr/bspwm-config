@@ -12,9 +12,49 @@ bspc config auto_cancel                 true
 
 bspc monitor --reset-desktops main www dev chat edit play virt 8 9 10
 
+# Send to www desktop
 bspc rule --add Iceweasel desktop=^2 follow=on
+bspc rule --add Midori desktop=^2 follow=on
+# Send to dev desktop
+bspc rule --add Atom desktop=^3 follow=on
+bspc rule --add Brackets desktop=^3 follow=on
+bspc rule --add Eclipse desktop=^3 follow=on
+bspc rule --add Ltbin desktop=^3 follow=on
+bspc rule --add Gvim desktop=^3 follow=on
+# Send to chat desktop
+bspc rule --add Xchat desktop=^4 follow=on
+# Send to edit desktop
+bspc rule --add Abiword desktop=^5 follow=on
+bspc rule --add Avidemux desktop=^5 follow=on
+bspc rule --add Blender desktop=^5 follow=on
+bspc rule --add Darktable desktop=^5 follow=on
 bspc rule --add Gimp desktop=^5 follow=on
+bspc rule --add Gnumeric desktop=^5 follow=on
+bspc rule --add Handbrake desktop=^5 follow=on
+bspc rule --add Illustrator.exe desktop=^5 follow=on
+bspc rule --add Inkscape desktop=^5 follow=on
+bspc rule --add libreoffice desktop=^5 follow=on
+bspc rule --add Openshot desktop=^5 follow=on
+bspc rule --add Pitivi desktop=^5 follow=on
+bspc rule --add Rawtherapee desktop=^5 follow=on
+bspc rule --add Ufraw desktop=^5 follow=on
+# Send to play deskto
+bspc rule --add Desura desktop=^6 follow=on
+bspc rule --add Popcorn-time desktop=^6 follow=on
+bspc rule --add Steam desktop=^6 follow=on
+bspc rule --add Vlc desktop=^6 follow=on
+# Send to virt desktop
+bspc rule --add VirtualBox desktop=^7 follow=on
+bspc rule --add Virt-manager desktop=^7 follow=on
+# Floating windows
+bspc rule --add Empathy floating=on
+bspc rule --add Eog floating=on
+bspc rule --add Keepassx floating=on
 bspc rule --add mplayer2 floating=on
+bspc rule --add mpv floating=on
+bspc rule --add Nautilus floating=on
+bspc rule --add Transmission-gtk floating=on
+bspc rule --add Uget-gtk floating=on
 
 # Colors
 . ~/.config/bspwm/colors.cfg
