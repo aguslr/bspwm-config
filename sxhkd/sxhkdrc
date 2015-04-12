@@ -96,7 +96,7 @@ alt + @button{1-3}
 #
 
 ctrl + alt + l
-	xscreensaver-command -lock
+	xautolock -locknow
 
 super + Return
 	urxvtc

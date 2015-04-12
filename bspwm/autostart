@@ -3,8 +3,8 @@
 # Launch keybinding daemon
 sxhkd &
 
-# Start ScreenSaver daemon
-[ ! "`pgrep -u $USER xscreensaver`" ] && xscreensaver -no-splash &
+# Start xautolock daemon
+[ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 2d2d2d" -time 10 &
 
 # Start Terminal daemon
 [ ! "`pgrep -u $USER urxvtd`" ] && urxvtd --quiet --opendisplay &
