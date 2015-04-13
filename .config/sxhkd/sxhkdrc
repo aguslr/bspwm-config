@@ -146,6 +146,12 @@ ctrl + alt + l
 super + Return
 	urxvtc
 
+# Emulate i3's scratchpad
+F12
+	xdotool search --onlyvisible --classname scratchpad windowunmap \
+	|| xdotool search --classname scratchpad windowmap \
+	|| urxvtc -name scratchpad -geometry 220x20+78+0
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
