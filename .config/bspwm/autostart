@@ -19,3 +19,14 @@ sxhkd &
 
 # Launch panel
 ~/.config/bspwm/scripts/panel &
+
+# Start Update-notifier
+update-notifier &
+# Start ownCloud client
+owncloud &
+# Start clipboard manager
+parcellite &
+# Start Empathy
+empathy --start-hidden &
+# Start lightsOn script
+~/bin/lightsOn.sh 300 &
