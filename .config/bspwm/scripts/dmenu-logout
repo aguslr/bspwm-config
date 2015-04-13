@@ -1,0 +1,43 @@
+#! /bin/sh
+
+# Logout function
+logout() {
+	# For each opened window
+	bspc query --windows | while read -r winid; do
+		# Close it
+		xdotool windowkill $winid
+	done
+	# Kill panel
+	pkill panel
+	# Quit bspwm
+	bspc quit
+}
+
+# Load dmenu config
+[ -f $HOME/.dmenurc ] && . $HOME/.dmenurc || DMENU='dmenu -i'
+
+# Menu items
+items="logout\nhibernate\nsuspend\nreboot\npoweroff"
+
+# Open menu
+selection=$(printf "$items" | $DMENU)
+
+case $selection in
+	logout)
+		logout
+	;;
+	hibernate)
+		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Hibernate
+	;;
+	suspend)
+		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Suspend
+	;;
+	reboot)
+		logout
+		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+	;;
+	halt|poweroff|shutdown)
+		logout
+		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+	;;
+esac

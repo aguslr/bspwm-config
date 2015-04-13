@@ -4,7 +4,7 @@
 
 # Exit bspwm
 super + alt + Escape
-	bspc quit && pkill panel
+	~/.config/bspwm/scripts/dmenu-logout
 
 # Close window
 alt + F4
