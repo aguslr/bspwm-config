@@ -64,9 +64,9 @@ alt + Tab
 super + {comma,period}
 	bspc desktop --circulate {backward,forward}
 
-# Flip layout horizontally/vertically
+# Flip layout vertically/horizontally
 super + {_,shift + }s
-	bspc desktop --flip {horizontal,vertical}
+	bspc desktop --flip {vertical,horizontal}
 
 # Preselect the splitting area
 super + ctrl + {h,j,k,l}
