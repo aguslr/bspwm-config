@@ -11,6 +11,9 @@ alt + F4
 super + {_,shift + }space
 	bspc desktop --layout {next,prev}
 
+super + {_,shift + }r
+	bspc desktop --rotate {90,-90}
+
 super + equal
 	bspc desktop --balance
 
