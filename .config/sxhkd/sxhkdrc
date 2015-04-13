@@ -101,7 +101,7 @@ alt + @button{1-3}
 super + t
 	xdotool search --onlyvisible --class "stalonetray" >/dev/null \
 	&& xdotool search --class "stalonetray" windowunmap \
-	|| xdotool search --class "stalonetray" windowmap
+	|| xdotool search --class "stalonetray" windowmap windowraise
 
 ctrl + alt + l
 	xautolock -locknow
