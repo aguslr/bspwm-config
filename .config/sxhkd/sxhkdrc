@@ -98,6 +98,11 @@ alt + @button{1-3}
 # wm independent hotkeys
 #
 
+super + t
+	xdotool search --onlyvisible --class "stalonetray" >/dev/null \
+	&& xdotool search --class "stalonetray" windowunmap \
+	|| xdotool search --class "stalonetray" windowmap
+
 ctrl + alt + l
 	xautolock -locknow
 

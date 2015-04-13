@@ -3,6 +3,11 @@
 # Launch keybinding daemon
 sxhkd &
 
+# Launch systray
+[ ! "`pgrep -u $USER stalonetray`" ] && stalonetray --config ~/.config/bspwm/stalonetrayrc &
+# Hide systray after 5 seconds
+( sleep 5s && xdotool search --class "stalonetray" windowunmap) &
+
 # Start xautolock daemon
 [ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 2d2d2d" -time 10 &
 
