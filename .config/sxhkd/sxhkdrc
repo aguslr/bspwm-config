@@ -142,8 +142,7 @@ alt + F2
 
 # Toggle visibility of systray
 super + t
-	xdotool search --onlyvisible --class "stalonetray" >/dev/null \
-	&& xdotool search --class "stalonetray" windowunmap \
+	xdotool search --onlyvisible --class "stalonetray" windowunmap \
 	|| xdotool search --class "stalonetray" windowmap windowraise
 
 # Lock the screen
