@@ -20,10 +20,13 @@ super + equal
 super + {shift + f,f}
 	bspc window --toggle {fullscreen,floating}
 
+super + {grave,Tab}
+	bspc {window,desktop} --focus last
+
 super + apostrophe
 	bspc window --swap last
 
-super + {o,i}
+super + {o,n}
 	bspc control --record-history off; \
 	bspc window {older,newer} --focus; \
 	bspc control --record-history on
@@ -42,9 +45,6 @@ alt + {_,shift + }c
 
 alt + Tab
 	bspc window --focus last
-
-super + Tab
-	bspc desktop --focus last.occupied
 
 super + {comma,period}
 	bspc desktop --circulate {backward,forward}
