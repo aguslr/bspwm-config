@@ -2,95 +2,125 @@
 # bspwm hotkeys
 #
 
+# Exit bspwm
 super + alt + Escape
 	bspc quit && pkill panel
 
+# Close window
 alt + F4
 	bspc window --close
 
+# Navigate layouts
 super + {_,shift + }space
 	bspc desktop --layout {next,prev}
 
+# Rotate desktop
 super + {_,shift + }r
 	bspc desktop --rotate {90,-90}
 
+# Make split ratios equal
 super + equal
 	bspc desktop --balance
 
+# Toggle fullscreen/floating of window
 super + {shift + f,f}
 	bspc window --toggle {fullscreen,floating}
 
+# Focus last window/desktop
 super + {grave,Tab}
 	bspc {window,desktop} --focus last
 
+# Swap window with last window
 super + apostrophe
 	bspc window --swap last
 
+# Navigate to older/newer window in history
 super + {o,n}
 	bspc control --record-history off; \
 	bspc window {older,newer} --focus; \
 	bspc control --record-history on
 
+# Move window to last manual split
 super + y
 	bspc window --to-window last.manual
 
+# Move window to the biggest space
 super + m
 	bspc window --swap biggest
 
+# Focus/swap windows by direction
 super + {_,shift + }{h,j,k,l}
 	bspc window --{focus,swap} {left,down,up,right}
 
+# Navigate windows
 alt + {_,shift + }c
 	bspc window --focus {next,prev}
 
+# Focus last window
 alt + Tab
 	bspc window --focus last
 
+# Circulate the leaves of the tree
 super + {comma,period}
 	bspc desktop --circulate {backward,forward}
 
+# Flip layout horizontally/vertically
 super + {_,shift + }s
 	bspc desktop --flip {horizontal,vertical}
 
+# Preselect the splitting area
 super + ctrl + {h,j,k,l}
 	bspc window --presel {left,down,up,right}
 
+# Cancel preselection
 super + ctrl + {_,shift + }space
 	bspc {window --presel cancel,desktop --cancel-presel}
 
+# Resize window
 super + alt + {h,j,k,l}
 	bspc window --edge {left -10,down +10,up -10,right +10}
 
+# Resize window
 super + alt + shift + {h,j,k,l}
 	bspc window --edge {right -10,up +10,down -10,left +10}
 
+# Change splitting ratio
 super + ctrl + {1-9}
 	bspc window --ratio .{1-9}
 
+# Move window to selected desktop
 super + shift + {1-9,0}
 	bspc window --to-desktop ^{1-9,10} --focus
 
+# Move window to left/right desktop
 super + shift + {Left,Right}
 	bspc window --to-desktop {prev,next} --focus
 
+# Move window to left/right desktop
 ctrl + alt + shift + {Left,Right}
 	bspc window --to-desktop {prev,next} --focus
 
+# Focus selected desktop
 super + {1-9,0}
 	bspc desktop --focus ^{1-9,10}
 
+# Focus left/right occupied desktop
 super + {Left,Right}
 	bspc desktop --focus {prev,next}.occupied
 
+# Focus left/right occupied desktop
 ctrl + alt + {Left,Right}
 	bspc desktop --focus {prev,next}.occupied
 
+# Focus when clicking
 ~button1
 	bspc pointer --grab focus
 
+# Move/resize windows
 alt + button{1-3}
 	; bspc pointer --grab {move,resize_side,resize_corner}
 
+# Ungrab when releasing a mouse button
 alt + @button{1-3}
 	bspc pointer --ungrab
 
@@ -98,14 +128,17 @@ alt + @button{1-3}
 # wm independent hotkeys
 #
 
+# Toggle visibility of systray
 super + t
 	xdotool search --onlyvisible --class "stalonetray" >/dev/null \
 	&& xdotool search --class "stalonetray" windowunmap \
 	|| xdotool search --class "stalonetray" windowmap windowraise
 
+# Lock the screen
 ctrl + alt + l
 	xautolock -locknow
 
+# Launch terminal
 super + Return
 	urxvtc
 
