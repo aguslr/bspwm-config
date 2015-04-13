@@ -21,6 +21,7 @@ bspc rule --add Brackets desktop=^3 follow=on
 bspc rule --add Eclipse desktop=^3 follow=on
 bspc rule --add Ltbin desktop=^3 follow=on
 bspc rule --add Gvim desktop=^3 follow=on
+bspc rule --add sun-awt-X11-XFramePeer desktop=^3 follow=on
 # Send to chat desktop
 bspc rule --add Xchat desktop=^4 follow=on
 # Send to edit desktop
