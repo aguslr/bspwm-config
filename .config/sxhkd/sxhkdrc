@@ -112,6 +112,10 @@ super + {Left,Right}
 ctrl + alt + {Left,Right}
 	bspc desktop --focus {prev,next}.occupied
 
+# Toggle visibility of all windows
+super + v
+	bspc control --toggle-visibility
+
 # Focus when clicking
 ~button1
 	bspc pointer --grab focus
