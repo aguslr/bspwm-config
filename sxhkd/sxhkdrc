@@ -3,7 +3,7 @@
 #
 
 super + alt + Escape
-	bspc quit
+	bspc quit && pkill panel
 
 alt + F4
 	bspc window --close
