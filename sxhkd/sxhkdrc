@@ -49,7 +49,7 @@ alt + Tab
 super + {comma,period}
 	bspc desktop --circulate {backward,forward}
 
-super + {s,v}
+super + {_,shift + }s
 	bspc desktop --flip {horizontal,vertical}
 
 super + ctrl + {h,j,k,l}
