@@ -51,7 +51,7 @@ while true; do
 	# Dump information to file
 	echo "$TITLELINE" > "$PANEL_FIFO"
 
-	# Wait for 1 second before repeating
+	# Wait before repeating
 	sleep $WAIT
 done &
 
@@ -80,7 +80,7 @@ while true; do
 	# Dump information to file
 	echo "$SYSLINE" > "$PANEL_FIFO"
 
-	# Wait for 1 second before repeating
+	# Wait before repeating
 	sleep $WAIT
 done &
 
@@ -97,7 +97,7 @@ while true; do
 	# Dump information to file
 	echo "$MPDLINE" > "$PANEL_FIFO"
 
-	# Wait for 1 second before repeating
+	# Wait before repeating
 	sleep $WAIT
 done &
 
@@ -117,7 +117,7 @@ while true; do
 	# Dump information to file
 	echo "$MISCLINE" > "$PANEL_FIFO"
 
-	# Wait for 1 second before repeating
+	# Wait before repeating
 	sleep $WAIT
 done &
 
