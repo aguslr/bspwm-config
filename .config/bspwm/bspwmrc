@@ -13,8 +13,8 @@ bspc config auto_cancel                 true
 bspc monitor --reset-desktops main www dev chat edit play virt 8 9 10
 
 # Send to www desktop
-bspc rule --add Iceweasel desktop=^2 follow=on
-bspc rule --add Midori desktop=^2 follow=on
+bspc rule --add Iceweasel desktop=^2 follow=on --one-shot
+bspc rule --add Midori desktop=^2 follow=on --one-shot
 # Send to dev desktop
 bspc rule --add Atom desktop=^3 follow=on
 bspc rule --add Brackets desktop=^3 follow=on
@@ -23,7 +23,7 @@ bspc rule --add Ltbin desktop=^3 follow=on
 bspc rule --add Gvim desktop=^3 follow=on
 bspc rule --add sun-awt-X11-XFramePeer desktop=^3 follow=on
 # Send to chat desktop
-bspc rule --add Xchat desktop=^4 follow=on
+bspc rule --add Xchat desktop=^4 follow=on --one-shot
 # Send to edit desktop
 bspc rule --add Abiword desktop=^5 follow=on
 bspc rule --add Avidemux desktop=^5 follow=on
@@ -40,9 +40,9 @@ bspc rule --add Pitivi desktop=^5 follow=on
 bspc rule --add Rawtherapee desktop=^5 follow=on
 bspc rule --add Ufraw desktop=^5 follow=on
 # Send to play deskto
-bspc rule --add Desura desktop=^6 follow=on
+bspc rule --add Desura desktop=^6 follow=on --one-shot
 bspc rule --add Popcorn-time desktop=^6 follow=on
-bspc rule --add Steam desktop=^6 follow=on
+bspc rule --add Steam desktop=^6 follow=on --one-shot
 bspc rule --add Vlc desktop=^6 follow=on
 # Send to virt desktop
 bspc rule --add VirtualBox desktop=^7 follow=on
