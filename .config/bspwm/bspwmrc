@@ -60,18 +60,18 @@ bspc rule --add Uget-gtk floating=on
 
 # Colors
 . ~/.config/bspwm/colors.cfg
-bspc config focused_border_color                $bold_white
+bspc config focused_border_color                $brightwhite
 bspc config active_border_color                 $white
 bspc config normal_border_color                 $black
 bspc config urgent_border_color                 $magenta
 bspc config presel_border_color                 $yellow
-bspc config focused_locked_border_color         $bold_red
+bspc config focused_locked_border_color         $brightred
 bspc config active_locked_border_color          $red
 bspc config normal_locked_border_color          $black
-bspc config focused_sticky_border_color         $bold_cyan
+bspc config focused_sticky_border_color         $brightcyan
 bspc config active_sticky_border_color          $cyan
 bspc config normal_sticky_border_color          $black
-bspc config focused_private_border_color        $bold_blue
+bspc config focused_private_border_color        $brightblue
 bspc config active_private_border_color         $blue
 bspc config normal_private_border_color         $black
 
