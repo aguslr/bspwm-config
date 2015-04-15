@@ -3,6 +3,18 @@
 # Name of systray
 CLASS="stalonetray"
 
-# Toggle visibility of systray
-xdotool search --onlyvisible --class $CLASS windowunmap \
-    || xdotool search --class $CLASS windowmap windowraise
+case $1 in
+	close|down|unmap)
+		# Show systray
+		xdotool search --onlyvisible --class $CLASS windowunmap
+	;;
+	open|up|map)
+		# Hide systray
+		xdotool search --class $CLASS windowmap windowraise
+	;;
+	*)
+		# Toggle visibility of systray
+		xdotool search --onlyvisible --class $CLASS windowunmap \
+		    || xdotool search --class $CLASS windowmap windowraise
+	;;
+esac
