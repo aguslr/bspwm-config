@@ -68,10 +68,10 @@ while true; do
 	    && SYSLINE="${SYSLINE} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${TSK}%{A}"
 	# CPU information
 	CPU=`awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat` \
-	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%"
+	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_CPU:}%{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%%{A}"
 	# Memory information
 	RAM=`free | awk 'FNR == 3 {print int($3/($3+$4)*100)}'` \
-	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%"
+	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%%{A}"
 	# Volume information
 	VOL=`getVolume` \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
