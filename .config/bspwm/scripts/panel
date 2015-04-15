@@ -76,7 +76,7 @@ while true; do
 	VOL=`getVolume` \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
 	# Clock and date
-	CLK=`date +'%H:%M'` \
+	CLK=`date +'%d %b %H:%M'` \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
 
 	# Dump information to file
