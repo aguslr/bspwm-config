@@ -106,7 +106,7 @@ done &
 # Misc information
 while true; do
 	# Interval between checks in seconds
-	WAIT=30
+	WAIT=300
 	# Create line
 	MISCLINE="R"
 	# Temperature information
