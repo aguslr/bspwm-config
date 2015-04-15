@@ -29,10 +29,12 @@ getVolume() {
 # Get MPD information
 getSong() {
 	# Check if it's playing
-	if [ -z "`mpc status | awk '/\[playing\]/{print $1}'`" ]; then
-		echo "[stopped] "
-	else
+	if [ "`mpc status | awk '/\[playing\]/{print $1}'`" ]; then
 		echo "`ncmpcpp --now-playing '{{{%a - }{%t }{[%b]}}|{%f}}'`"
+	elif [ "`mpc status | awk '/\[paused]/{print $1}'`" ]; then
+		echo "[paused] `ncmpcpp --now-playing '{{{%a - }{%t }{[%b]}}|{%f}}'`"
+	else
+		echo "[stopped] "
 	fi
 }
 
