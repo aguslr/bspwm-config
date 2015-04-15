@@ -142,8 +142,7 @@ alt + F2
 
 # Toggle visibility of systray
 super + t
-	xdotool search --onlyvisible --class "stalonetray" windowunmap \
-	|| xdotool search --class "stalonetray" windowmap windowraise
+	~/.config/bspwm/scripts/toggle-systray
 
 # Lock the screen
 ctrl + alt + l

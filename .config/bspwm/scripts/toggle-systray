@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Name of systray
+CLASS="stalonetray"
+
+# Toggle visibility of systray
+xdotool search --onlyvisible --class $CLASS windowunmap \
+    || xdotool search --class $CLASS windowmap windowraise
