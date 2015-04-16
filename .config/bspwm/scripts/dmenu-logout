@@ -7,6 +7,8 @@ logout() {
 		# Close it
 		xdotool windowkill $winid
 	done
+	# Kill udisks-glue
+	pkill udisks-glue
 	# Kill panel
 	pkill panel
 	# Quit bspwm
