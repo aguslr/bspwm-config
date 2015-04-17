@@ -21,8 +21,10 @@ getVolume() {
 	# Check if it's muted
 	if [ "`pactl list sinks | awk '/\tMute:/{print $2}'`" = "yes" ]; then
 		echo "[m]"
-	else
+	elif [ "`pactl list sinks | awk '/\tMute:/{print $2}'`" = "no" ]; then
 		echo "`pactl list sinks | awk '/\tVolume: /{print $5}'`%"
+	else
+		return 1
 	fi
 }
 
@@ -34,7 +36,7 @@ getSong() {
 	elif [ "`mpc status | awk '/\[paused]/{print $1}'`" ]; then
 		echo "[paused] `ncmpcpp --now-playing '{{{%a - }{%t }{[%b]}}|{%f}}'`"
 	else
-		echo "[stopped] "
+		echo "[stopped]"
 	fi
 }
 
