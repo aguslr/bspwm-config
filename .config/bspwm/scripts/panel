@@ -68,19 +68,6 @@ getSong() {
 	fi
 }
 
-# Get weather information
-getWeather() {
-	ID="$1"
-	# Temperature information
-	OWM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${ID}&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/')
-	# Check that info was retrieved
-	if [ ! -z "$OWM" ]; then
-		echo "$OWM"
-	else
-		return 1
-	fi
-}
-
 # Active window information
 while true; do
 	# Interval between checks in seconds
@@ -162,7 +149,8 @@ while true; do
 	MISCLINE="R"
 	# Temperature information
 	CITYID=3119841
-	TEM=$(getWeather $CITYID) \
+	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/')
+	[ "$TEM" ] \
 	    && MISCLINE="${MISCLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 	# Mail messages
 	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/')
