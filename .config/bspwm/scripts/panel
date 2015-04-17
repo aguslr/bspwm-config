@@ -33,11 +33,13 @@ getPower() {
 
 # Get volume information
 getVolume() {
+	# Mixer control
+	CTRL="${1-Master}"
 	# Check if it's muted
-	if [ "`pactl list sinks | awk '/\tMute:/{print $2}'`" = "yes" ]; then
+	if amixer sget $CTRL | grep -o '\[off\]' >/dev/null; then
 		echo "[m]"
-	elif [ "`pactl list sinks | awk '/\tMute:/{print $2}'`" = "no" ]; then
-		echo "`pactl list sinks | awk '/\tVolume: /{print $5}'`%"
+	elif amixer sget $CTRL | grep -o '\[on\]' >/dev/null; then
+		echo "`amixer sget $CTRL | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq`%%"
 	else
 		return 1
 	fi
@@ -106,7 +108,7 @@ while true; do
 	PWR=`getPower BAT0` \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}pwr%{F-} ${PWR}"
 	# Volume information
-	VOL=`getVolume` \
+	VOL=`getVolume Master` \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
 	# Clock and date
 	CLK=`date +'%d %b %H:%M'` \
