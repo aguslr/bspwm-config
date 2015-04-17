@@ -90,7 +90,8 @@ while true; do
 	# Get Window ID
 	WINID=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | awk '{print $2}')
 	# Get title
-	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | perl -ne 'print /^.* = "(.*)"/') \
+	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | perl -ne 'print /^.* = "(.*)"/')
+	[ "$TITLE" ] \
 	    && TITLELINE="${TITLELINE} ${TITLE}"
 
 	# Dump information to file
@@ -107,13 +108,16 @@ while true; do
 	# Create line
 	SYSLINE="S"
 	# ToDo information
-	TSK=$(grep -E '^\(.\)' ~/todo.txt | wc -l) \
+	TSK=$(grep -E '^\(.\)' ~/todo.txt | wc -l)
+	[ "$TSK" ] \
 	    && SYSLINE="${SYSLINE} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${TSK}%{A}"
 	# CPU information
-	CPU=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat) \
+	CPU=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat)
+	[ "$CPU" ] \
 	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_CPU:}%{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%%{A}"
 	# Memory information
-	RAM=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}') \
+	RAM=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}')
+	[ "$RAM" ] \
 	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%%{A}"
 	# Power information
 	PWR=$(getPower BAT0) \
@@ -122,7 +126,8 @@ while true; do
 	VOL=$(getVolume Master) \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
 	# Clock and date
-	CLK=$(date +'%d %b %H:%M') \
+	CLK=$(date +'%d %b %H:%M')
+	[ "$CLK" ] \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
 
 	# Dump information to file
@@ -160,7 +165,8 @@ while true; do
 	TEM=$(getWeather $CITYID) \
 	    && MISCLINE="${MISCLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 	# Mail messages
-	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/') \
+	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/')
+	[ "$MSG" ] \
 	    && MISCLINE="${MISCLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
 	# Dump information to file
