@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # Load panel configuration
 . ~/.config/bspwm/panel.cfg
