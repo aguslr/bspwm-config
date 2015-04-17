@@ -77,7 +77,7 @@ while true; do
 	# Get Window ID
 	WINID=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | awk '{print $2}')
 	# Get title
-	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | perl -ne 'print /^.* = "(.*)"/')
+	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | sed -n 's/.*"\(.*\)"/\1/p')
 	[ "$TITLE" ] \
 	    && TITLELINE="${TITLELINE} ${TITLE}"
 
@@ -149,11 +149,11 @@ while true; do
 	MISCLINE="R"
 	# Temperature information
 	CITYID=3119841
-	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/')
+	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\).*".*$/\1/p')
 	[ "$TEM" ] \
 	    && MISCLINE="${MISCLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 	# Mail messages
-	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/')
+	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | sed -n 's/^.*fullcount>\([0-9]\+\)<\/fullcount.*$/\1/p')
 	[ "$MSG" ] \
 	    && MISCLINE="${MISCLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
