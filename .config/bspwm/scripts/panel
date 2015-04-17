@@ -22,13 +22,13 @@ getPower() {
 	# Battery
 	BAT="${1-BAT0}"
 	# Get battery status
-	BATSTATUS="$(< /sys/class/power_supply/${BAT}/status)" || return 1
+	BATSTATUS="$(cat /sys/class/power_supply/${BAT}/status)" || return 1
 	# Check if it's charging
 	if [ "$BATSTATUS" = "Charging" ]; then
 		echo "charging"
 	elif [ "$BATSTATUS" = "Discharging" ]; then
 		# Print battery level
-		echo "$(< /sys/class/power_supply/${BAT}/capacity)%"
+		echo "$(cat /sys/class/power_supply/${BAT}/capacity)%"
 	fi
 }
 
