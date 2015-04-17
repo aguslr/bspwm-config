@@ -21,13 +21,14 @@ bspc control --subscribe > "$PANEL_FIFO" &
 getPower() {
 	# Battery
 	BAT="${1-BAT0}"
+	# Get battery status
+	BATSTATUS="$(< /sys/class/power_supply/${BAT}/status)" || return 1
 	# Check if it's charging
-	if [ "$(< /sys/class/power_supply/${BAT}/status)" = "Charging" ]; then
+	if [ "$BATSTATUS" = "Charging" ]; then
 		echo "charging"
-	elif [ "$(< /sys/class/power_supply/${BAT}/status)" = "Discharging" ]; then
+	elif [ "$BATSTATUS" = "Discharging" ]; then
+		# Print battery level
 		echo "$(< /sys/class/power_supply/${BAT}/capacity)%"
-	else
-		return 1
 	fi
 }
 
@@ -35,23 +36,29 @@ getPower() {
 getVolume() {
 	# Mixer control
 	CTRL="${1-Master}"
+	# Get volume status
+	VOLSTATUS="`amixer sget $CTRL`" || return 1
+	# Get volume level
+	VOLLVL="`echo $VOLSTATUS | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq`%%"
 	# Check if it's muted
-	if amixer sget $CTRL | grep -o '\[off\]' >/dev/null; then
+	if echo $VOLSTATUS | grep -o '\[off\]' >/dev/null; then
 		echo "[m]"
-	elif amixer sget $CTRL | grep -o '\[on\]' >/dev/null; then
-		echo "`amixer sget $CTRL | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq`%%"
-	else
-		return 1
+	elif echo $VOLSTATUS | grep -o '\[on\]' >/dev/null; then
+		echo "$VOLLVL"
 	fi
 }
 
 # Get MPD information
 getSong() {
+	# Get MPD status and exit if not running
+	MPDSTATUS="`mpc status`" || return 1
+	# Get song information
+	MPDSONG="`mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]'`"
 	# Check if it's playing
-	if [ "`mpc status | awk '/\[playing\]/{print $1}'`" ]; then
-		echo "`ncmpcpp --now-playing '{{{%a - }{%t }{[%b]}}|{%f}}'`"
-	elif [ "`mpc status | awk '/\[paused]/{print $1}'`" ]; then
-		echo "[paused] `ncmpcpp --now-playing '{{{%a - }{%t }{[%b]}}|{%f}}'`"
+	if [ "`echo $MPDSTATUS | awk '/\[playing\]/{print $1}'`" ]; then
+		echo $MPDSONG
+	elif [ "`echo $MPDSTATUS | awk '/\[paused]/{print $1}'`" ]; then
+		echo "[paused] $MPDSONG"
 	else
 		echo "[stopped]"
 	fi
