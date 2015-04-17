@@ -39,9 +39,9 @@ getVolume() {
 	# Mixer control
 	CTRL="${1-Master}"
 	# Get volume status
-	VOLSTATUS="`amixer sget $CTRL`" || return 1
+	VOLSTATUS="$(amixer sget $CTRL)" || return 1
 	# Get volume level
-	VOLLVL="`echo $VOLSTATUS | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq`%%"
+	VOLLVL="$(echo $VOLSTATUS | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)%%"
 	# Check if it's muted
 	if echo $VOLSTATUS | grep -o '\[off\]' >/dev/null; then
 		echo "[m]"
@@ -55,13 +55,13 @@ getVolume() {
 # Get MPD information
 getSong() {
 	# Get MPD status and exit if not running
-	MPDSTATUS="`mpc status`" || return 1
+	MPDSTATUS="$(mpc status)" || return 1
 	# Get song information
-	MPDSONG="`mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]'`"
+	MPDSONG="$(mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]')"
 	# Check if it's playing
-	if [ "`echo $MPDSTATUS | awk '/\[playing\]/{print $1}'`" ]; then
+	if [ "$(echo $MPDSTATUS | awk '/\[playing\]/{print $1}')" ]; then
 		echo $MPDSONG
-	elif [ "`echo $MPDSTATUS | awk '/\[paused]/{print $1}'`" ]; then
+	elif [ "$(echo $MPDSTATUS | awk '/\[paused]/{print $1}')" ]; then
 		echo "[paused] $MPDSONG"
 	else
 		echo "[stopped]"
@@ -72,7 +72,7 @@ getSong() {
 getWeather() {
 	ID="$1"
 	# Temperature information
-	OWM=`curl -s "http://api.openweathermap.org/data/2.5/weather?id=${ID}&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/'`
+	OWM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${ID}&mode=xml&units=metric" | perl -ne 'print $1 if /.*<temperature value=\"(\d+)\.\d*\".*/')
 	# Check that info was retrieved
 	if [ ! -z "$OWM" ]; then
 		echo "$OWM"
@@ -88,9 +88,9 @@ while true; do
 	# Create line
 	TITLELINE="T"
 	# Get Window ID
-	WINID=`xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | awk '{print $2}'`
+	WINID=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | awk '{print $2}')
 	# Get title
-	TITLE=`xprop -id $WINID _NET_WM_ICON_NAME | perl -ne 'print /^.* = "(.*)"/'` \
+	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | perl -ne 'print /^.* = "(.*)"/') \
 	    && TITLELINE="${TITLELINE} ${TITLE}"
 
 	# Dump information to file
@@ -107,22 +107,22 @@ while true; do
 	# Create line
 	SYSLINE="S"
 	# ToDo information
-	TSK=`grep -E '^\(.\)' ~/todo.txt | wc -l` \
+	TSK=$(grep -E '^\(.\)' ~/todo.txt | wc -l) \
 	    && SYSLINE="${SYSLINE} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${TSK}%{A}"
 	# CPU information
-	CPU=`awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat` \
+	CPU=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat) \
 	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_CPU:}%{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%%{A}"
 	# Memory information
-	RAM=`free | awk 'FNR == 3 {print int($3/($3+$4)*100)}'` \
+	RAM=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}') \
 	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%%{A}"
 	# Power information
-	PWR=`getPower BAT0` \
+	PWR=$(getPower BAT0) \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}pwr%{F-} ${PWR}"
 	# Volume information
-	VOL=`getVolume Master` \
+	VOL=$(getVolume Master) \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
 	# Clock and date
-	CLK=`date +'%d %b %H:%M'` \
+	CLK=$(date +'%d %b %H:%M') \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
 
 	# Dump information to file
@@ -139,7 +139,7 @@ while true; do
 	# Create line
 	MPDLINE="M"
 	# Add buttons to line
-	MPD=`getSong` \
+	MPD=$(getSong) \
 	    && MPDLINE="${MPDLINE} %{A1:urxvtc -e ncmpcpp:}%{A2:ncmpcpp toggle:}%{A4:ncmpcpp prev:}%{A5:ncmpcpp next:}%{F$COLOR_FREE_FG}mpd%{F-} $MPD%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
@@ -157,10 +157,10 @@ while true; do
 	MISCLINE="R"
 	# Temperature information
 	CITYID=3119841
-	TEM=`getWeather $CITYID` \
+	TEM=$(getWeather $CITYID) \
 	    && MISCLINE="${MISCLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 	# Mail messages
-	MSG=`curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/'` \
+	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | perl -ne 'print $1 if /.*fullcount>([0-9]+)<\/fullcount.*/') \
 	    && MISCLINE="${MISCLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
 	# Dump information to file
