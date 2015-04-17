@@ -19,16 +19,16 @@ bspc control --subscribe > "$PANEL_FIFO" &
 
 # Get power information
 getPower() {
-	# Battery
-	BAT="${1-BAT0}"
 	# Get battery status
-	BATSTATUS="$(cat /sys/class/power_supply/${BAT}/status)" || return 1
+	BATSTATUS="$(acpi --battery)" || return 1
+	# Get battery level
+	BATLVL="$(echo $BATSTATUS | sed -n 's/.* \([0-9]\+%\),.*/\1/p')"
 	# Check if it's charging
-	if [ "$BATSTATUS" = "Charging" ]; then
+	if echo $BATSTATUS | grep -o 'Charging' >/dev/null; then
 		echo "[on]"
-	elif [ "$BATSTATUS" = "Discharging" ]; then
+	elif echo $BATSTATUS | grep -o 'Discharging' >/dev/null; then
 		# Print battery level
-		echo "$(cat /sys/class/power_supply/${BAT}/capacity)%"
+		echo "$BATLVL"
 	else
 		return 1
 	fi
@@ -107,7 +107,7 @@ while true; do
 	[ "$RAM" ] \
 	    && SYSLINE="${SYSLINE} %{A:urxvtc -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%%{A}"
 	# Power information
-	PWR=$(getPower BAT0) \
+	PWR=$(getPower) \
 	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}pwr%{F-} ${PWR}"
 	# Volume information
 	VOL=$(getVolume Master) \
