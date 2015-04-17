@@ -29,6 +29,8 @@ getPower() {
 	elif [ "$BATSTATUS" = "Discharging" ]; then
 		# Print battery level
 		echo "$(cat /sys/class/power_supply/${BAT}/capacity)%"
+	else
+		return 1
 	fi
 }
 
@@ -45,6 +47,8 @@ getVolume() {
 		echo "[m]"
 	elif echo $VOLSTATUS | grep -o '\[on\]' >/dev/null; then
 		echo "$VOLLVL"
+	else
+		return 1
 	fi
 }
 
