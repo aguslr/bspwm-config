@@ -45,8 +45,8 @@ super + y
 	bspc window --to-window last.manual
 
 # Move window to the biggest space
-super + m
-	bspc window --swap biggest
+super + {_,shift + }m
+	bspc window --{focus,swap} biggest
 
 # Focus/swap windows by direction
 super + {_,shift + }{h,j,k,l}
