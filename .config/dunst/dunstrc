@@ -32,17 +32,17 @@
     browser = /usr/bin/firefox -new-tab
 
 [frame]
-    width = 1
+    width = 2
     color = "#515151"
 
 [urgency_low]
-    background = "#2d2d2d"
-    foreground = "#707172"
+    background = "#919191"
+    foreground = "#2d2d2d"
     timeout = 3
 
 [urgency_normal]
-    background = "#2d2d2d"
-    foreground = "#d0d0d0"
+    background = "#d0d0d0"
+    foreground = "#2d2d2d"
     timeout = 5
 
 [urgency_critical]
