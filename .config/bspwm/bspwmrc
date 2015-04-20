@@ -2,6 +2,9 @@
 
 # Set environment
 export BSPWM_CONFIG="$HOME/.config/bspwm"
+export BSPWM_TREE="$HOME/.local/share/bspwm.tree"
+export BSPWM_HISTORY="$HOME/.local/share/bspwm.history"
+export BSPWM_STACK="$HOME/.local/share/bspwm.stack"
 
 bspc config border_width        2
 bspc config window_gap          10
@@ -81,6 +84,12 @@ bspc config normal_private_border_color         $black
 
 # Set wallpaper
 hsetroot -tile ~/Imágenes/pattern
+
+# Load session
+if [ -e "$BSPWM_TREE" ] ; then
+	bspc restore -T "$BSPWM_TREE" -H "$BSPWM_HISTORY" -S "$BSPWM_STACK"
+	rm "$BSPWM_TREE" "$BSPWM_HISTORY" "$BSPWM_STACK"
+fi
 
 # Autostart
 $BSPWM_CONFIG/autostart &
