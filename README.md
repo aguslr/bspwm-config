@@ -29,8 +29,12 @@ If Git is not installed, we can still get the files as long as we have a basic
 Unix environment available:
 
 ```sh
-wget https://github.com/aguslr/bspwm-config/tarball/master -O - | tar -xzv --strip-components 1 --exclude={README.md}
+wget https://github.com/aguslr/bspwm-config/tarball/master -O - | tar -xzv --strip-components 1 --exclude={README.md,demo.gif}
 ```
+
+## Demo
+
+![Demo GIF](demo.gif "Demo")
 
 [bspwm]: https://github.com/baskerville/bspwm
 [sxhkd]: https://github.com/baskerville/sxhkd
