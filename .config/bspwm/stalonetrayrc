@@ -2,7 +2,7 @@ background "#e8e8e8"
 decorations none
 dockapp_mode none
 fuzzy_edges 0
-geometry 1x1+1900+1060
+geometry 1x1-0-0
 grow_gravity NE
 icon_gravity NE
 icon_size 16
