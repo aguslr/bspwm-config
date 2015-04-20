@@ -4,11 +4,11 @@
 sxhkd &
 
 # Launch systray
-[ ! "`pgrep -u $USER stalonetray`" ] && stalonetray --config ~/.config/bspwm/stalonetrayrc &
+[ ! "`pgrep -u $USER stalonetray`" ] && stalonetray --config $BSPWM_CONFIG/stalonetrayrc &
 # Hide systray after 5 seconds
 ( sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 # Enable hotcorner to toggle visibility of systray
-xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-right exec ~/.config/bspwm/scripts/toggle-systray &
+xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-right exec $BSPWM_CONFIG/scripts/toggle-systray &
 
 # Start xautolock daemon
 [ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 2d2d2d" -time 10 &
@@ -20,7 +20,7 @@ xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-right exec ~/.config/b
 [ ! "`pgrep -u $USER udisks-glue`" ] && udisks-glue &
 
 # Launch panel
-~/.config/bspwm/scripts/panel &
+$BSPWM_CONFIG/scripts/panel &
 
 # Start Update-notifier
 update-notifier &

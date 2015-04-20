@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Load panel configuration
-. ~/.config/bspwm/panel.cfg
+. $BSPWM_CONFIG/panel.cfg
 
 if [ $(pgrep -cx panel) -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
@@ -164,7 +164,7 @@ while true; do
 	sleep $WAIT
 done &
 
-cat "$PANEL_FIFO" | ~/.config/bspwm/scripts/panel_bar | lemonbar \
+cat "$PANEL_FIFO" | $BSPWM_CONFIG/scripts/panel_bar | lemonbar \
     -g ${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH} -f "$PANEL_FONT_FAMILY" \
     -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u "$UNDERLINE_WIDTH" | sh &
 

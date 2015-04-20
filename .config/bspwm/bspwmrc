@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Set environment
+export BSPWM_CONFIG="$HOME/.config/bspwm"
+
 bspc config border_width        2
 bspc config window_gap          10
 bspc config top_padding         0
@@ -60,7 +63,7 @@ bspc rule --add Uget-gtk floating=on
 bspc rule --add Vlc floating=on
 
 # Colors
-. ~/.config/bspwm/colors.cfg
+. $BSPWM_CONFIG/colors.cfg
 bspc config focused_border_color                $brightwhite
 bspc config active_border_color                 $brightblack
 bspc config normal_border_color                 $black
@@ -80,4 +83,4 @@ bspc config normal_private_border_color         $black
 hsetroot -tile ~/Imágenes/pattern
 
 # Autostart
-~/.config/bspwm/autostart &
+$BSPWM_CONFIG/autostart &
