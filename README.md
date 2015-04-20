@@ -32,9 +32,19 @@ Unix environment available:
 wget https://github.com/aguslr/bspwm-config/tarball/master -O - | tar -xzv --strip-components 1 --exclude={README.md,demo.gif}
 ```
 
+### Installing with Stow
+
+To easily create and manage links to the files we can use [GNU Stow][stow] as
+follows:
+
+```sh
+stow -vt ~/.config -S .config
+```
+
 ## Demo
 
 ![Demo GIF](demo.gif "Demo")
 
 [bspwm]: https://github.com/baskerville/bspwm
 [sxhkd]: https://github.com/baskerville/sxhkd
+[stow]: https://www.gnu.org/software/stow/
