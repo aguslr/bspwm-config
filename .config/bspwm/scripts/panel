@@ -132,7 +132,7 @@ while true; do
 	MPDLINE="M"
 	# Add buttons to line
 	MPD=$(getSong) \
-	    && MPDLINE="${MPDLINE} %{A1:urxvtc -e ncmpcpp:}%{A2:ncmpcpp toggle:}%{A4:ncmpcpp prev:}%{A5:ncmpcpp next:}%{F$COLOR_FREE_FG}mpd%{F-} $MPD%{A}%{A}%{A}%{A}"
+	    && MPDLINE="${MPDLINE} %{A1:urxvtc -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $MPD%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$MPDLINE" > "$PANEL_FIFO"
