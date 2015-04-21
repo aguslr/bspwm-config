@@ -30,5 +30,7 @@ owncloud &
 parcellite &
 # Start Empathy
 empathy --start-hidden &
+# Start Workrave
+workrave &
 # Start lightsOn script
 ~/bin/lightsOn.sh 300 &
