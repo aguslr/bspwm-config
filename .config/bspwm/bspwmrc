@@ -60,6 +60,7 @@ bspc rule --add Keepassx floating=on
 bspc rule --add mplayer2 floating=on
 bspc rule --add mpv floating=on
 bspc rule --add Nautilus floating=on
+bspc rule --add Pavucontrol floating=on
 bspc rule --add Remmina floating=on
 bspc rule --add Transmission-gtk floating=on
 bspc rule --add Uget-gtk floating=on
