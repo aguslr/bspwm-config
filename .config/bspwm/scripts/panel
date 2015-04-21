@@ -20,7 +20,7 @@ bspc control --subscribe > "$PANEL_FIFO" &
 # Get power information
 getBattery() {
 	# Get battery status
-	BATSTATUS="$(acpi --battery)" || return 1
+	BATSTATUS="$(acpi --battery 2>/dev/null)" || return 1
 	# Get battery level
 	BATLVL="$(echo $BATSTATUS | sed -n 's/.* \([0-9]\+%\),.*/\1/p')"
 	# Check if it's charging
