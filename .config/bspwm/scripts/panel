@@ -13,7 +13,7 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo -m 600 "$PANEL_FIFO"
 
-bspc config top_padding $((BARHEIGHT + EDGEWIDTH))
+bspc config top_padding $((`bspc config top_padding` + BARHEIGHT + EDGEWIDTH))
 bspc control --subscribe > "$PANEL_FIFO" &
 
 
