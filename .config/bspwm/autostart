@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Launch keybinding daemon
-sxhkd &
-
 # Launch systray
 [ ! "`pgrep -u $USER stalonetray`" ] && stalonetray --config $BSPWM_CONFIG/stalonetrayrc &
 # Enable hotcorner to toggle visibility of systray
@@ -18,9 +15,6 @@ xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-right exec $BSPWM_CONF
 
 # Start Udisks-glue for device automonting
 [ ! "`pgrep -u $USER udisks-glue`" ] && udisks-glue &
-
-# Launch panel
-$BSPWM_CONFIG/scripts/panel &
 
 # Start Update-notifier
 update-notifier &

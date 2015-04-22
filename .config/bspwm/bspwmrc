@@ -92,5 +92,11 @@ if [ -e "$BSPWM_TREE" ] ; then
 	rm "$BSPWM_TREE" "$BSPWM_HISTORY" "$BSPWM_STACK"
 fi
 
+# Launch keybinding daemon
+sxhkd &
+
+# Launch panel
+$BSPWM_CONFIG/scripts/panel &
+
 # Autostart
 $BSPWM_CONFIG/autostart &
