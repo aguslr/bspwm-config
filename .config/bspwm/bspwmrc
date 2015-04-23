@@ -55,6 +55,7 @@ bspc rule --add VirtualBox desktop=^7 floating=on
 bspc rule --add Virt-manager desktop=^7 floating=on
 # Floating windows
 bspc rule --add scratchpad sticky=on floating=on
+bspc rule --add Display floating=on
 bspc rule --add Empathy floating=on
 bspc rule --add Eog floating=on
 bspc rule --add Keepassx floating=on
