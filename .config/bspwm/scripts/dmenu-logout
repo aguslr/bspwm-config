@@ -27,19 +27,19 @@ selection=$(printf "$items" | $DMENU)
 case $selection in
 	logout)
 		logout
-	;;
+		;;
 	hibernate)
 		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Hibernate
-	;;
+		;;
 	suspend)
 		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Suspend
-	;;
+		;;
 	reboot)
 		logout
 		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
-	;;
+		;;
 	halt|poweroff|shutdown)
 		logout
 		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
-	;;
+		;;
 esac
