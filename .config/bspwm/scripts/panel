@@ -112,10 +112,6 @@ while true; do
 	# Volume information
 	VOL=$(getVolume Master) \
 	    && SYSLINE="${SYSLINE} %{A1:urxvtc -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
-	# Clock and date
-	CLK=$(date +'%d %b %H:%M')
-	[ "$CLK" ] \
-	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
 
 	# Dump information to file
 	echo "$SYSLINE" > "$PANEL_FIFO"
@@ -141,17 +137,38 @@ while true; do
 	sleep $WAIT
 done &
 
+# Time and weather
+while true; do
+	# Interval between checks in seconds
+	WAIT=0.5
+	# Create line
+	TIMELINE="P"
+	# Clock and date
+	CLK=$(date +'%d %b %H:%M')
+	[ "$CLK" ] \
+	    && TIMELINE="${TIMELINE} $CLK"
+	# Temperature information
+	CITYID=3119841
+	if [ $(($(date +%s) % 300)) -eq 0 ] || [ -z "$TEMINIT" ]; then
+		TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
+		TEMINIT=1
+	fi
+	[ "$TEM" ] \
+	    && TIMELINE="${TIMELINE}%{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}, $TEM°%{A} "
+
+	# Dump information to file
+	echo "$TIMELINE" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $WAIT
+done &
+
 # Misc information
 while true; do
 	# Interval between checks in seconds
 	WAIT=300
 	# Create line
 	MISCLINE="R"
-	# Temperature information
-	CITYID=3119841
-	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
-	[ "$TEM" ] \
-	    && MISCLINE="${MISCLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 	# Mail messages
 	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | sed -n 's/^.*fullcount>\([0-9]\+\)<\/fullcount.*$/\1/p')
 	[ "$MSG" ] \

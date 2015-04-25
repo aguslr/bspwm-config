@@ -16,6 +16,10 @@ while read -r line ; do
 			# mpd info output
 			mpd_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
 			;;
+		P*)
+			# time info output
+			time_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			;;
 		R*)
 			# system info output
 			misc_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
@@ -71,7 +75,7 @@ while read -r line ; do
 			done
 			;;
 	esac
-	printf "%s\n" "%{l}${wm_infos}${title}%{c}${mpd_info}%{r}${misc_info}${sys_info}"
+	printf "%s\n" "%{l}${wm_infos}${title}%{c}${time_info}%{r}${mpd_info}${misc_info}${sys_info}"
 done
 
 # vim: set ts=8 sw=8 tw=0 noet :
