@@ -140,6 +140,10 @@ alt + @button{1-3}
 # wm independent hotkeys
 #
 
+# Multimedia keys
+{XF86AudioPrev,XF86AudioNext,XF86AudioStop,XF86AudioPlay}
+	~/bin/mmkeys.sh --{prev,next,stop,play}
+
 # Launch dmenu
 alt + F2
 	~/bin/dmenu_run.sh -p '> ' -hist ~/.dmenu_history
