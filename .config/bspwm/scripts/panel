@@ -91,7 +91,7 @@ done &
 # System information
 while true; do
 	# Interval between checks in seconds
-	WAIT=0.5
+	WAIT=0.2
 	# Create line
 	SYSLINE="S"
 	# ToDo information
@@ -120,13 +120,31 @@ while true; do
 	sleep $WAIT
 done &
 
+# Date information
+while true; do
+	# Interval between checks in seconds
+	WAIT=0.2
+	# Create line
+	CLKLINE="D"
+	# Date information
+	CLK=$(date +'%d %b %H:%M')
+	[ "$CLK" ] \
+	    && CLKLINE="${CLKLINE} $CLK"
+
+	# Dump information to file
+	echo "$CLKLINE" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $WAIT
+done &
+
 # Music Player Daemon information
 while true; do
 	# Interval between checks in seconds
 	WAIT=1
 	# Create line
 	MPDLINE="M"
-	# Add buttons to line
+	# MPD information
 	MPD=$(getSong) \
 	    && MPDLINE="${MPDLINE} %{A1:urxvtc -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $MPD%{A}%{A}%{A}%{A}"
 
@@ -137,45 +155,38 @@ while true; do
 	sleep $WAIT
 done &
 
-# Time and weather
+# OpenWeatherMap information
 while true; do
 	# Interval between checks in seconds
-	WAIT=0.5
+	WAIT=300
 	# Create line
-	TIMELINE="P"
-	# Clock and date
-	CLK=$(date +'%d %b %H:%M')
-	[ "$CLK" ] \
-	    && TIMELINE="${TIMELINE} $CLK"
+	OWMLINE="O"
 	# Temperature information
 	CITYID=3119841
-	if [ $(($(date +%s) % 300)) -eq 0 ] || [ -z "$TEMINIT" ]; then
-		TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
-		TEMINIT=1
-	fi
+	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
 	[ "$TEM" ] \
-	    && TIMELINE="${TIMELINE}%{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}, $TEM°%{A} "
+	    && OWMLINE="${OWMLINE},%{A:xdg-open http\://openweathermap.org/city/${CITYID} &:} $TEM° %{A}"
 
 	# Dump information to file
-	echo "$TIMELINE" > "$PANEL_FIFO"
+	echo "$OWMLINE" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $WAIT
 done &
 
-# Misc information
+# GMail information
 while true; do
 	# Interval between checks in seconds
 	WAIT=300
 	# Create line
-	MISCLINE="R"
+	MSGLINE="G"
 	# Mail messages
 	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | sed -n 's/^.*fullcount>\([0-9]\+\)<\/fullcount.*$/\1/p')
 	[ "$MSG" ] \
-	    && MISCLINE="${MISCLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
+	    && MSGLINE="${MSGLINE} %{A:urxvtc -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
 	# Dump information to file
-	echo "$MISCLINE" > "$PANEL_FIFO"
+	echo "$MSGLINE" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $WAIT
