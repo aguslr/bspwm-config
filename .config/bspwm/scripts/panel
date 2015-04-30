@@ -129,7 +129,7 @@ while true; do
 	# Date information
 	CLK=$(date +'%d %b %H:%M')
 	[ "$CLK" ] \
-	    && CLKLINE="${CLKLINE} $CLK"
+	    && CLKLINE="${CLKLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
 
 	# Dump information to file
 	echo "$CLKLINE" > "$PANEL_FIFO"
@@ -165,7 +165,7 @@ while true; do
 	CITYID=3119841
 	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
 	[ "$TEM" ] \
-	    && OWMLINE="${OWMLINE},%{A:xdg-open http\://openweathermap.org/city/${CITYID} &:} $TEM° %{A}"
+	    && OWMLINE="${OWMLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 
 	# Dump information to file
 	echo "$OWMLINE" > "$PANEL_FIFO"
