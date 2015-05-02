@@ -82,4 +82,5 @@ while read -r line ; do
 	printf "%s\n" "%{l}${title}%{r}${msg_info}${sys_info}${owm_info}${clk_info}%{c}${wm_infos}"
 done
 
+exit
 # vim: set ts=8 sw=8 tw=0 noet :

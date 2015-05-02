@@ -197,4 +197,6 @@ cat "$PANEL_FIFO" | $BSPWM_CONFIG/scripts/panel_bar | lemonbar \
     -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u "$UNDERLINE_WIDTH" | sh &
 
 wait
+
+exit
 # vim: set ts=8 sw=8 tw=0 noet :

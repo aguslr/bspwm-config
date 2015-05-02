@@ -18,3 +18,5 @@ case $1 in
 		    || xdotool search --class $CLASS windowmap windowraise
 		;;
 esac
+
+exit
