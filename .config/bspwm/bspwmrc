@@ -17,7 +17,7 @@ bspc config focus_follows_pointer       true
 bspc config history_aware_focus         true
 bspc config auto_cancel                 true
 
-bspc monitor --reset-desktops main www dev chat edit play virt 8 9 10
+bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 
 # Send to www desktop
 bspc rule --add Chromium desktop=^2 --one-shot follow=on
