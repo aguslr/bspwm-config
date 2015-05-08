@@ -1,4 +1,4 @@
-background "#e8e8e8"
+background "#fefefe"
 decorations none
 dockapp_mode none
 fuzzy_edges 0
@@ -15,7 +15,7 @@ scrollbars none
 slot_size 20
 skip_taskbar true
 sticky true
-tint_color "#e8e8e8"
+tint_color "#fefefe"
 tint_level 200
 transparent true
 vertical false

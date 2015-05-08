@@ -6,7 +6,7 @@
 (sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 
 # Start xautolock daemon
-[ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 2d2d2d" -time 10 &
+[ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 111111" -time 10 &
 
 # Start Terminal daemon
 [ ! "`pgrep -u $USER urxvtd`" ] && urxvtd --quiet --opendisplay &

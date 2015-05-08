@@ -33,21 +33,21 @@
 
 [frame]
     width = 2
-    color = "#515151"
+    color = "#1c1c1c"
 
 [urgency_low]
-    background = "#919191"
-    foreground = "#2d2d2d"
+    background = "#666666"
+    foreground = "#111111"
     timeout = 3
 
 [urgency_normal]
-    background = "#d0d0d0"
-    foreground = "#2d2d2d"
+    background = "#f3f3f3"
+    foreground = "#111111"
     timeout = 5
 
 [urgency_critical]
-    background = "#d2b1e2"
-    foreground = "#9e6bb8"
+    background = "#be67e1"
+    foreground = "#f3f3f3"
     timeout = 0
 
 [shortcuts]
