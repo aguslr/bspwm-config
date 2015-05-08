@@ -18,6 +18,8 @@
 update-notifier &
 # Start ownCloud client
 owncloud &
+# Start syncthing-gtk
+syncthing-gtk --minimized &
 # Start clipboard manager
 parcellite &
 # Start Empathy
