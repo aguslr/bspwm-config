@@ -8,7 +8,7 @@ icon_gravity NE
 icon_size 16
 log_level err
 kludges force_icons_size
-max_geometry 120x1
+max_geometry 200x1
 no_shrink false
 parent_bg false
 scrollbars none
