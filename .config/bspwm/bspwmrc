@@ -60,6 +60,7 @@ bspc rule --add scratchpad sticky=on floating=on
 bspc rule --add Display floating=on
 bspc rule --add Empathy floating=on
 bspc rule --add Eog floating=on
+bspc rule --add feh floating=on
 bspc rule --add Keepassx floating=on
 bspc rule --add mplayer2 floating=on
 bspc rule --add mpv floating=on
