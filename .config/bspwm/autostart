@@ -24,6 +24,8 @@ syncthing-gtk --minimized &
 parcellite &
 # Start Empathy
 empathy --start-hidden &
+# Start Tox client
+qtox &
 # Start Workrave
 workrave &
 # Start lightsOn script
