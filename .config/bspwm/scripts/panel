@@ -163,7 +163,7 @@ while true; do
 	OWMLINE="O"
 	# Temperature information
 	CITYID=3119841
-	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\)\(\.*[0-9]\{0,1\}\).*".*$/\1\2/p')
+	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\).*".*$/\1/p')
 	[ "$TEM" ] \
 	    && OWMLINE="${OWMLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
 
