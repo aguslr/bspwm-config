@@ -33,7 +33,7 @@ workrave &
 
 # Hot corners
 # Activate screensaver
-xdotool behave_screen_edge --quiesce 600 --delay 0 top-right \
+xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-left \
     exec --sync xautolock -locknow &
 # Toggle visibility of systray
 xdotool behave_screen_edge --quiesce 600 --delay 0 bottom-right \
