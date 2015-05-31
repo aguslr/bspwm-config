@@ -51,6 +51,7 @@ bspc rule --add Ufraw desktop=^5 follow=on
 # Send to play deskto
 bspc rule --add Desura desktop=^6 floating=on
 bspc rule --add Popcorn-time desktop=^6 floating=on
+bspc rule --add scummvm desktop=^6 floating=on
 bspc rule --add Steam desktop=^6 floating=on
 # Send to virt desktop
 bspc rule --add VirtualBox desktop=^7 floating=on
