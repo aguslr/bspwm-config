@@ -72,6 +72,7 @@ bspc rule --add Remmina floating=on
 bspc rule --add "Syncthing GTK" floating=on
 bspc rule --add Transmission-gtk floating=on
 bspc rule --add Uget-gtk floating=on
+bspc rule --add Vinagre floating=on
 bspc rule --add Vlc floating=on
 
 # Colors
