@@ -24,7 +24,7 @@
     horizontal_padding = 8
     separator_color = auto
     startup_notification = false
-    icon_position = left
+    icon_position = off
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
     # dmenu path.
     dmenu = /usr/bin/dmenu -p dunst:
