@@ -46,8 +46,8 @@
     timeout = 5
 
 [urgency_critical]
-    background = "#be67e1"
-    foreground = "#f3f3f3"
+    background = "#ff00a0"
+    foreground = "#fefefe"
     timeout = 0
 
 [shortcuts]
