@@ -80,7 +80,7 @@ bspc rule --add Vlc floating=on
 bspc config focused_border_color                $brightwhite
 bspc config active_border_color                 $brightblack
 bspc config normal_border_color                 $black
-bspc config urgent_border_color                 $magenta
+bspc config urgent_border_color                 $blue
 bspc config presel_border_color                 $yellow
 bspc config focused_locked_border_color         $brightred
 bspc config active_locked_border_color          $red
