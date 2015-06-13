@@ -26,9 +26,13 @@ super + {_,shift + }r
 super + equal
 	bspc desktop --balance
 
-# Toggle fullscreen/floating of window
-super + {shift + f,f}
-	bspc window --toggle {fullscreen,floating}
+# Toogle dettach floating window
+super + d
+	bspc window --toggle floating
+
+# Toggle fullscreen of window
+super + f
+	bspc window --toggle fullscreen
 
 # Focus last window/desktop
 super + {grave,Tab}
