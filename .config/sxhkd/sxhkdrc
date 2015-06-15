@@ -61,12 +61,8 @@ super + {_,shift + }{h,j,k,l}
 	bspc window --{focus,swap} {left,down,up,right}
 
 # Navigate windows
-alt + {_,shift + }c
+alt + {_,shift + }Tab
 	bspc window --focus {next,prev}
-
-# Focus last window
-alt + Tab
-	bspc window --focus last
 
 # Circulate the leaves of the tree
 super + {comma,period}
