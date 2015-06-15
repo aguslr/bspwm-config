@@ -19,6 +19,11 @@ bspc config auto_cancel                 true
 
 bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 
+# Make windows float on specific desktops
+bspc desktop ^6 --toggle floating=on
+bspc desktop ^7 --toggle floating=on
+bspc desktop ^9 --toggle floating=on
+
 # Send to www desktop
 bspc rule --add Chromium desktop=^2 --one-shot follow=on
 bspc rule --add Iceweasel desktop=^2 --one-shot follow=on
@@ -48,14 +53,14 @@ bspc rule --add Openshot desktop=^5 follow=on
 bspc rule --add Pitivi desktop=^5 follow=on
 bspc rule --add Rawtherapee desktop=^5 follow=on
 bspc rule --add Ufraw desktop=^5 follow=on
-# Send to play deskto
-bspc rule --add Desura desktop=^6 floating=on
-bspc rule --add Popcorn-time desktop=^6 floating=on
-bspc rule --add scummvm desktop=^6 floating=on
-bspc rule --add Steam desktop=^6 floating=on
+# Send to play desktop
+bspc rule --add Desura desktop=^6
+bspc rule --add Popcorn-time desktop=^6
+bspc rule --add scummvm desktop=^6
+bspc rule --add Steam desktop=^6
 # Send to virt desktop
-bspc rule --add VirtualBox desktop=^7 floating=on
-bspc rule --add Virt-manager desktop=^7 floating=on
+bspc rule --add VirtualBox desktop=^7
+bspc rule --add Virt-manager desktop=^7
 # Floating windows
 bspc rule --add scratchpad sticky=on floating=on
 bspc rule --add Display floating=on
