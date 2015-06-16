@@ -8,9 +8,6 @@
 # Start xautolock daemon
 [ ! "`pgrep -u $USER xautolock`" ] && xautolock -locker "i3lock -de -I 5 -c 111111" -time 10 &
 
-# Start Terminal daemon
-[ ! "`pgrep -u $USER urxvtd`" ] && urxvtd --quiet --opendisplay &
-
 # Start Udisks-glue for device automonting
 [ ! "`pgrep -u $USER udisks-glue`" ] && udisks-glue &
 
