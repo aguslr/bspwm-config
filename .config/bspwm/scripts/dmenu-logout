@@ -1,5 +1,23 @@
 #!/bin/sh
 
+# Set environment
+export BSPWM_CONFIG="$HOME/.config/bspwm"
+
+# Restart function
+restart() {
+	# Save session status
+	. $BSPWM_CONFIG/restore.cfg
+	bspc query -T > "$BSPWM_TREE"
+	bspc query -H > "$BSPWM_HISTORY"
+	bspc query -S > "$BSPWM_STACK"
+	# Kill udisks-glue
+	pkill -x udisks-glue
+	# Kill panel
+	pkill -x panel
+	# Quit bspwm
+	bspc quit 0
+}
+
 # Logout function
 logout() {
 	# For each opened window
@@ -12,19 +30,22 @@ logout() {
 	# Kill panel
 	pkill -x panel
 	# Quit bspwm
-	bspc quit
+	bspc quit 1
 }
 
 # Load dmenu config
 [ -f $HOME/.dmenurc ] && . $HOME/.dmenurc || DMENU='dmenu -i'
 
 # Menu items
-items="logout\nhibernate\nsuspend\nreboot\npoweroff"
+items="restart\nlogout\nhibernate\nsuspend\nreboot\npoweroff"
 
 # Open menu
 selection=$(printf "$items" | $DMENU)
 
 case $selection in
+	restart)
+		restart
+		;;
 	logout)
 		logout
 		;;
