@@ -2,9 +2,7 @@
 
 # Set environment
 export BSPWM_CONFIG="$HOME/.config/bspwm"
-export BSPWM_TREE="$HOME/.local/share/bspwm.tree"
-export BSPWM_HISTORY="$HOME/.local/share/bspwm.history"
-export BSPWM_STACK="$HOME/.local/share/bspwm.stack"
+. $BSPWM_CONFIG/restore.cfg
 
 bspc config border_width        2
 bspc config window_gap          20
