@@ -3,12 +3,8 @@
 #
 
 # Exit bspwm
-super + alt + {_,shift + }Escape
-	{$BSPWM_CONFIG/scripts/dmenu-logout,\
-	bspc query -T > "$BSPWM_TREE"; \
-	bspc query -H > "$BSPWM_HISTORY"; \
-	bspc query -S > "$BSPWM_STACK"; \
-	$BSPWM_CONFIG/scripts/dmenu-logout}
+super + alt + Escape
+	$BSPWM_CONFIG/scripts/dmenu-logout
 
 # Close window
 alt + F4
