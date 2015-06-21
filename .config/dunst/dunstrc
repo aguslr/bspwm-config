@@ -33,16 +33,16 @@
 
 [frame]
     width = 2
-    color = "#1c1c1c"
+    color = "#f3f3f3"
 
 [urgency_low]
-    background = "#666666"
-    foreground = "#111111"
+    background = "#111111"
+    foreground = "#666666"
     timeout = 3
 
 [urgency_normal]
-    background = "#f3f3f3"
-    foreground = "#111111"
+    background = "#111111"
+    foreground = "#f3f3f3"
     timeout = 5
 
 [urgency_critical]
