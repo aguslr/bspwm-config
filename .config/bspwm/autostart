@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Start compositor
+[ ! "`pgrep -u $USER compton`" ] && compton -cCGb
+
 # Launch systray
 [ ! "`pgrep -u $USER stalonetray`" ] && stalonetray --config $BSPWM_CONFIG/stalonetrayrc &
 # Hide systray after 5 seconds
