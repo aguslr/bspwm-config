@@ -22,9 +22,7 @@ bspc desktop ^7 --toggle floating=on
 bspc desktop ^9 --toggle floating=on
 
 # Send to www desktop
-bspc rule --add Chromium desktop=^2 --one-shot follow=on
 bspc rule --add Iceweasel desktop=^2 --one-shot follow=on
-bspc rule --add Midori desktop=^2 --one-shot follow=on
 # Send to dev desktop
 bspc rule --add Atom desktop=^3 follow=on
 bspc rule --add Brackets desktop=^3 follow=on
