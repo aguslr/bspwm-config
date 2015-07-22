@@ -74,10 +74,8 @@ while true; do
 	WAIT=0.1
 	# Create line
 	TITLELINE="T"
-	# Get Window ID
-	WINID=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | awk '{print $2}')
 	# Get title
-	TITLE=$(xprop -id $WINID _NET_WM_ICON_NAME | sed -n 's/.*"\(.*\)"/\1/p')
+	TITLE="$(xdotool getactivewindow getwindowname 2>/dev/null)"
 	[ "$TITLE" ] \
 	    && TITLELINE="${TITLELINE} ${TITLE}"
 
