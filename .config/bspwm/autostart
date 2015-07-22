@@ -26,6 +26,8 @@ parcellite &
 empathy --start-hidden &
 # Start Tox client
 qtox &
+# Start Torchat
+torchat &
 # Start Workrave
 workrave &
 # Start lightsOn script
