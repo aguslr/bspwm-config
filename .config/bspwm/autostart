@@ -22,6 +22,8 @@ owncloud &
 syncthing-gtk --minimized &
 # Start clipboard manager
 parcellite &
+# Start Pidgin
+pidgin &
 # Start Empathy
 empathy --start-hidden &
 # Start Tox client
