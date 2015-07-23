@@ -175,7 +175,7 @@ done &
 # GMail information
 while true; do
 	# Interval between checks in seconds
-	WAIT=300
+	WAIT=30
 	# Create line
 	MSGLINE="G"
 	# Mail messages
