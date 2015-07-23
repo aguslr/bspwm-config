@@ -172,14 +172,14 @@ while true; do
 	sleep $WAIT
 done &
 
-# GMail information
+# Mail information
 while true; do
 	# Interval between checks in seconds
 	WAIT=30
 	# Create line
 	MSGLINE="G"
 	# Mail messages
-	MSG=$(curl -s -n "https://mail.google.com/mail/feed/atom" | sed -n 's/^.*fullcount>\([0-9]\+\)<\/fullcount.*$/\1/p')
+	MSG=$(curl -s -n -X "EXAMINE INBOX" --url 'imaps://imap.openmailbox.org:993' | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')
 	[ "$MSG" ] \
 	    && MSGLINE="${MSGLINE} %{A:urxvt -name Mutt -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
