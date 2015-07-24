@@ -75,7 +75,6 @@ bspc rule --add Pidgin floating=on
 bspc rule --add qTox floating=on
 bspc rule --add Remmina floating=on
 bspc rule --add "Syncthing GTK" floating=on
-bspc rule --add Torchat.py floating=on
 bspc rule --add Transmission-gtk floating=on
 bspc rule --add Uget-gtk floating=on
 bspc rule --add Vinagre floating=on
