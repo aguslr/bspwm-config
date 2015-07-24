@@ -68,6 +68,22 @@ getSong() {
 	fi
 }
 
+# Get Mail information
+getMsgs() {
+	# Get status of IMAP inbox
+	MAILSTATUS="$(curl -s -n -X 'EXAMINE INBOX' --url 'imaps://imap.openmailbox.org:993')" || return 1
+	# Get total number of messages
+	TOTALMSGS="$(echo $MAILSTATUS | sed -n 's/^.*\([0-9]\+\) EXISTS.*$/\1/p')"
+	# Get number of new messages
+	NEWMSGS="$(echo $MAILSTATUS | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')"
+	# Check if there are any messages
+	if [ "$TOTALMSGS" = "0" ]; then
+		echo "$TOTALMSGS"
+	else
+		echo "${TOTALMSGS}(${NEWMSGS:-0})"
+	fi
+}
+
 # Active window information
 while true; do
 	# Interval between checks in seconds
@@ -179,8 +195,7 @@ while true; do
 	# Create line
 	MSGLINE="G"
 	# Mail messages
-	MSG=$(curl -s -n -X "EXAMINE INBOX" --url 'imaps://imap.openmailbox.org:993' | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')
-	[ "$MSG" ] \
+	MSG=$(getMsgs) \
 	    && MSGLINE="${MSGLINE} %{A:urxvt -name Mutt -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
 	# Dump information to file
