@@ -196,7 +196,7 @@ while true; do
 	MSGLINE="G"
 	# Mail messages
 	MSG=$(getMsgs) \
-	    && MSGLINE="${MSGLINE} %{A:urxvt -name Mutt -e mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
+	    && MSGLINE="${MSGLINE} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
 
 	# Dump information to file
 	echo "$MSGLINE" > "$PANEL_FIFO"
