@@ -9,7 +9,7 @@
 (sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 
 # Start xautolock daemon
-[ "`pgrep -u $USER xautolock`" ] || xautolock -locker "i3lock -de -I 5 -c 111111" -time 10 &
+[ "`pgrep -u $USER xautolock`" ] || xautolock -locker "$BSPWM_CONFIG/scripts/lock -p 100 -de -I 5" -time 10 &
 
 # Start Udisks-glue for device automonting
 [ "`pgrep -u $USER udisks-glue`" ] || udisks-glue &

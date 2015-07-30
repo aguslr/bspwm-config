@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# [i3lock] unixporn-worthy lock screen
+# https://www.reddit.com/r/unixporn/comments/3358vu/
+
+# Defaults
+script_name="$(basename "$0")"
+shot_cmd="$(command -v import)" || exit 1
+conv_cmd="$(command -v convert)" || exit 1
+lock_cmd="$(command -v i3lock)" || exit 1
+lock_img="$HOME/Imágenes/lock_icon.png"
+
+# Output help page.
+showUsage() {
+	while read; do printf '%s\n' "$REPLY"; done <<- EOF
+Usage: $script_name [-h] [-p <size=20>] [options]...
+
+Locks your screen with i3lock, using a pixelated version of the current screen
+as the background.
+
+Options:
+  -p <size=20> -- Set the the size of each blocky pixel to <size> (in pixels).
+  options      -- Options that are passed through to i3lock.
+EOF
+}
+
+# Get the options
+block_size=20
+while [ $# -gt 0 ]; do
+	case "$1" in
+		-p)
+			# Set the size of each blocky pixel
+			shift
+			block_size="$1"
+			shift
+			;;
+		-h)
+			# Show help
+			showUsage
+			exit 0
+			;;
+		*)
+			# Options that are passed to i3lock
+			lock_opts="$lock_opts $1"
+			shift
+			;;
+	esac
+done
+
+# Gets the (width, height) of the screen.
+read screen_width screen_height <<<$(xrandr -q | \
+    awk '/\*/ { split($1, res, "x"); print res[1], res[2]; }')
+
+# Calculate the "reduced" height and width for the down-scaling.
+reduced_width=$(( screen_width / block_size ))
+reduced_height=$(( screen_height / block_size ))
+
+# Actually do the locking (generate the image without temporary files to not
+# clutter the filesystem). Since `convert -scale` doesn't do blurring, scaling
+# down and then back up is an efficient method of producing a pixelated image.
+$lock_cmd -i <($shot_cmd -screen -window root -silent png:- | $conv_cmd png:- \
+    -scale '!'"${reduced_width}x${reduced_height}" \
+    -scale '!'"${screen_width}x${screen_height}" png:- | \
+    $conv_cmd png:- "$lock_img" -gravity center -composite -matte png:-) $lock_opts
