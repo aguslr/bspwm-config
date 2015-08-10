@@ -20,15 +20,15 @@ bspc control --subscribe > "$PANEL_FIFO" &
 # Get power information
 getBattery() {
 	# Get battery status
-	BATSTATUS="$(acpi --battery 2>/dev/null)" || return 1
+	bat_status="$(acpi --battery 2>/dev/null)" || return 1
 	# Get battery level
-	BATLVL="$(echo $BATSTATUS | sed -n 's/.* \([0-9]\+%\),.*/\1/p')"
+	bat_level="$(echo $bat_status | sed -n 's/.* \([0-9]\+%\),.*/\1/p')"
 	# Check if it's charging
-	if echo $BATSTATUS | grep -o 'Charging' >/dev/null; then
+	if echo $bat_status | grep -o 'Charging' >/dev/null; then
 		echo "[on]"
-	elif echo $BATSTATUS | grep -o 'Discharging' >/dev/null; then
+	elif echo $bat_status | grep -o 'Discharging' >/dev/null; then
 		# Print battery level
-		echo "$BATLVL"
+		echo "$bat_level"
 	else
 		return 1
 	fi
@@ -37,16 +37,16 @@ getBattery() {
 # Get volume information
 getVolume() {
 	# Mixer control
-	CTRL="${1-Master}"
+	mixer_ctrl="${1-Master}"
 	# Get volume status
-	VOLSTATUS="$(amixer sget $CTRL)" || return 1
+	vol_status="$(amixer sget $mixer_ctrl)" || return 1
 	# Get volume level
-	VOLLVL="$(echo $VOLSTATUS | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)%%"
+	vol_level="$(echo $vol_status | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)%%"
 	# Check if it's muted
-	if echo $VOLSTATUS | grep -o '\[off\]' >/dev/null; then
+	if echo $vol_status | grep -o '\[off\]' >/dev/null; then
 		echo "[m]"
-	elif echo $VOLSTATUS | grep -o '\[on\]' >/dev/null; then
-		echo "$VOLLVL"
+	elif echo $vol_status | grep -o '\[on\]' >/dev/null; then
+		echo "$vol_level"
 	else
 		return 1
 	fi
@@ -55,14 +55,14 @@ getVolume() {
 # Get MPD information
 getSong() {
 	# Get MPD status and exit if not running
-	MPDSTATUS="$(mpc status)" || return 1
+	mpd_status="$(mpc status)" || return 1
 	# Get song information
-	MPDSONG="$(mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]')"
+	mpd_song="$(mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]')"
 	# Check if it's playing
-	if [ "$(echo $MPDSTATUS | awk '/\[playing\]/{print $1}')" ]; then
-		echo $MPDSONG
-	elif [ "$(echo $MPDSTATUS | awk '/\[paused]/{print $1}')" ]; then
-		echo "[paused] $MPDSONG"
+	if [ "$(echo $mpd_status | awk '/\[playing\]/{print $1}')" ]; then
+		echo $mpd_song
+	elif [ "$(echo $mpd_status | awk '/\[paused]/{print $1}')" ]; then
+		echo "[paused] $mpd_song"
 	else
 		echo "[stopped]"
 	fi
@@ -71,138 +71,138 @@ getSong() {
 # Get Mail information
 getMsgs() {
 	# Get status of IMAP inbox
-	MAILSTATUS="$(curl -s -n -X 'EXAMINE INBOX' --url 'imaps://imap.openmailbox.org:993')" || return 1
+	inbox_status="$(curl -s -n -X 'EXAMINE INBOX' --url 'imaps://imap.openmailbox.org:993')" || return 1
 	# Get total number of messages
-	TOTALMSGS="$(echo $MAILSTATUS | sed -n 's/^.*\([0-9]\+\) EXISTS.*$/\1/p')"
+	msg_total="$(echo $inbox_status | sed -n 's/^.*\([0-9]\+\) EXISTS.*$/\1/p')"
 	# Get number of new messages
-	NEWMSGS="$(echo $MAILSTATUS | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')"
+	msg_new="$(echo $inbox_status | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')"
 	# Check if there are any messages
-	if [ "$TOTALMSGS" = "0" ]; then
-		echo "$TOTALMSGS"
+	if [ "$msg_total" = "0" ]; then
+		echo "$msg_total"
 	else
-		echo "${TOTALMSGS}(${NEWMSGS:-0})"
+		echo "${msg_total}(${msg_new:-0})"
 	fi
 }
 
 # Active window information
 while true; do
 	# Interval between checks in seconds
-	WAIT=0.1
+	wait=0.1
 	# Create line
-	TITLELINE="T"
+	title_line="T"
 	# Get title
-	TITLE="$(xdotool getactivewindow getwindowname 2>/dev/null)"
-	[ "$TITLE" ] \
-	    && TITLELINE="${TITLELINE} ${TITLE}"
+	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)"
+	[ "$win_title" ] \
+	    && title_line="${title_line} ${win_title}"
 
 	# Dump information to file
-	echo "$TITLELINE" > "$PANEL_FIFO"
+	echo "$title_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 # System information
 while true; do
 	# Interval between checks in seconds
-	WAIT=0.2
+	wait=0.2
 	# Create line
-	SYSLINE="S"
+	sys_line="S"
 	# ToDo information
-	TSK=$(grep -E '^\(.\)' ~/todo.txt | wc -l)
-	[ "$TSK" ] \
-	    && SYSLINE="${SYSLINE} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${TSK}%{A}"
-	# CPU information
-	CPU=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat)
-	[ "$CPU" ] \
-	    && SYSLINE="${SYSLINE} %{A:urxvt -name Htop -e htop --sort-key PERCENT_CPU:}%{F$COLOR_FREE_FG}cpu%{F-} ${CPU}%%%{A}"
+	tasks_info=$(grep -E '^\(.\)' ~/todo.txt | wc -l)
+	[ "$tasks_info" ] \
+	    && sys_line="${sys_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
+	# cpu information
+	cpu_info=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat)
+	[ "$cpu_info" ] \
+	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%%%{A}"
 	# Memory information
-	RAM=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}')
-	[ "$RAM" ] \
-	    && SYSLINE="${SYSLINE} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${RAM}%%%{A}"
+	mem_info=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}')
+	[ "$mem_info" ] \
+	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%%{A}"
 	# Power information
-	BAT=$(getBattery) \
-	    && SYSLINE="${SYSLINE} %{F$COLOR_FREE_FG}bat%{F-} ${BAT}"
+	bat_info=$(getBattery) \
+	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
 	# Volume information
-	VOL=$(getVolume Master) \
-	    && SYSLINE="${SYSLINE} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${VOL}%{A}%{A}%{A}%{A}"
+	vol_info=$(getVolume Master) \
+	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
-	echo "$SYSLINE" > "$PANEL_FIFO"
+	echo "$sys_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 # Date information
 while true; do
 	# Interval between checks in seconds
-	WAIT=0.2
+	wait=0.2
 	# Create line
-	CLKLINE="D"
+	clk_line="D"
 	# Date information
-	CLK=$(date +'%d %b %H:%M')
-	[ "$CLK" ] \
-	    && CLKLINE="${CLKLINE} %{F$COLOR_FREE_FG}clk%{F-} $CLK "
+	date_info=$(date +'%d %b %H:%M')
+	[ "$date_info" ] \
+	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
 
 	# Dump information to file
-	echo "$CLKLINE" > "$PANEL_FIFO"
+	echo "$clk_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 # Music Player Daemon information
 while true; do
 	# Interval between checks in seconds
-	WAIT=1
+	wait=1
 	# Create line
-	MPDLINE="M"
+	mpd_line="M"
 	# MPD information
-	MPD=$(getSong) \
-	    && MPDLINE="${MPDLINE} %{A1:urxvt -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $MPD%{A}%{A}%{A}%{A}"
+	mpd_info=$(getSong) \
+	    && mpd_line="${mpd_line} %{A1:urxvt -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
-	echo "$MPDLINE" > "$PANEL_FIFO"
+	echo "$mpd_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 # OpenWeatherMap information
 while true; do
 	# Interval between checks in seconds
-	WAIT=300
+	wait=300
 	# Create line
-	OWMLINE="O"
+	owm_line="O"
 	# Temperature information
-	CITYID=3119841
-	TEM=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\).*".*$/\1/p')
-	[ "$TEM" ] \
-	    && OWMLINE="${OWMLINE} %{A:xdg-open http\://openweathermap.org/city/${CITYID} &:}%{F$COLOR_FREE_FG}tem%{F-} $TEM°%{A}"
+	city_id=3119841
+	temp_info=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${city_id}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\).*".*$/\1/p')
+	[ "$temp_info" ] \
+	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/${city_id} &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}°%{A}"
 
 	# Dump information to file
-	echo "$OWMLINE" > "$PANEL_FIFO"
+	echo "$owm_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 # Mail information
 while true; do
 	# Interval between checks in seconds
-	WAIT=30
+	wait=30
 	# Create line
-	MSGLINE="G"
+	msg_line="G"
 	# Mail messages
-	MSG=$(getMsgs) \
-	    && MSGLINE="${MSGLINE} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $MSG%{A}"
+	msg_info=$(getMsgs) \
+	    && msg_line="${msg_line} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
 	# Dump information to file
-	echo "$MSGLINE" > "$PANEL_FIFO"
+	echo "$msg_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
-	sleep $WAIT
+	sleep $wait
 done &
 
 cat "$PANEL_FIFO" | $BSPWM_CONFIG/scripts/panel_bar | lemonbar \
