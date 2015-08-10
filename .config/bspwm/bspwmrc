@@ -3,6 +3,9 @@
 # Set environment
 export BSPWM_CONFIG="$HOME/.config/bspwm"
 
+# Source XDG dirs
+. $HOME/.config/user-dirs.dirs
+
 bspc config border_width        2
 bspc config window_gap          20
 bspc config top_padding         0
@@ -98,7 +101,7 @@ bspc config active_private_border_color         $blue
 bspc config normal_private_border_color         $black
 
 # Set wallpaper
-hsetroot -tile ~/Imágenes/pattern
+hsetroot -tile $XDG_PICTURES_DIR/pattern
 
 # Load session
 . $BSPWM_CONFIG/restore.cfg

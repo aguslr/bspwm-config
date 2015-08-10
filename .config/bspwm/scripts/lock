@@ -3,12 +3,15 @@
 # [i3lock] unixporn-worthy lock screen
 # https://www.reddit.com/r/unixporn/comments/3358vu/
 
+# Source XDG dirs
+. $HOME/.config/user-dirs.dirs 2>/dev/null
+
 # Defaults
 script_name="$(basename "$0")"
 shot_cmd="$(command -v import)" || exit 1
 conv_cmd="$(command -v convert)" || exit 1
 lock_cmd="$(command -v i3lock)" || exit 1
-lock_img="$HOME/Imágenes/lock_icon.png"
+lock_img="$XDG_PICTURES_DIR/lock_icon.png"
 
 # Output help page.
 showUsage() {
