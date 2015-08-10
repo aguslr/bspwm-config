@@ -59,12 +59,15 @@ bspc rule --add Steam desktop=^6
 # Send to virt desktop
 bspc rule --add VirtualBox desktop=^7
 bspc rule --add Virt-manager desktop=^7
-# Floating windows
+
+# Float windows opened from the panel
 bspc rule --add Htop floating=on
 bspc rule --add Mixer floating=on
 bspc rule --add MPC floating=on
 bspc rule --add Mutt floating=on
+# Make scratchpad floating and sticky
 bspc rule --add scratchpad sticky=on floating=on
+# Other floating windows
 bspc rule --add Display floating=on
 bspc rule --add Empathy floating=on
 bspc rule --add Eog floating=on
