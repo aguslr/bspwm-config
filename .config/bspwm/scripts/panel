@@ -115,10 +115,8 @@ while true; do
 	# Create line
 	owm_line="O"
 	# Temperature information
-	city_id=3119841
-	temp_info=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${city_id}&mode=xml&units=metric" | sed -n 's/^.*temperature value="\([0-9]\+\).*".*$/\1/p')
-	[ "$temp_info" ] \
-	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/${city_id} &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}°%{A}"
+	temp_info=$(getWeather.sh) \
+	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/${city_id} &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
 
 	# Dump information to file
 	echo "$owm_line" > "$PANEL_FIFO"
