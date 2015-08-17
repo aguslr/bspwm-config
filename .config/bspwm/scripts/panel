@@ -77,8 +77,7 @@ while true; do
 	# Create line
 	clk_line="D"
 	# Date information
-	date_info=$(getDate.sh)
-	[ "$date_info" ] \
+	date_info=$(getDate.sh) \
 	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
 
 	# Dump information to file
