@@ -48,8 +48,7 @@ while true; do
 	# Create line
 	sys_line="S"
 	# ToDo information
-	tasks_info=$(grep -E '^\(.\)' ~/todo.txt | wc -l)
-	[ "$tasks_info" ] \
+	tasks_info=$(getTasks.sh) \
 	    && sys_line="${sys_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
 	# cpu information
 	cpu_info=$(getCPU.sh) \
