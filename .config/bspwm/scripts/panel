@@ -3,6 +3,9 @@
 # Load panel configuration
 . $BSPWM_CONFIG/panel.cfg
 
+# Set PATH for scripts
+PATH="${HOME}/.scripts:$PATH"
+
 if [ $(pgrep -cx panel) -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
 	pkill -x panel
@@ -15,74 +18,6 @@ mkfifo -m 600 "$PANEL_FIFO"
 
 bspc config top_padding $((`bspc config top_padding` + BARHEIGHT + EDGEWIDTH))
 bspc control --subscribe > "$PANEL_FIFO" &
-
-
-# Get power information
-getBattery() {
-	# Get battery status
-	bat_status="$(acpi --battery 2>/dev/null)" || return 1
-	# Get battery level
-	bat_level="$(echo $bat_status | sed -n 's/.* \([0-9]\+%\),.*/\1/p')"
-	# Check if it's charging
-	if echo $bat_status | grep -o 'Charging' >/dev/null; then
-		echo "[on]"
-	elif echo $bat_status | grep -o 'Discharging' >/dev/null; then
-		# Print battery level
-		echo "$bat_level"
-	else
-		return 1
-	fi
-}
-
-# Get volume information
-getVolume() {
-	# Mixer control
-	mixer_ctrl="${1-Master}"
-	# Get volume status
-	vol_status="$(amixer sget $mixer_ctrl)" || return 1
-	# Get volume level
-	vol_level="$(echo $vol_status | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)%%"
-	# Check if it's muted
-	if echo $vol_status | grep -o '\[off\]' >/dev/null; then
-		echo "[m]"
-	elif echo $vol_status | grep -o '\[on\]' >/dev/null; then
-		echo "$vol_level"
-	else
-		return 1
-	fi
-}
-
-# Get MPD information
-getSong() {
-	# Get MPD status and exit if not running
-	mpd_status="$(mpc status)" || return 1
-	# Get song information
-	mpd_song="$(mpc current --format '[[[%artist% - ][%title% ][\[%album%\]]]|[%file%]]')"
-	# Check if it's playing
-	if [ "$(echo $mpd_status | awk '/\[playing\]/{print $1}')" ]; then
-		echo $mpd_song
-	elif [ "$(echo $mpd_status | awk '/\[paused]/{print $1}')" ]; then
-		echo "[paused] $mpd_song"
-	else
-		echo "[stopped]"
-	fi
-}
-
-# Get Mail information
-getMsgs() {
-	# Get status of IMAP inbox
-	inbox_status="$(curl -s -n -X 'EXAMINE INBOX' --url 'imaps://imap.openmailbox.org:993')" || return 1
-	# Get total number of messages
-	msg_total="$(echo $inbox_status | sed -n 's/^.*\([0-9]\+\) EXISTS.*$/\1/p')"
-	# Get number of new messages
-	msg_new="$(echo $inbox_status | sed -n 's/^.*\[UNSEEN \([0-9]\+\)\].*$/\1/p')"
-	# Check if there are any messages
-	if [ "$msg_total" = "0" ]; then
-		echo "$msg_total"
-	else
-		echo "${msg_total}(${msg_new:-0})"
-	fi
-}
 
 # Active window information
 while true; do
@@ -125,11 +60,11 @@ while true; do
 	[ "$mem_info" ] \
 	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%%{A}"
 	# Power information
-	bat_info=$(getBattery) \
+	bat_info=$(getBattery.sh) \
 	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
 	# Volume information
-	vol_info=$(getVolume Master) \
-	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
+	vol_info=$(getVolume.sh Master) \
+	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$sys_line" > "$PANEL_FIFO"
@@ -145,7 +80,7 @@ while true; do
 	# Create line
 	clk_line="D"
 	# Date information
-	date_info=$(date +'%d %b %H:%M')
+	date_info=$(getDate.sh)
 	[ "$date_info" ] \
 	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
 
@@ -163,7 +98,7 @@ while true; do
 	# Create line
 	mpd_line="M"
 	# MPD information
-	mpd_info=$(getSong) \
+	mpd_info=$(getSong.sh) \
 	    && mpd_line="${mpd_line} %{A1:urxvt -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
@@ -199,7 +134,7 @@ while true; do
 	# Create line
 	msg_line="G"
 	# Mail messages
-	msg_info=$(getMsgs) \
+	msg_info=$(getMail.sh) \
 	    && msg_line="${msg_line} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
 	# Dump information to file
