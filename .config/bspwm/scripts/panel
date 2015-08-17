@@ -52,13 +52,11 @@ while true; do
 	[ "$tasks_info" ] \
 	    && sys_line="${sys_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
 	# cpu information
-	cpu_info=$(awk '/cpu/{cpu_usage=($2+$4)*100/($2+$4+$5)} END {print int(cpu_usage)}' < /proc/stat)
-	[ "$cpu_info" ] \
-	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%%%{A}"
+	cpu_info=$(getCPU.sh) \
+	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%%{A}"
 	# Memory information
-	mem_info=$(free | awk 'FNR == 3 {print int($3/($3+$4)*100)}')
-	[ "$mem_info" ] \
-	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%%{A}"
+	mem_info=$(getMem.sh) \
+	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%{A}"
 	# Power information
 	bat_info=$(getBattery.sh) \
 	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
