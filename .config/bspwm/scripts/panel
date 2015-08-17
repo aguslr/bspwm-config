@@ -92,8 +92,12 @@ while true; do
 	title_line="T"
 	# Get title
 	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)"
-	[ "$win_title" ] \
-	    && title_line="${title_line} ${win_title}"
+	# Cut long titles
+	if [ ${#win_title} -gt 80 ]; then
+		win_title="$(echo $win_title \
+		    | awk  '{ string=substr($0, 1, 77); print string; }')..."
+	fi
+	title_line="${title_line} ${win_title}"
 
 	# Dump information to file
 	echo "$title_line" > "$PANEL_FIFO"
