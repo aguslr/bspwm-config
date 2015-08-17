@@ -58,7 +58,7 @@ while true; do
 	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%{A}"
 	# Power information
 	bat_info=$(getBattery.sh) \
-	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
+	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}%"
 	# Volume information
 	vol_info=$(getVolume.sh Master) \
 	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%%{A}%{A}%{A}%{A}"
