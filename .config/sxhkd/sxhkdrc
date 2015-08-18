@@ -150,7 +150,7 @@ super + t
 
 # Lock the screen
 ctrl + alt + l
-	xautolock -locknow
+	xautolock -enable; sleep 1; xautolock -locknow
 
 # Launch terminal
 super + Return
