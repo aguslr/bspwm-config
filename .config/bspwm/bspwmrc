@@ -62,6 +62,7 @@ bspc rule --add Virt-manager desktop=^7
 
 # Float windows opened from the panel
 bspc rule --add Htop floating=on
+bspc rule --add IFConfig floating=on
 bspc rule --add Mixer floating=on
 bspc rule --add MPC floating=on
 bspc rule --add Mutt floating=on
