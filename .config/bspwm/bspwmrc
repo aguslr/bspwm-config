@@ -68,6 +68,7 @@ bspc rule --add Mutt floating=on
 # Make scratchpad floating and sticky
 bspc rule --add scratchpad sticky=on floating=on
 # Other floating windows
+bspc rule --add Cssh floating=on
 bspc rule --add Display floating=on
 bspc rule --add Empathy floating=on
 bspc rule --add Eog floating=on
