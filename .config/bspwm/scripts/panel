@@ -114,8 +114,8 @@ while true; do
 	# Create line
 	owm_line="O"
 	# Temperature information
-	temp_info=$(getWeather.sh) \
-	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/${city_id} &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
+	temp_info=$(getWeather.sh 3119841) \
+	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/3119841 &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
 
 	# Dump information to file
 	echo "$owm_line" > "$PANEL_FIFO"
