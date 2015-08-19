@@ -58,13 +58,13 @@ while true; do
 	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%%{A}"
 	# Network information
 	net_info=$(getNetwork.sh) \
-	    && sys_line="${sys_line} %{A:urxvt -name IFConfig -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
+	    && sys_line="${sys_line} %{A:urxvt -name IFConfig -g 80x40 -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
 	# Power information
 	bat_info=$(getBattery.sh) \
 	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}%"
 	# Volume information
 	vol_info=$(getVolume.sh Master) \
-	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%%{A}%{A}%{A}%{A}"
+	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -g 80x40 -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$sys_line" > "$PANEL_FIFO"
