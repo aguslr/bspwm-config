@@ -1,20 +1,20 @@
 #!/bin/sh
 
 # Start compositor
-[ "`pgrep -u $USER compton`" ] || compton -cCGb
+pgrep -u $USER compton >/dev/null || compton -cCGb
 
 # Launch systray
-[ "`pgrep -u $USER stalonetray`" ] || \
+pgrep -u $USER stalonetray >/dev/null || \
     stalonetray --config $BSPWM_CONFIG/stalonetrayrc &
 # Hide systray after 5 seconds
 (sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 
 # Start xautolock daemon
-[ "`pgrep -u $USER xautolock`" ] || \
+pgrep -u $USER xautolock >/dev/null || \
     xautolock -locker "$BSPWM_CONFIG/scripts/lock -p 50 -de -I 5" -time 10 &
 
 # Start Udisks-glue for device automonting
-[ "`pgrep -u $USER udisks-glue`" ] || udisks-glue &
+pgrep -u $USER udisks-glue >/dev/null || udisks-glue &
 
 # Start Update-notifier
 update-notifier &
