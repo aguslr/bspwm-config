@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set environment
-export BSPWM_CONFIG="$HOME/.config/bspwm"
+export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
 # Restart function
 restart() {

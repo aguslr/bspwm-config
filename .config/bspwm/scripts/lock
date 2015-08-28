@@ -4,7 +4,7 @@
 # https://www.reddit.com/r/unixporn/comments/3358vu/
 
 # Source XDG dirs
-. $HOME/.config/user-dirs.dirs 2>/dev/null
+. "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" 2>/dev/null
 
 # Defaults
 script_name="$(basename "$0")"

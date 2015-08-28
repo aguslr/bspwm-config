@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Set environment
-export BSPWM_CONFIG="$HOME/.config/bspwm"
+export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
 # Source XDG dirs
-. $HOME/.config/user-dirs.dirs
+. "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
 
 bspc config border_width        2
 bspc config window_gap          20
