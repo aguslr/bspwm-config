@@ -6,7 +6,7 @@ export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 # Restart function
 restart() {
 	# Save session status
-	. $BSPWM_CONFIG/restore.cfg
+	. "$BSPWM_CONFIG/restore.cfg"
 	bspc query -T > "$BSPWM_TREE"
 	bspc query -H > "$BSPWM_HISTORY"
 	bspc query -S > "$BSPWM_STACK"
@@ -34,7 +34,7 @@ logout() {
 }
 
 # Load dmenu config
-[ -f $HOME/.dmenurc ] && . $HOME/.dmenurc || DMENU='dmenu -i'
+[ -f "$HOME/.dmenurc" ] && . "$HOME/.dmenurc" || DMENU='dmenu -i'
 
 # Menu items
 items="restart\nlogout\nhibernate\nsuspend\nreboot\npoweroff"
