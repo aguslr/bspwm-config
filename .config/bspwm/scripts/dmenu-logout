@@ -40,7 +40,7 @@ logout() {
 items="restart\nlogout\nhibernate\nsuspend\nreboot\npoweroff"
 
 # Open menu
-selection=$(printf "$items" | $DMENU)
+selection=$(echo "$items" | $DMENU)
 
 case $selection in
 	restart)
