@@ -142,7 +142,7 @@ alt + @button{1-3}
 
 # Launch dmenu
 alt + F2
-	~/bin/dmenu_run.sh
+	~/bin/dmenu_run.sh -p 'Run:'
 
 # Toggle visibility of systray
 super + t
