@@ -26,6 +26,10 @@ super + equal
 super + d
 	bspc window --toggle floating
 
+# Toogle pseudo tiling of window
+super + p
+	bspc window --toggle pseudo_tiled
+
 # Toggle fullscreen of window
 super + f
 	bspc window --toggle fullscreen
