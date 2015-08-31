@@ -18,6 +18,8 @@ pgrep -u $USER udisks-glue >/dev/null || udisks-glue &
 
 # Start Update-notifier
 update-notifier &
+# Start Redshift
+redshift-gtk &
 # Start ownCloud client
 owncloud &
 # Start syncthing-gtk
