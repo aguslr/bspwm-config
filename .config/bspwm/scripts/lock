@@ -3,9 +3,6 @@
 # [i3lock] unixporn-worthy lock screen
 # https://www.reddit.com/r/unixporn/comments/3358vu/
 
-# Source XDG dirs
-. "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" 2>/dev/null
-
 # Defaults
 script_name="$(basename "$0")"
 shot_cmd="$(command -v import)" || exit 1
