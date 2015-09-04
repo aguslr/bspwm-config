@@ -10,6 +10,10 @@ super + alt + Escape
 alt + F4
 	bspc window --close
 
+# Close window
+ctrl + q
+	bspc window --close
+
 # Navigate layouts
 super + {_,shift + }space
 	bspc desktop --layout {next,prev}
