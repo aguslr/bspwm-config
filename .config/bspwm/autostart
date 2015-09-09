@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Start compositor
-pgrep -u $USER compton >/dev/null || compton -cCGb
-
 # Launch systray
 pgrep -u $USER stalonetray >/dev/null || \
     stalonetray --config $BSPWM_CONFIG/stalonetrayrc &
