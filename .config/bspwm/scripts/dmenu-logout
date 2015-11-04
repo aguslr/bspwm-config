@@ -14,6 +14,8 @@ restart() {
 	pkill -x udisks-glue
 	# Kill panel
 	pkill -x panel
+	# Kill Redshift
+	pkill -x redshift
 	# Quit bspwm
 	bspc quit 0
 }
