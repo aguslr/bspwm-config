@@ -54,6 +54,8 @@ bspc rule --add Popcorn-time desktop=^6
 bspc rule --add scummvm desktop=^6
 bspc rule --add Steam desktop=^6
 # Send to virt desktop
+bspc rule --add qemu-system-i386 desktop=^7
+bspc rule --add qemu-system-x86_64 desktop=^7
 bspc rule --add VirtualBox desktop=^7
 bspc rule --add Virt-manager desktop=^7
 
