@@ -42,6 +42,7 @@ bspc rule --add Gimp desktop=^5 follow=on
 bspc rule --add Gnumeric desktop=^5 follow=on
 bspc rule --add Handbrake desktop=^5 follow=on
 bspc rule --add Illustrator.exe desktop=^5 follow=on
+bspc rule --add Photoshop.exe desktop=^5 follow=on
 bspc rule --add Inkscape desktop=^5 follow=on
 bspc rule --add libreoffice desktop=^5 follow=on
 bspc rule --add Openshot desktop=^5 follow=on
