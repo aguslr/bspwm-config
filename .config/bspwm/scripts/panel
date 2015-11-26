@@ -30,8 +30,10 @@ while true; do
 	# Cut long titles
 	if [ ${#win_title} -gt 80 ]; then
 		win_title="$(echo $win_title \
-		    | awk  '{ string=substr($0, 1, 77); print string; }')..."
+		    | awk  '{ string=substr($0, 1, 75); print string; }')..."
 	fi
+	# Add separator
+	[ "$win_title" ] && win_title="> $win_title"
 	title_line="${title_line} ${win_title}"
 
 	# Dump information to file
