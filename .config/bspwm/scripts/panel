@@ -24,7 +24,7 @@ while true; do
 	# Interval between checks in seconds
 	wait=0.1
 	# Create line
-	title_line="T"
+	title_line="TTL"
 	# Get title
 	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)"
 	# Cut long titles
@@ -46,28 +46,67 @@ while true; do
 	# Interval between checks in seconds
 	wait=0.2
 	# Create line
-	sys_line="S"
-	# ToDo information
-	tasks_info=$(getTasks.sh) \
-	    && sys_line="${sys_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
+	sys_line="SYS"
 	# cpu information
 	cpu_info=$(getCPU.sh -e %) \
 	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
 	# Memory information
 	mem_info=$(getMem.sh -e %) \
 	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
-	# Network information
-	net_info=$(getNetwork.sh) \
-	    && sys_line="${sys_line} %{A:urxvt -name IFConfig -g 80x40 -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
-	# Power information
-	bat_info=$(getBattery.sh -e %) \
-	    && sys_line="${sys_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
-	# Volume information
-	vol_info=$(getVolume.sh -e % Master) \
-	    && sys_line="${sys_line} %{A1:urxvt -name Mixer -g 80x40 -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$sys_line" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $wait
+done &
+
+# Network information
+while true; do
+	# Interval between checks in seconds
+	wait=0.2
+	# Create line
+	net_line="NET"
+	# Network information
+	net_info=$(getNetwork.sh) \
+	    && net_line="${net_line} %{A:urxvt -name IFConfig -g 80x40 -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
+
+	# Dump information to file
+	echo "$net_line" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $wait
+done &
+
+# Power information
+while true; do
+	# Interval between checks in seconds
+	wait=0.2
+	# Create line
+	pwr_line="PWR"
+	# Power information
+	bat_info=$(getBattery.sh -e %) \
+	    && pwr_line="${pwr_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
+
+	# Dump information to file
+	echo "$pwr_line" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $wait
+done &
+
+# Volume information
+while true; do
+	# Interval between checks in seconds
+	wait=0.2
+	# Create line
+	vol_line="VOL"
+	# Volume information
+	vol_info=$(getVolume.sh -e % Master) \
+	    && vol_line="${vol_line} %{A1:urxvt -name Mixer -g 80x40 -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
+
+	# Dump information to file
+	echo "$vol_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -78,7 +117,7 @@ while true; do
 	# Interval between checks in seconds
 	wait=0.2
 	# Create line
-	clk_line="D"
+	clk_line="CLK"
 	# Date information
 	date_info=$(getDate.sh) \
 	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
@@ -95,7 +134,7 @@ while true; do
 	# Interval between checks in seconds
 	wait=1
 	# Create line
-	mpd_line="M"
+	mpd_line="MPD"
 	# MPD information
 	mpd_info=$(getSong.sh) \
 	    && mpd_line="${mpd_line} %{A1:urxvt -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
@@ -112,7 +151,7 @@ while true; do
 	# Interval between checks in seconds
 	wait=300
 	# Create line
-	owm_line="O"
+	owm_line="OWM"
 	# Temperature information
 	temp_info=$(getWeather.sh 3119841) \
 	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/3119841 &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
@@ -124,12 +163,29 @@ while true; do
 	sleep $wait
 done &
 
+# ToDo information
+while true; do
+	# Interval between checks in seconds
+	wait=0.2
+	# Create line
+	tsk_line="TSK"
+	# ToDo information
+	tasks_info=$(getTasks.sh) \
+	    && tsk_line="${tsk_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
+
+	# Dump information to file
+	echo "$tsk_line" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $wait
+done &
+
 # Mail information
 while true; do
 	# Interval between checks in seconds
 	wait=30
 	# Create line
-	msg_line="G"
+	msg_line="MSG"
 	# Mail messages
 	msg_info=$(getMail.sh) \
 	    && msg_line="${msg_line} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"

@@ -8,29 +8,45 @@ num_mon=$(bspc query -M | wc -l)
 
 while read -r line ; do
 	case $line in
-		S*)
+		SYS*)
 			# system info output
-			sys_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			sys_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
-		D*)
+		NET*)
+			# netowrk info output
+			net_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
+			;;
+		PWR*)
+			# power info output
+			pwr_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
+			;;
+		CLK*)
 			# date info output
-			clk_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			clk_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
-		M*)
+		VOL*)
+			# volume info output
+			vol_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
+			;;
+		MPD*)
 			# mpd info output
-			mpd_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			mpd_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
-		O*)
+		OWM*)
 			# weather info output
-			owm_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			owm_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
-		G*)
+		TSK*)
+			# todo info output
+			tsk_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
+			;;
+		MSG*)
 			# mail info output
-			msg_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#?}%{B-}%{F-}"
+			msg_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
-		T*)
+		TTL*)
 			# title output
-			title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG}${line#?} %{B-}%{F-}"
+			title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG}${line#???} %{B-}%{F-}"
 			;;
 		W*)
 			# bspwm internal state
