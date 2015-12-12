@@ -39,8 +39,8 @@ super + f
 	bspc window --toggle fullscreen
 
 # Focus last window/desktop
-super + {grave,Tab}
-	bspc {window,desktop} --focus last
+{alt,super} + Tab
+	bspc {window,desktop} --focus last.local
 
 # Swap window with last window
 super + apostrophe
