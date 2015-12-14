@@ -27,6 +27,7 @@ bspc rule --add Iceweasel desktop=^2 --one-shot follow=on
 bspc rule --add Atom desktop=^3 follow=on
 bspc rule --add Brackets desktop=^3 follow=on
 bspc rule --add Eclipse desktop=^3 follow=on
+bspc rule --add LightTable desktop=^3 follow=on
 bspc rule --add Ltbin desktop=^3 follow=on
 bspc rule --add Gvim desktop=^3 follow=on
 bspc rule --add Mysql-workbench-bin desktop=^3 follow=on
