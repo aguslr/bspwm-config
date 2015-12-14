@@ -49,10 +49,10 @@ while true; do
 	sys_line="SYS"
 	# cpu information
 	cpu_info=$(getCPU.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
+	    && sys_line="${sys_line} %{A:urxvtc -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
 	# Memory information
 	mem_info=$(getMem.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvt -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
+	    && sys_line="${sys_line} %{A:urxvtc -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
 
 	# Dump information to file
 	echo "$sys_line" > "$PANEL_FIFO"
@@ -69,7 +69,7 @@ while true; do
 	net_line="NET"
 	# Network information
 	net_info=$(getNetwork.sh) \
-	    && net_line="${net_line} %{A:urxvt -name IFConfig -g 80x40 -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
+	    && net_line="${net_line} %{A:urxvtc -name IFConfig -g 80x40 -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
 
 	# Dump information to file
 	echo "$net_line" > "$PANEL_FIFO"
@@ -103,7 +103,7 @@ while true; do
 	vol_line="VOL"
 	# Volume information
 	vol_info=$(getVolume.sh -e % Master) \
-	    && vol_line="${vol_line} %{A1:urxvt -name Mixer -g 80x40 -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
+	    && vol_line="${vol_line} %{A1:urxvtc -name Mixer -g 80x40 -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$vol_line" > "$PANEL_FIFO"
@@ -137,7 +137,7 @@ while true; do
 	mpd_line="MPD"
 	# MPD information
 	mpd_info=$(getSong.sh) \
-	    && mpd_line="${mpd_line} %{A1:urxvt -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
+	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$mpd_line" > "$PANEL_FIFO"
@@ -188,7 +188,7 @@ while true; do
 	msg_line="MSG"
 	# Mail messages
 	msg_info=$(getMail.sh) \
-	    && msg_line="${msg_line} %{A:urxvt -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
+	    && msg_line="${msg_line} %{A:urxvtc -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
 	# Dump information to file
 	echo "$msg_line" > "$PANEL_FIFO"

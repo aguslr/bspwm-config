@@ -10,6 +10,10 @@ pgrep -u $USER stalonetray >/dev/null || \
 pgrep -u $USER xautolock >/dev/null || \
     xautolock -locker "$BSPWM_CONFIG/scripts/lock -p 50 -de -I 5" -time 10 &
 
+# Start Terminal daemon
+pgrep -u $USER urxvtd >/dev/null || \
+    urxvtd --quiet --opendisplay &
+
 # Start Udisks-glue for device automonting
 pgrep -u $USER udisks-glue >/dev/null || udisks-glue &
 
