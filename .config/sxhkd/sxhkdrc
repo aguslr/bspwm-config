@@ -56,7 +56,7 @@ super + {o,n}
 super + y
 	bspc window --to-window last.manual
 
-# Move window to the biggest space
+# Focus/move window to the biggest space
 super + {_,shift + }m
 	bspc window --{focus,swap} biggest
 
