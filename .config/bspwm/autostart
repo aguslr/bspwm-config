@@ -6,6 +6,9 @@ pgrep -u "$USER" stalonetray >/dev/null || \
 # Hide systray after 5 seconds
 (sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 
+# Change screen timeout
+# https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling#Modifying_DPMS_and_screensaver_settings_using_xset
+xset s 590 590
 # Start xautolock daemon
 pgrep -u "$USER" xautolock >/dev/null || \
     xautolock -locker "$BSPWM_CONFIG/scripts/lock -p 50 -de -I 5" -time 10 &
