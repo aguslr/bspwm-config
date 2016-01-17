@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Load panel configuration
-. $BSPWM_CONFIG/panel.cfg
+. "$BSPWM_CONFIG/panel.cfg"
 
 # Set PATH for scripts
 PATH="${HOME}/.scripts:$PATH"
@@ -197,7 +197,7 @@ while true; do
 	sleep $wait
 done &
 
-cat "$PANEL_FIFO" | $BSPWM_CONFIG/scripts/panel_bar | lemonbar \
+cat "$PANEL_FIFO" | "$BSPWM_CONFIG/scripts/panel_bar" | lemonbar \
     -g ${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH} -f "$PANEL_FONT_FAMILY" \
     -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u "$UNDERLINE_WIDTH" | sh &
 
