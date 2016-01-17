@@ -41,6 +41,7 @@ bspc rule --add Avidemux desktop=^5 follow=on
 bspc rule --add Blender desktop=^5 follow=on
 bspc rule --add Darktable desktop=^5 follow=on
 bspc rule --add Gimp desktop=^5 follow=on
+bspc rule --add Gimp-2.8 desktop=^5 follow=on
 bspc rule --add Gnumeric desktop=^5 follow=on
 bspc rule --add Handbrake desktop=^5 follow=on
 bspc rule --add Illustrator.exe desktop=^5 follow=on
