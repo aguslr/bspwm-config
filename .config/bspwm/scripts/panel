@@ -153,8 +153,13 @@ while true; do
 	# Create line
 	mpd_line="MPD"
 	# MPD information
-	mpd_info=$(getSong.sh) \
-	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
+	mpd_info=$(getSong.sh)
+	# Cut long titles
+	if [ ${#mpd_info} -gt 50 ]; then
+		mpd_info="$(echo $mpd_info \
+		    | awk  '{ string=substr($0, 1, 47); print string; }')..."
+	fi
+	mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$mpd_line" > "$PANEL_FIFO"
