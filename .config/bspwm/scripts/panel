@@ -129,6 +129,23 @@ while true; do
 	sleep $wait
 done &
 
+# Keyboard information
+while true; do
+	# Interval between checks in seconds
+	wait=1
+	# Create line
+	kbd_line="KBD"
+	# Keyboard information
+	kbd_info=$(mngKbd.sh -g) \
+	    && kbd_line="${kbd_line} %{A1:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}"
+
+	# Dump information to file
+	echo "$kbd_line" > "$PANEL_FIFO"
+
+	# Wait before repeating
+	sleep $wait
+done &
+
 # Music Player Daemon information
 while true; do
 	# Interval between checks in seconds

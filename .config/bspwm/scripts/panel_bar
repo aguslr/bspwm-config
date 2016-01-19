@@ -28,6 +28,10 @@ while read -r line ; do
 			# volume info output
 			vol_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
 			;;
+		KBD*)
+			# kbd info output
+			kbd_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
+			;;
 		MPD*)
 			# mpd info output
 			mpd_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG}${line#???}%{B-}%{F-}"
@@ -95,7 +99,7 @@ while read -r line ; do
 			done
 			;;
 	esac
-	printf "%s\n" "%{r}${mpd_info}${vol_info}${pwr_info}${clk_info}%{l}${wm_infos}${title}"
+	printf "%s\n" "%{r}${mpd_info}${kbd_info}${vol_info}${pwr_info}${clk_info}%{l}${wm_infos}${title}"
 done
 
 exit
