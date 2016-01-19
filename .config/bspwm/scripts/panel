@@ -19,20 +19,32 @@ mkfifo -m 600 "$PANEL_FIFO"
 bspc config top_padding $((`bspc config top_padding` + BARHEIGHT + EDGEWIDTH))
 bspc control --subscribe > "$PANEL_FIFO" &
 
+# Functions
+cut() {
+	local newstr
+	local curstr="$1" || return 1
+	local maxlength=${2-80}
+	local symbol="..."
+	local length=$((maxlength - ${#symbol}))
+	if [ ${#curstr} -gt $maxlength ]; then
+		newstr="$(echo $curstr | \
+		    awk -v l=$length \
+		    '{ string=substr($0, 1, l); print string; }')${symbol}"
+	else
+		newstr="$curstr"
+	fi
+	printf "%s" "$newstr"
+}
+
 # Active window information
 while true; do
 	# Interval between checks in seconds
 	wait=0.1
 	# Create line
 	title_line="TTL"
-	# Get title
-	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)"
-	# Cut long titles
-	if [ ${#win_title} -gt 80 ]; then
-		win_title="$(echo $win_title \
-		    | awk  '{ string=substr($0, 1, 77); print string; }')..."
-	fi
-	title_line="${title_line} ${win_title}"
+	# Get title and cut long lines
+	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)" \
+	    && title_line="${title_line} $(cut "$win_title" 80)"
 
 	# Dump information to file
 	echo "$title_line" > "$PANEL_FIFO"
@@ -152,14 +164,9 @@ while true; do
 	wait=1
 	# Create line
 	mpd_line="MPD"
-	# MPD information
-	mpd_info=$(getSong.sh)
-	# Cut long titles
-	if [ ${#mpd_info} -gt 50 ]; then
-		mpd_info="$(echo $mpd_info \
-		    | awk  '{ string=substr($0, 1, 47); print string; }')..."
-	fi
-	mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $mpd_info%{A}%{A}%{A}%{A}"
+	# Get MPD information and cut long lines
+	mpd_info=$(getSong.sh) \
+	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$mpd_line" > "$PANEL_FIFO"
