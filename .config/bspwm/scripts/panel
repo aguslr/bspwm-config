@@ -149,7 +149,7 @@ while true; do
 	kbd_line="KBD"
 	# Keyboard information
 	kbd_info=$(mngKbd.sh -g) \
-	    && kbd_line="${kbd_line} %{A1:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}"
+	    && kbd_line="${kbd_line} %{A1:mngKbd.sh -p:}%{A2:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}%{A}"
 
 	# Dump information to file
 	echo "$kbd_line" > "$PANEL_FIFO"
