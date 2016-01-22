@@ -3,7 +3,7 @@
 # Set environment
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
-bspc config border_width        2
+bspc config border_width        4
 bspc config window_gap          10
 bspc config top_padding         0
 
