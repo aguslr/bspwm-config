@@ -3,6 +3,16 @@
 # Set environment
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
+# Function to kill programs
+killprogs() {
+	# Kill udisks-glue
+	pkill -x udisks-glue
+	# Kill panel
+	pkill -x panel
+	# Kill Redshift
+	pkill -x redshift
+}
+
 # Restart function
 restart() {
 	# Save session status
@@ -10,12 +20,8 @@ restart() {
 	bspc query -T > "$BSPWM_TREE"
 	bspc query -H > "$BSPWM_HISTORY"
 	bspc query -S > "$BSPWM_STACK"
-	# Kill udisks-glue
-	pkill -x udisks-glue
-	# Kill panel
-	pkill -x panel
-	# Kill Redshift
-	pkill -x redshift
+	# Kill programs
+	killprogs
 	# Quit bspwm
 	bspc quit 0
 }
@@ -27,10 +33,8 @@ logout() {
 		# Close it
 		xdotool windowkill $winid
 	done
-	# Kill udisks-glue
-	pkill -x udisks-glue
-	# Kill panel
-	pkill -x panel
+	# Kill programs
+	killprogs
 	# Quit bspwm
 	bspc quit 1
 }
