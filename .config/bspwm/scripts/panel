@@ -165,8 +165,9 @@ while true; do
 	# Create line
 	mpd_line="MPD"
 	# Get MPD information and cut long lines
-	mpd_info=$(getSong.sh) \
-	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp:}%{A2:mpc toggle:}%{A4:mpc prev:}%{A5:mpc next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
+	HOST="${MPDHOST-localhost}"
+	mpd_info=$(getSong.sh $HOST) \
+	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$mpd_line" > "$PANEL_FIFO"
