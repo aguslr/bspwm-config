@@ -19,6 +19,9 @@ pgrep -u "$USER" udisks-glue >/dev/null || udisks-glue &
 # Start S.M.A.R.T. notifier
 pgrep -u "$USER" smart-notifier >/dev/null || smart-notifier &
 
+# Start AppArmor notifier
+pgrep -u "$USER" aa-notify >/dev/null || aa-notify -p -s 1 -w 60 &
+
 # Start Update-notifier
 update-notifier &
 # Start Redshift
