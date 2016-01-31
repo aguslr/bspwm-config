@@ -61,10 +61,10 @@ while true; do
 	sys_line="SYS"
 	# cpu information
 	cpu_info=$(getCPU.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvtc -name Htop -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
+	    && sys_line="${sys_line} %{A:urxvtc -name Htop -g 140x50 -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
 	# Memory information
 	mem_info=$(getMem.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvtc -name Htop -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
+	    && sys_line="${sys_line} %{A:urxvtc -name Htop -g 140x50 -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
 
 	# Dump information to file
 	echo "$sys_line" > "$PANEL_FIFO"
@@ -167,7 +167,7 @@ while true; do
 	# Get MPD information and cut long lines
 	HOST="${MPDHOST-localhost}"
 	mpd_info=$(getSong.sh $HOST) \
-	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
+	    && mpd_line="${mpd_line} %{A1:urxvtc -name MPC -g 140x50 -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	echo "$mpd_line" > "$PANEL_FIFO"
@@ -218,7 +218,7 @@ while true; do
 	msg_line="MSG"
 	# Mail messages
 	msg_info=$(getMail.sh) \
-	    && msg_line="${msg_line} %{A:urxvtc -name Mutt -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
+	    && msg_line="${msg_line} %{A:urxvtc -name Mutt -g 140x50 -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
 	# Dump information to file
 	echo "$msg_line" > "$PANEL_FIFO"
