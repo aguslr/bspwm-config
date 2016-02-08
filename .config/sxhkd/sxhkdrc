@@ -47,7 +47,7 @@ super + f
 	bspc {window,desktop} --focus last.local
 
 # Focus next/previous window
-alt + {n,p}
+super + {comma,period}
 	bspc window --focus {next,prev}
 
 # Navigate to older/newer window in history
