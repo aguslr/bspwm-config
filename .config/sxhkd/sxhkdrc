@@ -23,7 +23,7 @@ super + {_,shift + }r
 	bspc desktop --rotate {90,-90}
 
 # Circulate the leaves of the tree
-super + {comma,period}
+super + {_,shift + }c
 	bspc desktop --circulate {backward,forward}
 
 # Make split ratios equal
