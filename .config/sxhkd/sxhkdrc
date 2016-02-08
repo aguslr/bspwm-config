@@ -22,6 +22,10 @@ super + {_,shift + }space
 super + {_,shift + }r
 	bspc desktop --rotate {90,-90}
 
+# Circulate the leaves of the tree
+super + {comma,period}
+	bspc desktop --circulate {backward,forward}
+
 # Make split ratios equal
 super + equal
 	bspc desktop --balance
@@ -42,19 +46,15 @@ super + f
 {alt,super} + Tab
 	bspc {window,desktop} --focus last.local
 
-# Swap window with last window
-super + apostrophe
-	bspc window --swap last
+# Focus next/previous window
+alt + {n,p}
+	bspc window --focus {next,prev}
 
 # Navigate to older/newer window in history
 super + {o,n}
 	bspc control --record-history off; \
-	bspc window {older,newer} --focus; \
+	bspc window --focus {older,newer}; \
 	bspc control --record-history on
-
-# Move window to last manual split
-super + y
-	bspc window --to-window last.manual
 
 # Focus/move window to the biggest space
 super + {_,shift + }m
@@ -64,13 +64,13 @@ super + {_,shift + }m
 super + {_,shift + }{h,j,k,l}
 	bspc window --{focus,swap} {left,down,up,right}
 
-# Navigate windows
-alt + {n,p}
-	bspc window --focus {next,prev}
+# Swap window with last window
+super + apostrophe
+	bspc window --swap last
 
-# Circulate the leaves of the tree
-super + {comma,period}
-	bspc desktop --circulate {backward,forward}
+# Move window to last manual split
+super + y
+	bspc window --to-window last.manual
 
 # Flip layout vertically/horizontally
 super + {_,shift + }s
