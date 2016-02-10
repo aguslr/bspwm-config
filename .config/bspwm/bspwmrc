@@ -93,7 +93,7 @@ bspc rule --add Vinagre floating=on
 bspc rule --add Vlc floating=on
 
 # Colors
-. "$BSPWM_CONFIG/colors.cfg"
+. "$HOME/.themes/colorschemes/bspwm.cfg"
 bspc config focused_border_color                "$brightwhite"
 bspc config active_border_color                 "$brightblack"
 bspc config normal_border_color                 "$black"
