@@ -40,8 +40,6 @@ empathy --start-hidden &
 qtox &
 # Start Workrave
 workrave &
-# Start lightsOn script
-~/bin/lightsOn.sh 300 &
 
 # Hot corners
 # Toggle visibility of systray
