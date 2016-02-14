@@ -71,7 +71,7 @@ bspc rule --add Mixer floating=on
 bspc rule --add MPC floating=on
 bspc rule --add Mutt floating=on
 # Make scratchpad floating and sticky
-bspc rule --add scratchpad sticky=on floating=on
+bspc rule --add scratchpad sticky=on floating=on border=off
 # Other floating windows
 bspc rule --add Cssh floating=on
 bspc rule --add Display floating=on
