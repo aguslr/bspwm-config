@@ -57,6 +57,7 @@ bspc rule --add Desura desktop=^6
 bspc rule --add Popcorn-time desktop=^6
 bspc rule --add scummvm desktop=^6
 bspc rule --add Steam desktop=^6
+bspc rule --add Vlc desktop=^6 follow=on
 # Send to virt desktop
 bspc rule --add qemu-system-i386 desktop=^7
 bspc rule --add qemu-system-x86_64 desktop=^7
@@ -90,7 +91,6 @@ bspc rule --add "Syncthing GTK" floating=on
 bspc rule --add Transmission-gtk floating=on
 bspc rule --add Uget-gtk floating=on
 bspc rule --add Vinagre floating=on
-bspc rule --add Vlc floating=on
 
 # Colors
 . "$HOME/.themes/colorschemes/bspwm.cfg"
