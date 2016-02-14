@@ -65,11 +65,7 @@ bspc rule --add VirtualBox desktop=^7
 bspc rule --add Virt-manager desktop=^7
 
 # Float windows opened from the panel
-bspc rule --add Htop floating=on
-bspc rule --add IFConfig floating=on
-bspc rule --add Mixer floating=on
-bspc rule --add MPC floating=on
-bspc rule --add Mutt floating=on
+bspc rule --add popup floating=on
 # Make scratchpad floating and sticky
 bspc rule --add scratchpad sticky=on floating=on border=off
 # Other floating windows
