@@ -31,7 +31,7 @@ logout() {
 	# For each opened window
 	bspc query --windows | while read -r winid; do
 		# Close it
-		xdotool windowkill $winid
+		xdotool windowkill "$winid"
 	done
 	# Kill programs
 	killprogs
@@ -43,10 +43,15 @@ logout() {
 [ -f "$HOME/.dmenurc" ] && . "$HOME/.dmenurc" || DMENU='dmenu -i'
 
 # Menu items
-items="restart\nlogout\nhibernate\nsuspend\nreboot\npoweroff"
+items="restart
+logout
+hibernate
+suspend
+reboot
+poweroff"
 
 # Open menu
-selection=$(echo "$items" | $DMENU)
+selection=$(printf '%s' "$items" | $DMENU)
 
 case $selection in
 	restart)

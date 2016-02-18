@@ -6,7 +6,7 @@
 # Set PATH for scripts
 PATH="${HOME}/.scripts:$PATH"
 
-if [ $(pgrep -cx panel) -gt 1 ] ; then
+if [ "$(pgrep -cx panel)" -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
 	pkill -x panel
 fi
@@ -16,7 +16,7 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo -m 600 "$PANEL_FIFO"
 
-bspc config top_padding $((`bspc config top_padding` + BARHEIGHT + EDGEWIDTH))
+bspc config top_padding $(($(bspc config top_padding) + BARHEIGHT + EDGEWIDTH))
 bspc control --subscribe > "$PANEL_FIFO" &
 
 # Functions
@@ -26,8 +26,8 @@ cut() {
 	local maxlength=${2-80}
 	local symbol="..."
 	local length=$((maxlength - ${#symbol}))
-	if [ ${#curstr} -gt $maxlength ]; then
-		newstr="$(echo $curstr | \
+	if [ ${#curstr} -gt "$maxlength" ]; then
+		newstr="$(printf '%s' "$curstr" | \
 		    awk -v l=$length \
 		    '{ string=substr($0, 1, l); print string; }')${symbol}"
 	else
@@ -47,7 +47,7 @@ while true; do
 	    && title_line="${title_line} $(cut "$win_title" 80)"
 
 	# Dump information to file
-	echo "$title_line" > "$PANEL_FIFO"
+	printf '%s\n' "$title_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -67,7 +67,7 @@ while true; do
 	    && sys_line="${sys_line} %{A:urxvtc -name popup -g $TERM_BIG -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
 
 	# Dump information to file
-	echo "$sys_line" > "$PANEL_FIFO"
+	printf '%s\n' "$sys_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -84,7 +84,7 @@ while true; do
 	    && net_line="${net_line} %{A:urxvtc -name popup -g $TERM_SMALL -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
 
 	# Dump information to file
-	echo "$net_line" > "$PANEL_FIFO"
+	printf '%s\n' "$net_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -101,7 +101,7 @@ while true; do
 	    && pwr_line="${pwr_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
 
 	# Dump information to file
-	echo "$pwr_line" > "$PANEL_FIFO"
+	printf '%s\n' "$pwr_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -118,7 +118,7 @@ while true; do
 	    && vol_line="${vol_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
-	echo "$vol_line" > "$PANEL_FIFO"
+	printf '%s\n' "$vol_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -135,7 +135,7 @@ while true; do
 	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
 
 	# Dump information to file
-	echo "$clk_line" > "$PANEL_FIFO"
+	printf '%s\n' "$clk_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -152,7 +152,7 @@ while true; do
 	    && kbd_line="${kbd_line} %{A1:mngKbd.sh -p:}%{A2:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}%{A}"
 
 	# Dump information to file
-	echo "$kbd_line" > "$PANEL_FIFO"
+	printf '%s\n' "$kbd_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -166,11 +166,11 @@ while true; do
 	mpd_line="MPD"
 	# Get MPD information and cut long lines
 	HOST="${MPDHOST-localhost}"
-	mpd_info=$(getSong.sh $HOST) \
+	mpd_info=$(getSong.sh "$HOST") \
 	    && mpd_line="${mpd_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
-	echo "$mpd_line" > "$PANEL_FIFO"
+	printf '%s\n' "$mpd_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -187,7 +187,7 @@ while true; do
 	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/3119841 &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
 
 	# Dump information to file
-	echo "$owm_line" > "$PANEL_FIFO"
+	printf '%s\n' "$owm_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -204,7 +204,7 @@ while true; do
 	    && tsk_line="${tsk_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
 
 	# Dump information to file
-	echo "$tsk_line" > "$PANEL_FIFO"
+	printf '%s\n' "$tsk_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
@@ -221,14 +221,14 @@ while true; do
 	    && msg_line="${msg_line} %{A:urxvtc -name popup -g $TERM_BIG -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
 	# Dump information to file
-	echo "$msg_line" > "$PANEL_FIFO"
+	printf '%s\n' "$msg_line" > "$PANEL_FIFO"
 
 	# Wait before repeating
 	sleep $wait
 done &
 
-cat "$PANEL_FIFO" | "$BSPWM_CONFIG/scripts/panel_bar" | lemonbar \
-    -g ${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH} -f "$PANEL_FONT_FAMILY" \
+"$BSPWM_CONFIG/scripts/panel_bar" < "$PANEL_FIFO" | lemonbar \
+    -g "${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH}" -f "$PANEL_FONT_FAMILY" \
     -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u "$UNDERLINE_WIDTH" | sh &
 
 wait
