@@ -8,7 +8,7 @@ script_name="$(basename "$0")"
 shot_cmd="$(command -v import)" || exit 1
 conv_cmd="$(command -v convert)" || exit 1
 lock_cmd="$(command -v i3lock)" || exit 1
-lock_img="$XDG_PICTURES_DIR/lock_icon.png"
+lock_img="${XDG_PICTURES_DIR:-$HOME/Pictures}/lock_icon.png"
 
 # Output help page.
 showUsage() {
