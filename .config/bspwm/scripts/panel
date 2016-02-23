@@ -184,7 +184,7 @@ while true; do
 	owm_line="OWM"
 	# Temperature information
 	temp_info=$(getWeather.sh 3119841) \
-	    && owm_line="${owm_line} %{A:xdg-open http\://openweathermap.org/city/3119841 &:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
+	    && owm_line="${owm_line} %{A:urxvtc -name popup -g $TERM_BIG -e lynx http\://wttr.in/:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
 
 	# Dump information to file
 	printf '%s\n' "$owm_line" > "$PANEL_FIFO"
