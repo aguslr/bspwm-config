@@ -34,13 +34,10 @@ super + equal
 super + minus
 	bspc node @focused:/ --balance
 
-# Toggle attach floating window
-super + a
-	bspc node --state \~tiled
-
-# Toogle dettach tiled window
+# Toogle tiling of window
 super + d
-	bspc node --state \~floating
+	bspc query --nodes -n focused.tiled && state=floating || state=tiled; \
+	bspc node --state \~$state
 
 # Toogle pseudo tiling of window
 super + p
