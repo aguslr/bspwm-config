@@ -57,10 +57,10 @@ bspc rule --add Ufraw desktop=^5 follow=on
 bspc rule --add Butter desktop=^6 follow=on
 bspc rule --add Popcorn-time desktop=^6 follow=on
 bspc rule --add Vlc desktop=^6 follow=on
-bspc rule --add Desura desktop=^6
-bspc rule --add scummvm desktop=^6
-bspc rule --add Steam desktop=^6
-bspc rule --add Wine desktop=^6
+bspc rule --add scummvm desktop=^6 follow=on
+bspc rule --add Wine desktop=^6 follow=on
+bspc rule --add Desura desktop=^6 --one-shot follow=on
+bspc rule --add Steam desktop=^6 --one-shot follow=on
 # Send to virt desktop
 bspc rule --add qemu-system-i386 desktop=^7 follow=on
 bspc rule --add qemu-system-x86_64 desktop=^7 follow=on
