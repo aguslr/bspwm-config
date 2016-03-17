@@ -8,11 +8,11 @@ super + alt + Escape
 
 # Close window
 alt + F4
-	bspc window --close
+	bspc node --close
 
 # Close window
 ctrl + q
-	bspc window --close
+	bspc node --close
 
 # Navigate layouts
 super + {_,shift + }space
@@ -20,35 +20,39 @@ super + {_,shift + }space
 
 # Rotate desktop
 super + {_,shift + }r
-	bspc desktop --rotate {90,-90}
+	bspc node --rotate {90,270}
 
 # Circulate the leaves of the tree
 super + {_,shift + }c
-	bspc desktop --circulate {backward,forward}
+	bspc node --circulate {backward,forward}
 
 # Make split ratios equal
 super + equal
-	bspc desktop --balance
+	bspc node --balance
+
+# Attach tiling window
+super + a
+	bspc node --state tiled
 
 # Toogle dettach floating window
 super + d
-	bspc window --toggle floating
+	bspc node --state floating
 
 # Toogle pseudo tiling of window
 super + p
-	bspc window --toggle pseudo_tiled
+	bspc node --state pseudo_tiled
 
 # Toggle fullscreen of window
 super + f
-	bspc window --toggle fullscreen
+	bspc node --state fullscreen
 
 # Focus last window/desktop
 {alt,super} + Tab
-	bspc {window,desktop} --focus last.local
+	bspc {node,desktop} --focus last.local
 
 # Focus next/previous window
 super + {comma,period}
-	bspc window --focus {next,prev}
+	bspc node --focus {next,prev}
 
 # Navigate to older/newer window in history
 super + {o,n}
@@ -58,55 +62,47 @@ super + {o,n}
 
 # Focus/move window to the biggest space
 super + {_,shift + }m
-	bspc window --{focus,swap} biggest
+	bspc node --{focus,swap} biggest
 
 # Focus/swap windows by direction
 super + {_,shift + }{h,j,k,l}
-	bspc window --{focus,swap} {left,down,up,right}
+	bspc node --{focus,swap} {west,south,north,east}
 
 # Swap window with last window
 super + apostrophe
-	bspc window --swap last
+	bspc node --swap last
 
 # Move window to last manual split
 super + y
-	bspc window --to-window last.manual
+	bspc node --to-node last.!automatic
 
 # Flip layout vertically/horizontally
 super + {_,shift + }s
-	bspc desktop --flip {vertical,horizontal}
+	bspc node --flip {vertical,horizontal}
 
 # Preselect the splitting area for next window
 super + ctrl + {h,j,k,l}
-	bspc window --presel {left,down,up,right}
+	bspc node --presel-dir {west,south,north,east}
 
 # Define splitting ratio for next window
 super + ctrl + {1-9}
-	bspc window --ratio 0.{1-9}
+	bspc node --presel-ratio 0.{1-9}
 
 # Cancel preselection
-super + ctrl + {_,shift + }space
-	bspc {window --presel cancel,desktop --cancel-presel}
-
-# Resize window
-super + alt + {h,j,k,l}
-	bspc window --edge {left -10,down +10,up -10,right +10}
-
-# Resize window
-super + alt + shift + {h,j,k,l}
-	bspc window --edge {right -10,up +10,down -10,left +10}
+super + ctrl + space
+	bspc node --presel-dir cancel
 
 # Move window to selected desktop
 super + shift + {1-9,0}
-	bspc window --to-desktop ^{1-9,10} --focus
+	bspc node --to-desktop ^{1-9,10} --focus
 
 # Move window to left/right desktop
 super + shift + {Left,Right}
-	bspc window --to-desktop {prev,next} --focus
+	bspc node --to-desktop {prev,next} --focus
 
 # Move window to left/right desktop
 ctrl + alt + shift + {Left,Right}
-	bspc window --to-desktop {prev,next} --focus
+	bspc node --to-desktop {prev,next} --focus
 
 # Focus selected desktop
 super + {1-9,0}

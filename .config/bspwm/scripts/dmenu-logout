@@ -29,7 +29,7 @@ restart() {
 # Logout function
 logout() {
 	# For each opened window
-	bspc query --windows | while read -r winid; do
+	bspc query --nodes | while read -r winid; do
 		# Close it
 		xdotool windowkill "$winid"
 	done
