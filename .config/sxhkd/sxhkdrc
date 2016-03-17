@@ -72,9 +72,11 @@ super + {_,shift + }{h,j,k,l}
 super + apostrophe
 	bspc node --swap last
 
-# Move window to last manual split
+# Move window to last split
 super + y
-	bspc node --to-node last.!automatic
+	bspc query --nodes -n focused.automatic \
+	&& bspc node -n last.\!automatic \
+	|| bspc node last.leaf -n focused
 
 # Flip layout vertically/horizontally
 super + {_,shift + }s
