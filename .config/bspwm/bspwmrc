@@ -68,28 +68,28 @@ bspc rule --add Virt-manager desktop=^7 follow=on
 bspc rule --add VirtualBox desktop=^7 follow=on
 
 # Float windows opened from the panel
-bspc rule --add popup floating=on
+bspc rule --add popup state=floating
 # Make scratchpad floating and sticky
-bspc rule --add scratchpad sticky=on floating=on border=off
+bspc rule --add scratchpad sticky=on state=floating border=off
 # Other floating windows
-bspc rule --add Cssh floating=on
-bspc rule --add Display floating=on
-bspc rule --add Empathy floating=on
-bspc rule --add Eog floating=on
-bspc rule --add feh floating=on
-bspc rule --add Keepassx floating=on
-bspc rule --add mplayer2 floating=on
-bspc rule --add mpv floating=on
-bspc rule --add Nautilus floating=on
-bspc rule --add Pavucontrol floating=on
-bspc rule --add Pcmanfm floating=on
-bspc rule --add Pidgin floating=on
-bspc rule --add qTox floating=on
-bspc rule --add Remmina floating=on
-bspc rule --add "Syncthing GTK" floating=on
-bspc rule --add Transmission-gtk floating=on
-bspc rule --add Uget-gtk floating=on
-bspc rule --add Vinagre floating=on
+bspc rule --add Cssh state=floating
+bspc rule --add Display state=floating
+bspc rule --add Empathy state=floating
+bspc rule --add Eog state=floating
+bspc rule --add feh state=floating
+bspc rule --add Keepassx state=floating
+bspc rule --add mplayer2 state=floating
+bspc rule --add mpv state=floating
+bspc rule --add Nautilus state=floating
+bspc rule --add Pavucontrol state=floating
+bspc rule --add Pcmanfm state=floating
+bspc rule --add Pidgin state=floating
+bspc rule --add qTox state=floating
+bspc rule --add Remmina state=floating
+bspc rule --add "Syncthing GTK" state=floating
+bspc rule --add Transmission-gtk state=floating
+bspc rule --add Uget-gtk state=floating
+bspc rule --add Vinagre state=floating
 
 # Colors
 . "$HOME/.themes/colorschemes/bspwm.cfg"
