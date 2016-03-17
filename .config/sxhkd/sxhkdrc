@@ -28,6 +28,10 @@ super + {_,shift + }c
 
 # Make split ratios equal
 super + equal
+	bspc node @focused:/ --equalize
+
+# Make split ratios balanced
+super + minus
 	bspc node @focused:/ --balance
 
 # Toggle attach floating window
