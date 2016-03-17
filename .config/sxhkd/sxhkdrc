@@ -164,6 +164,10 @@ ctrl + alt + l
 super + Return
 	urxvtc
 
+# Move floating window
+super + alt + {Left,Down,Up,Right}
+	xdotool getactivewindow windowmove --relative -- {-20 y,x 20,x -20,20 y}
+
 # Emulate i3's scratchpad
 F12
 	xdotool search --onlyvisible --classname scratchpad windowunmap \
