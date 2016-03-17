@@ -30,21 +30,21 @@ super + {_,shift + }c
 super + equal
 	bspc node --balance
 
-# Attach tiling window
+# Toggle attach floating window
 super + a
-	bspc node --state tiled
+	bspc node --state \~tiled
 
-# Toogle dettach floating window
+# Toogle dettach tiled window
 super + d
-	bspc node --state floating
+	bspc node --state \~floating
 
 # Toogle pseudo tiling of window
 super + p
-	bspc node --state pseudo_tiled
+	bspc node --state \~pseudo_tiled
 
 # Toggle fullscreen of window
 super + f
-	bspc node --state fullscreen
+	bspc node --state \~fullscreen
 
 # Focus last window/desktop
 {alt,super} + Tab
@@ -82,7 +82,7 @@ super + {_,shift + }s
 
 # Preselect the splitting area for next window
 super + ctrl + {h,j,k,l}
-	bspc node --presel-dir {west,south,north,east}
+	bspc node --presel-dir \~{west,south,north,east}
 
 # Define splitting ratio for next window
 super + ctrl + {1-9}
