@@ -56,9 +56,9 @@ super + {comma,period}
 
 # Navigate to older/newer window in history
 super + {o,n}
-	bspc control --record-history off; \
-	bspc window --focus {older,newer}; \
-	bspc control --record-history on
+	bspc wm --record-history off; \
+	bspc node --focus {older,newer}; \
+	bspc wm --record-history on
 
 # Focus/move window to the biggest space
 super + {_,shift + }m
@@ -115,10 +115,6 @@ super + {Left,Right}
 # Focus left/right occupied desktop
 ctrl + alt + {Left,Right}
 	bspc desktop --focus {prev,next}.occupied
-
-# Toggle visibility of all windows
-super + v
-	bspc control --toggle-visibility
 
 # Increase/decrease window gap on focused desktop
 super + bracket{left,right}
