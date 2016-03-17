@@ -17,9 +17,7 @@ killprogs() {
 restart() {
 	# Save session status
 	. "$BSPWM_CONFIG/restore.cfg"
-	bspc query -T > "$BSPWM_TREE"
-	bspc query -H > "$BSPWM_HISTORY"
-	bspc query -S > "$BSPWM_STACK"
+	bspc wm --dump-state > "$BSPWM_STATE"
 	# Kill programs
 	killprogs
 	# Quit bspwm

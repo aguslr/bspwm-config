@@ -114,10 +114,10 @@ hsetroot -solid "$black" -tile "${XDG_PICTURES_DIR:-$HOME/Pictures}/pattern"
 
 # Load session
 . "$BSPWM_CONFIG/restore.cfg"
-if [ -e "$BSPWM_TREE" ] ; then
-	bspc restore -T "$BSPWM_TREE" -H "$BSPWM_HISTORY" -S "$BSPWM_STACK"
-	bspc control --adopt-orphans
-	rm "$BSPWM_TREE" "$BSPWM_HISTORY" "$BSPWM_STACK"
+if [ -e "$BSPWM_STATE" ] ; then
+	bspc wm --load-state "$BSPWM_STATE"
+	bspc wm --adopt-orphans
+	rm "$BSPWM_STATE"
 fi
 
 # Launch keybinding daemon
