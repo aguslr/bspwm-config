@@ -20,15 +20,15 @@ super + {_,shift + }space
 
 # Rotate desktop
 super + {_,shift + }r
-	bspc node --rotate {90,270}
+	bspc node @focused:/ --rotate {90,-90}
 
 # Circulate the leaves of the tree
 super + {_,shift + }c
-	bspc node --circulate {backward,forward}
+	bspc node @focused:/ --circulate {backward,forward}
 
 # Make split ratios equal
 super + equal
-	bspc node --balance
+	bspc node @focused:/ --balance
 
 # Toggle attach floating window
 super + a
@@ -78,7 +78,7 @@ super + y
 
 # Flip layout vertically/horizontally
 super + {_,shift + }s
-	bspc node --flip {vertical,horizontal}
+	bspc node @focused:/ --flip {vertical,horizontal}
 
 # Preselect the splitting area for next window
 super + ctrl + {h,j,k,l}
