@@ -23,7 +23,7 @@ bspc desktop ^7 --toggle floating=on
 bspc desktop ^9 --toggle floating=on
 
 # Send to www desktop
-bspc rule --add Iceweasel desktop=^2 follow=on split_dir=left split_ratio=0.65
+bspc rule --add Iceweasel desktop=^2 follow=on split_dir=west split_ratio=0.65
 # Send to dev desktop
 bspc rule --add Atom desktop=^3 follow=on
 bspc rule --add Brackets desktop=^3 follow=on
