@@ -83,13 +83,13 @@ super + y
 super + {_,shift + }s
 	bspc node @/ --flip {vertical,horizontal}
 
-# Preselect the splitting area for next window
-super + ctrl + {h,j,k,l}
-	bspc node --presel-dir \~{west,south,north,east}
+# Preselect the splitting area for next window on leaf/parent
+super + ctrl + {_,shift + }{h,j,k,l}
+	bspc node {_,@/} --presel-dir \~{west,south,north,east}
 
-# Define splitting ratio for next window
-super + ctrl + {1-9}
-	bspc node --presel-ratio 0.{1-9}
+# Define splitting ratio for next window on leaf/parent
+super + ctrl + {_,shift +}{1-9}
+	bspc node {_,@/} --presel-ratio 0.{1-9}
 
 # Cancel preselection
 super + ctrl + space
