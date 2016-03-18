@@ -18,9 +18,17 @@ bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 # Use monocle layout on desktop 1
 bspc desktop '^1' --layout monocle
 # Make windows float on specific desktops
-bspc desktop '^6' --toggle floating=on
-bspc desktop '^7' --toggle floating=on
-bspc desktop '^9' --toggle floating=on
+# https://github.com/baskerville/bspwm/issues/325
+bspc subscribe node_manage | while read msg; do
+	set -- $msg
+	desk_name=$3
+	case "$desk_name" in
+		play|6|virt|7|9)
+			wid=$4
+			bspc node "$wid" --state floating
+			;;
+	esac
+done &
 
 # Send to www desktop
 bspc rule --add Iceweasel desktop='^2' follow=on split_dir=west split_ratio=0.65
