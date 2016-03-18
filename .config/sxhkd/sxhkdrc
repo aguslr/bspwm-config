@@ -20,19 +20,19 @@ super + {_,shift + }space
 
 # Rotate desktop
 super + {_,shift + }r
-	bspc node @focused:/ --rotate {90,-90}
+	bspc node @/ --rotate {90,-90}
 
 # Circulate the leaves of the tree
 super + {_,shift + }c
-	bspc node @focused:/ --circulate {backward,forward}
+	bspc node @/ --circulate {backward,forward}
 
 # Make split ratios equal
 super + equal
-	bspc node @focused:/ --equalize
+	bspc node @/ --equalize
 
 # Make split ratios balanced
 super + minus
-	bspc node @focused:/ --balance
+	bspc node @/ --balance
 
 # Toogle tiling of window
 super + d
@@ -81,7 +81,7 @@ super + y
 
 # Flip layout vertically/horizontally
 super + {_,shift + }s
-	bspc node @focused:/ --flip {vertical,horizontal}
+	bspc node @/ --flip {vertical,horizontal}
 
 # Preselect the splitting area for next window
 super + ctrl + {h,j,k,l}
