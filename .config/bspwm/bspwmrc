@@ -68,9 +68,9 @@ bspc rule --add Virt-manager desktop='^7' follow=on
 bspc rule --add VirtualBox desktop='^7' follow=on
 
 # Float windows opened from the panel
-bspc rule --add popup state=floating
+bspc rule --add URxvt:popup state=floating
 # Make scratchpad floating and sticky
-bspc rule --add scratchpad sticky=on state=floating border=off
+bspc rule --add URxvt:scratchpad sticky=on state=floating border=off
 # Other floating windows
 bspc rule --add Cssh state=floating
 bspc rule --add Display state=floating
