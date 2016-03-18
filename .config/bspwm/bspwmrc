@@ -16,8 +16,9 @@ bspc config auto_cancel                 true
 
 bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 
-# Make windows float on specific desktops
+# Use monocle layout on desktop 1
 bspc desktop ^1 --layout monocle
+# Make windows float on specific desktops
 bspc desktop ^6 --toggle floating=on
 bspc desktop ^7 --toggle floating=on
 bspc desktop ^9 --toggle floating=on
