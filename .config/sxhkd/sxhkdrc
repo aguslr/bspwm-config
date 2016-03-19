@@ -165,8 +165,8 @@ super + Return
 	urxvtc
 
 # Move floating window
-super + alt + {Left,Down,Up,Right}
-	xdotool getactivewindow windowmove --relative -- {-20 y,x 20,x -20,20 y}
+super + alt + {_,shift + }{Left,Down,Up,Right}
+	$BSPWM_CONFIG/scripts/move-window {_,edge-}{west,south,north,east}
 
 # Emulate i3's scratchpad
 F12
