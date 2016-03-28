@@ -67,13 +67,13 @@ while [ $# -gt 0 ]; do
 			xdotool getactivewindow windowmove -- $xpos y
 			shift
 			;;
-		edge-top|edge-north)
+		top|edge-up|edge-north)
 			# Move window to the top screen edge
 			ypos=$((0 + window_gap + top_padding))
 			xdotool getactivewindow windowmove -- x $ypos
 			shift
 			;;
-		edge-bottom|edge-south)
+		bottom|edge-down|edge-south)
 			# Move window to the bottom screen edge
 			ypos=$((screen_height - win_height - window_gap - bottom_padding - border_width))
 			xdotool getactivewindow windowmove -- x $ypos
