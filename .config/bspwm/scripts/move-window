@@ -79,5 +79,9 @@ while [ $# -gt 0 ]; do
 			xdotool getactivewindow windowmove -- x $ypos
 			shift
 			;;
+		*)
+			# Exit on unknown arguments
+			exit 1
+			;;
 	esac
 done
