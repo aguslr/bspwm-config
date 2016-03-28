@@ -25,6 +25,9 @@ getInfo() {
 	bottom_padding=$(bspc config -m focused bottom_padding)
 }
 
+# Exit if window is not floating
+bspc query --tree --node | grep --silent '"state":"floating"' || exit 10
+
 # Run function to get information
 getInfo
 
