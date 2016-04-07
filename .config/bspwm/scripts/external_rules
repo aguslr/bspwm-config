@@ -9,4 +9,18 @@ case "$instance" in
 	libreoffice)
 		printf "desktop=^5 follow=on"
 		;;
+	*)
+		# Parse class
+		case "$class" in
+			*)
+				# Parse window name
+				name=$(xdotool getwindowname "$wid")
+				case "$name" in
+					Butter|Popcorn-Time)
+						printf "desktop=^6 follow=on"
+						;;
+				esac
+				;;
+		esac
+		;;
 esac
