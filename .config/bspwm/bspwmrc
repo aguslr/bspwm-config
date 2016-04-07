@@ -30,6 +30,9 @@ bspc subscribe node_manage | while read msg; do
 	esac
 done &
 
+# Script for external rules
+bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
+
 # Send to www desktop
 bspc rule --add Iceweasel desktop='^2' follow=on split_dir=west split_ratio=0.65
 # Send to dev desktop
@@ -56,7 +59,6 @@ bspc rule --add Handbrake desktop='^5' follow=on
 bspc rule --add Illustrator.exe desktop='^5' follow=on
 bspc rule --add Photoshop.exe desktop='^5' follow=on
 bspc rule --add Inkscape desktop='^5' follow=on
-bspc rule --add libreoffice desktop='^5' follow=on
 bspc rule --add Openshot desktop='^5' follow=on
 bspc rule --add Pitivi desktop='^5' follow=on
 bspc rule --add Rawtherapee desktop='^5' follow=on

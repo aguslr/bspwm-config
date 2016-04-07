@@ -1,0 +1,12 @@
+#!/bin/sh
+
+wid=$1
+class=$2
+instance=$3
+
+# Parse instance
+case "$instance" in
+	libreoffice)
+		printf "desktop=^5 follow=on"
+		;;
+esac
