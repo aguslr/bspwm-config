@@ -2,7 +2,7 @@
 
 # Launch composite manager
 pgrep -u "$USER" compton >/dev/null || \
-    compton -bcCG -o 0.5 -r 0 -l 1 -t 1
+    compton -bcCG -o 0.5 -r 0 -l 2 -t 2
 
 # Launch systray
 pgrep -u "$USER" stalonetray >/dev/null || \
