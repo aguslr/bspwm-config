@@ -19,13 +19,10 @@ bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 bspc desktop '^1' --layout monocle
 # Make windows float on specific desktops
 # https://github.com/baskerville/bspwm/issues/325
-bspc subscribe node_manage | while read msg; do
-	set -- $msg
-	desk_name=$3
-	case "$desk_name" in
+bspc subscribe node_manage | while read event monitor desktop nodeid ipid; do
+	case "$desktop" in
 		play|6|virt|7|9)
-			wid=$4
-			bspc node "$wid" --state floating
+			bspc node "$nodeid" --state floating
 			;;
 	esac
 done &
