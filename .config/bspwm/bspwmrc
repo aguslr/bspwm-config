@@ -34,87 +34,87 @@ done &
 bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
 
 # Send to www desktop
-bspc rule --add Iceweasel desktop='^2' follow=on split_dir=west split_ratio=0.65
+bspc rule --add Iceweasel                   desktop='^2' follow=on split_dir=west split_ratio=0.65
 # Send to dev desktop
-bspc rule --add Atom desktop='^3' follow=on
-bspc rule --add Brackets desktop='^3' follow=on
-bspc rule --add Eclipse desktop='^3' follow=on
-bspc rule --add LightTable desktop='^3' follow=on
-bspc rule --add Ltbin desktop='^3' follow=on
-bspc rule --add Gvim desktop='^3' follow=on
-bspc rule --add Mysql-workbench-bin desktop='^3' follow=on
-bspc rule --add sun-awt-X11-XFramePeer desktop='^3' follow=on
+bspc rule --add Atom                        desktop='^3' follow=on
+bspc rule --add Brackets                    desktop='^3' follow=on
+bspc rule --add Eclipse                     desktop='^3' follow=on
+bspc rule --add LightTable                  desktop='^3' follow=on
+bspc rule --add Ltbin                       desktop='^3' follow=on
+bspc rule --add Gvim                        desktop='^3' follow=on
+bspc rule --add Mysql-workbench-bin         desktop='^3' follow=on
+bspc rule --add sun-awt-X11-XFramePeer      desktop='^3' follow=on
 # Send to chat desktop
-bspc rule --add Hexchat desktop='^4' --one-shot follow=on
-bspc rule --add Xchat desktop='^4' --one-shot follow=on
+bspc rule --add Hexchat                     desktop='^4' --one-shot follow=on
+bspc rule --add Xchat                       desktop='^4' --one-shot follow=on
 # Send to edit desktop
-bspc rule --add Abiword desktop='^5' follow=on
-bspc rule --add Avidemux desktop='^5' follow=on
-bspc rule --add Blender desktop='^5' follow=on
-bspc rule --add Darktable desktop='^5' follow=on
-bspc rule --add Gimp desktop='^5' follow=on
-bspc rule --add Gimp-2.8 desktop='^5' follow=on
-bspc rule --add Gnumeric desktop='^5' follow=on
-bspc rule --add Handbrake desktop='^5' follow=on
-bspc rule --add Illustrator.exe desktop='^5' follow=on
-bspc rule --add Photoshop.exe desktop='^5' follow=on
-bspc rule --add Inkscape desktop='^5' follow=on
-bspc rule --add Openshot desktop='^5' follow=on
-bspc rule --add Pitivi desktop='^5' follow=on
-bspc rule --add Rawtherapee desktop='^5' follow=on
-bspc rule --add Ufraw desktop='^5' follow=on
+bspc rule --add Abiword                     desktop='^5' follow=on
+bspc rule --add Avidemux                    desktop='^5' follow=on
+bspc rule --add Blender                     desktop='^5' follow=on
+bspc rule --add Darktable                   desktop='^5' follow=on
+bspc rule --add Gimp                        desktop='^5' follow=on
+bspc rule --add Gimp-2.8                    desktop='^5' follow=on
+bspc rule --add Gnumeric                    desktop='^5' follow=on
+bspc rule --add Handbrake                   desktop='^5' follow=on
+bspc rule --add Illustrator.exe             desktop='^5' follow=on
+bspc rule --add Photoshop.exe               desktop='^5' follow=on
+bspc rule --add Inkscape                    desktop='^5' follow=on
+bspc rule --add Openshot                    desktop='^5' follow=on
+bspc rule --add Pitivi                      desktop='^5' follow=on
+bspc rule --add Rawtherapee                 desktop='^5' follow=on
+bspc rule --add Ufraw                       desktop='^5' follow=on
 # Send to play desktop
-bspc rule --add Vlc desktop='^6' follow=on
-bspc rule --add scummvm desktop='^6' follow=on
-bspc rule --add Wine desktop='^6' follow=on
-bspc rule --add Desura desktop='^6' --one-shot follow=on
-bspc rule --add Steam desktop='^6' --one-shot follow=on
+bspc rule --add Vlc                         desktop='^6' follow=on
+bspc rule --add scummvm                     desktop='^6' follow=on
+bspc rule --add Wine                        desktop='^6' follow=on
+bspc rule --add Desura                      desktop='^6' --one-shot follow=on
+bspc rule --add Steam                       desktop='^6' --one-shot follow=on
 # Send to virt desktop
-bspc rule --add qemu-system-i386 desktop='^7' follow=on
-bspc rule --add qemu-system-x86_64 desktop='^7' follow=on
-bspc rule --add Virt-manager desktop='^7' follow=on
-bspc rule --add VirtualBox desktop='^7' follow=on
+bspc rule --add qemu-system-i386            desktop='^7' follow=on
+bspc rule --add qemu-system-x86_64          desktop='^7' follow=on
+bspc rule --add Virt-manager                desktop='^7' follow=on
+bspc rule --add VirtualBox                  desktop='^7' follow=on
 
 # Float windows opened from the panel
-bspc rule --add URxvt:popup state=floating
+bspc rule --add URxvt:popup                 state=floating
 # Make scratchpad floating and sticky
-bspc rule --add URxvt:scratchpad sticky=on state=floating border=off
+bspc rule --add URxvt:scratchpad            sticky=on state=floating border=off
 # Other floating windows
-bspc rule --add Cssh state=floating
-bspc rule --add Display state=floating
-bspc rule --add Empathy state=floating
-bspc rule --add Eog state=floating
-bspc rule --add feh state=floating
-bspc rule --add Keepassx state=floating
-bspc rule --add mplayer2 state=floating
-bspc rule --add mpv state=floating
-bspc rule --add Nautilus state=floating
-bspc rule --add Pavucontrol state=floating
-bspc rule --add Pcmanfm state=floating
-bspc rule --add Pidgin state=floating
-bspc rule --add qTox state=floating
-bspc rule --add Remmina state=floating
-bspc rule --add "Syncthing GTK" state=floating
-bspc rule --add Transmission-gtk state=floating
-bspc rule --add Uget-gtk state=floating
-bspc rule --add Vinagre state=floating
+bspc rule --add Cssh                        state=floating
+bspc rule --add Display                     state=floating
+bspc rule --add Empathy                     state=floating
+bspc rule --add Eog                         state=floating
+bspc rule --add feh                         state=floating
+bspc rule --add Keepassx                    state=floating
+bspc rule --add mplayer2                    state=floating
+bspc rule --add mpv                         state=floating
+bspc rule --add Nautilus                    state=floating
+bspc rule --add Pavucontrol                 state=floating
+bspc rule --add Pcmanfm                     state=floating
+bspc rule --add Pidgin                      state=floating
+bspc rule --add qTox                        state=floating
+bspc rule --add Remmina                     state=floating
+bspc rule --add "Syncthing GTK"             state=floating
+bspc rule --add Transmission-gtk            state=floating
+bspc rule --add Uget-gtk                    state=floating
+bspc rule --add Vinagre                     state=floating
 
 # Colors
 . "$HOME/.themes/colorschemes/bspwm.cfg"
-bspc config focused_border_color                "$brightwhite"
-bspc config active_border_color                 "$brightblack"
-bspc config normal_border_color                 "$black"
-bspc config urgent_border_color                 "$blue"
-bspc config presel_feedback_color               "$yellow"
-bspc config focused_locked_border_color         "$brightred"
-bspc config active_locked_border_color          "$red"
-bspc config normal_locked_border_color          "$black"
-bspc config focused_sticky_border_color         "$brightcyan"
-bspc config active_sticky_border_color          "$cyan"
-bspc config normal_sticky_border_color          "$black"
-bspc config focused_private_border_color        "$brightblue"
-bspc config active_private_border_color         "$blue"
-bspc config normal_private_border_color         "$black"
+bspc config focused_border_color            "$brightwhite"
+bspc config active_border_color             "$brightblack"
+bspc config normal_border_color             "$black"
+bspc config urgent_border_color             "$blue"
+bspc config presel_feedback_color           "$yellow"
+bspc config focused_locked_border_color     "$brightred"
+bspc config active_locked_border_color      "$red"
+bspc config normal_locked_border_color      "$black"
+bspc config focused_sticky_border_color     "$brightcyan"
+bspc config active_sticky_border_color      "$cyan"
+bspc config normal_sticky_border_color      "$black"
+bspc config focused_private_border_color    "$brightblue"
+bspc config active_private_border_color     "$blue"
+bspc config normal_private_border_color     "$black"
 
 # Set wallpaper
 hsetroot -solid "$black" -tile "${XDG_PICTURES_DIR:-$HOME/Pictures}/pattern"
