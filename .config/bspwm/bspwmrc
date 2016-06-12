@@ -31,6 +31,7 @@ done &
 bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
 
 # Send to www desktop
+bspc rule --add Firefox                     desktop='^2' follow=on
 bspc rule --add Iceweasel                   desktop='^2' follow=on
 # Send to dev desktop
 bspc rule --add Atom                        desktop='^3' follow=on
