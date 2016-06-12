@@ -21,7 +21,7 @@ bspc desktop '^1' --layout monocle
 # https://github.com/baskerville/bspwm/issues/325
 bspc subscribe node_manage | while read event monitor desktop nodeid ipid; do
 	case "$desktop" in
-		play|6|virt|7|9)
+		www|play|6|virt|7|9)
 			bspc node "$nodeid" --state floating
 			;;
 	esac
@@ -31,7 +31,7 @@ done &
 bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
 
 # Send to www desktop
-bspc rule --add Iceweasel                   desktop='^2' follow=on split_dir=west split_ratio=0.65
+bspc rule --add Iceweasel                   desktop='^2' follow=on
 # Send to dev desktop
 bspc rule --add Atom                        desktop='^3' follow=on
 bspc rule --add Brackets                    desktop='^3' follow=on
