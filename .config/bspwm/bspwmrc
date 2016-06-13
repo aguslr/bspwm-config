@@ -63,6 +63,7 @@ bspc rule --add Rawtherapee                 desktop='^5' follow=on
 bspc rule --add Ufraw                       desktop='^5' follow=on
 # Send to play desktop
 bspc rule --add Vlc                         desktop='^6' follow=on
+bspc rule --add retroarch                   desktop='^6' follow=on
 bspc rule --add scummvm                     desktop='^6' follow=on
 bspc rule --add zsnes                       desktop='^6' follow=on
 bspc rule --add Wine                        desktop='^6' follow=on
