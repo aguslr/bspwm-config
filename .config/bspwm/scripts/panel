@@ -44,7 +44,7 @@ while true; do
 	title_line="TTL"
 	# Get title and cut long lines
 	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)" \
-	    && title_line="${title_line} $(cut "$win_title" 80)"
+	    && title_line="${title_line} $(cut "$win_title" 120)"
 
 	# Dump information to file
 	printf '%s\n' "$title_line" > "$PANEL_FIFO"
@@ -167,7 +167,7 @@ while true; do
 	# Get MPD information and cut long lines
 	HOST="${MPDHOST-localhost}"
 	mpd_info=$(getSong.sh "$HOST") \
-	    && mpd_line="${mpd_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 50)%{A}%{A}%{A}%{A}"
+	    && mpd_line="${mpd_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 75)%{A}%{A}%{A}%{A}"
 
 	# Dump information to file
 	printf '%s\n' "$mpd_line" > "$PANEL_FIFO"
