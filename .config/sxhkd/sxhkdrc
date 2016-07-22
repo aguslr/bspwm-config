@@ -48,12 +48,16 @@ super + f
 	bspc node --state \~fullscreen
 
 # Focus last window/desktop
-{alt,super} + Tab
+{alt,super} + grave
 	bspc {node,desktop} --focus last.local
 
 # Focus next/previous window
-super + {comma,period}
-	bspc node --focus {next,prev}
+alt + {_,shift} + Tab
+	bspc node --focus {prev,next}
+
+# Focus next/previous desktop
+super + {_,shift} + Tab
+	bspc desktop --focus {prev,next}.occupied
 
 # Navigate to older/newer window in history
 super + {o,n}
