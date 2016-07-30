@@ -157,11 +157,11 @@ alt + @button{1-3}
 
 # Multimedia keys
 {XF86AudioPrev,XF86AudioNext,XF86AudioStop,XF86AudioPlay}
-	~/bin/mmkeys.sh {prev,next,stop,play}
+	mmkeys.sh {prev,next,stop,play}
 
 # Launch dmenu
 alt + r
-	~/bin/dmenu_run.sh -p 'Run:'
+	dmenu_run.sh -p 'Run:'
 
 # Toggle visibility of systray
 super + t
