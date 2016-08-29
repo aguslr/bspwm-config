@@ -31,49 +31,49 @@ done &
 bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
 
 # Send to www desktop
-bspc rule --add Firefox                     desktop='^2' follow=on
-bspc rule --add Iceweasel                   desktop='^2' follow=on
+bspc rule --add Firefox                     desktop='www' follow=on
+bspc rule --add Iceweasel                   desktop='www' follow=on
 # Send to dev desktop
-bspc rule --add Atom                        desktop='^3' follow=on
-bspc rule --add Brackets                    desktop='^3' follow=on
-bspc rule --add Eclipse                     desktop='^3' follow=on
-bspc rule --add LightTable                  desktop='^3' follow=on
-bspc rule --add Ltbin                       desktop='^3' follow=on
-bspc rule --add Gvim                        desktop='^3' follow=on
-bspc rule --add Mysql-workbench-bin         desktop='^3' follow=on
-bspc rule --add sun-awt-X11-XFramePeer      desktop='^3' follow=on
+bspc rule --add Atom                        desktop='dev' follow=on
+bspc rule --add Brackets                    desktop='dev' follow=on
+bspc rule --add Eclipse                     desktop='dev' follow=on
+bspc rule --add LightTable                  desktop='dev' follow=on
+bspc rule --add Ltbin                       desktop='dev' follow=on
+bspc rule --add Gvim                        desktop='dev' follow=on
+bspc rule --add Mysql-workbench-bin         desktop='dev' follow=on
+bspc rule --add sun-awt-X11-XFramePeer      desktop='dev' follow=on
 # Send to chat desktop
-bspc rule --add Hexchat                     desktop='^4' --one-shot follow=on
-bspc rule --add Xchat                       desktop='^4' --one-shot follow=on
+bspc rule --add Hexchat                     desktop='chat' --one-shot follow=on
+bspc rule --add Xchat                       desktop='chat' --one-shot follow=on
 # Send to edit desktop
-bspc rule --add Abiword                     desktop='^5' follow=on
-bspc rule --add Avidemux                    desktop='^5' follow=on
-bspc rule --add Blender                     desktop='^5' follow=on
-bspc rule --add Darktable                   desktop='^5' follow=on
-bspc rule --add Gimp                        desktop='^5' follow=on
-bspc rule --add Gimp-2.8                    desktop='^5' follow=on
-bspc rule --add Gnumeric                    desktop='^5' follow=on
-bspc rule --add Handbrake                   desktop='^5' follow=on
-bspc rule --add Illustrator.exe             desktop='^5' follow=on
-bspc rule --add Photoshop.exe               desktop='^5' follow=on
-bspc rule --add Inkscape                    desktop='^5' follow=on
-bspc rule --add Openshot                    desktop='^5' follow=on
-bspc rule --add Pitivi                      desktop='^5' follow=on
-bspc rule --add Rawtherapee                 desktop='^5' follow=on
-bspc rule --add Ufraw                       desktop='^5' follow=on
+bspc rule --add Abiword                     desktop='edit' follow=on
+bspc rule --add Avidemux                    desktop='edit' follow=on
+bspc rule --add Blender                     desktop='edit' follow=on
+bspc rule --add Darktable                   desktop='edit' follow=on
+bspc rule --add Gimp                        desktop='edit' follow=on
+bspc rule --add Gimp-2.8                    desktop='edit' follow=on
+bspc rule --add Gnumeric                    desktop='edit' follow=on
+bspc rule --add Handbrake                   desktop='edit' follow=on
+bspc rule --add Illustrator.exe             desktop='edit' follow=on
+bspc rule --add Photoshop.exe               desktop='edit' follow=on
+bspc rule --add Inkscape                    desktop='edit' follow=on
+bspc rule --add Openshot                    desktop='edit' follow=on
+bspc rule --add Pitivi                      desktop='edit' follow=on
+bspc rule --add Rawtherapee                 desktop='edit' follow=on
+bspc rule --add Ufraw                       desktop='edit' follow=on
 # Send to play desktop
-bspc rule --add Vlc                         desktop='^6' follow=on
-bspc rule --add retroarch                   desktop='^6' follow=on
-bspc rule --add scummvm                     desktop='^6' follow=on
-bspc rule --add zsnes                       desktop='^6' follow=on
-bspc rule --add Wine                        desktop='^6' follow=on
-bspc rule --add Desura                      desktop='^6' --one-shot follow=on
-bspc rule --add Steam                       desktop='^6' --one-shot follow=on
+bspc rule --add Vlc                         desktop='play' follow=on
+bspc rule --add retroarch                   desktop='play' follow=on
+bspc rule --add scummvm                     desktop='play' follow=on
+bspc rule --add zsnes                       desktop='play' follow=on
+bspc rule --add Wine                        desktop='play' follow=on
+bspc rule --add Desura                      desktop='play' --one-shot follow=on
+bspc rule --add Steam                       desktop='play' --one-shot follow=on
 # Send to virt desktop
-bspc rule --add qemu-system-i386            desktop='^7' follow=on
-bspc rule --add qemu-system-x86_64          desktop='^7' follow=on
-bspc rule --add Virt-manager                desktop='^7' follow=on
-bspc rule --add VirtualBox                  desktop='^7' follow=on
+bspc rule --add qemu-system-i386            desktop='virt' follow=on
+bspc rule --add qemu-system-x86_64          desktop='virt' follow=on
+bspc rule --add Virt-manager                desktop='virt' follow=on
+bspc rule --add VirtualBox                  desktop='virt' follow=on
 
 # Float windows opened from the panel
 bspc rule --add URxvt:popup                 state=floating

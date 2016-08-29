@@ -7,7 +7,7 @@ instance=$3
 # Parse instance
 case "$instance" in
 	libreoffice)
-		printf "desktop=^5 follow=on"
+		printf "desktop='edit' follow=on"
 		;;
 	*)
 		# Parse class
@@ -17,7 +17,7 @@ case "$instance" in
 				name=$(xdotool getwindowname "$wid")
 				case "$name" in
 					Butter|Popcorn-Time)
-						printf "desktop=^6 follow=on"
+						printf "desktop='play' follow=on"
 						;;
 				esac
 				;;
