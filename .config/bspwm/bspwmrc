@@ -133,5 +133,8 @@ sxhkd &
 # Autostart
 "$BSPWM_CONFIG/autostart" &
 
-# Launch panel
-"$BSPWM_CONFIG/scripts/panel" &
+# Read panel configuration and launch it
+. "$BSPWM_CONFIG/panel.cfg" \
+    && "$BSPWM_CONFIG/scripts/panel" | "$BSPWM_CONFIG/scripts/panel_bar" \
+    | lemonbar -g "${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH}" -f "$PANEL_FONT_FAMILY" \
+    -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u "$UNDERLINE_WIDTH" | sh &
