@@ -130,8 +130,8 @@ fi
 # Launch keybinding daemon
 sxhkd &
 
-# Launch panel
-"$BSPWM_CONFIG/scripts/panel" &
-
 # Autostart
 "$BSPWM_CONFIG/autostart" &
+
+# Launch panel
+"$BSPWM_CONFIG/scripts/panel" &
