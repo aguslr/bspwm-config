@@ -6,9 +6,11 @@
 # Set PATH for scripts
 PATH="${HOME}/bin:$PATH"
 
-if [ "$(pgrep -cx panel)" -gt 1 ] ; then
+# Kill any previous running instance
+pname=$(basename "$0")
+if [ "$(pgrep -cx "$pname")" -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
-	pkill -x panel
+	pkill -x "$pname"
 fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
