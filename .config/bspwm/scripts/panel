@@ -15,7 +15,7 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
 bspc config top_padding $(($(bspc config top_padding) + BARHEIGHT + EDGEWIDTH))
 
-# Functions
+# Function to cut long lines
 cut() {
 	local newstr
 	local curstr="$1" || return 1
@@ -32,276 +32,281 @@ cut() {
 	printf "%s" "$newstr"
 }
 
-# WM desktop information
-while true; do
-	# Interval between checks in seconds
-	wait=0.1
-	# Create line
-	wm_line="W"
-	# Get monitors
-	cur_monitor=$(xrandr --current | awk '/ primary/ {print $1}') \
-		&& wm_line="${wm_line}M${cur_monitor}"
-	monitor_names=$(xrandr --current | awk '/ connected/ {printf "%s ", $1}')
-	# Get current desktop and number of desktops
-	cur_desktop=$(xdotool get_desktop)
-	num_desktops=$(xdotool get_num_desktops)
-	# Assign desktop names to positional arguments
-	desktop_names=$(xprop -root '\t$0+' _NET_DESKTOP_NAMES \
-		| awk -F'\t' '{print $2}' | sed 's/[",]//g') \
-		&& set -- $desktop_names
-	# Get active windows IDs
-	win_ids=$(xprop -root '\t$0+' _NET_CLIENT_LIST \
-		| awk -F'\t' '{print $2}' | sed 's/[",]//g')
-	# Add desktops before the current one
-	for desktop in $(seq 0 $((cur_desktop - 1))); do
-		# Reset switches
-		occupied=0
-		urgent=0
-		# Get desktop name
-		desktop_name="$1" && { [ $# -ne 0 ] && shift; }
-		# Check whether any window belongs to this desktop
-		for id in $win_ids; do
-			win_desktop=$(xdotool get_desktop_for_window "$id" 2>/dev/null) || continue
-			if [ "$win_desktop" -eq "$desktop" ]; then
-				# Set occupied switch
-				occupied=1
-				# Check if urgent bit is set
-				xprop -id "$id" WM_HINTS | grep -q 'The urgency hint bit is set' && urgent=1
+# Function to get all the information
+getInfo() {
+	# WM desktop information
+	while true; do
+		# Interval between checks in seconds
+		wait=0.1
+		# Create line
+		wm_line="W"
+		# Get monitors
+		cur_monitor=$(xrandr --current | awk '/ primary/ {print $1}') \
+		    && wm_line="${wm_line}M${cur_monitor}"
+		monitor_names=$(xrandr --current | awk '/ connected/ {printf "%s ", $1}')
+		# Get current desktop and number of desktops
+		cur_desktop=$(xdotool get_desktop)
+		num_desktops=$(xdotool get_num_desktops)
+		# Assign desktop names to positional arguments
+		desktop_names=$(xprop -root '\t$0+' _NET_DESKTOP_NAMES \
+		    | awk -F'\t' '{print $2}' | sed 's/[",]//g') \
+		    && set -- $desktop_names
+		# Get active windows IDs
+		win_ids=$(xprop -root '\t$0+' _NET_CLIENT_LIST \
+		    | awk -F'\t' '{print $2}' | sed 's/[",]//g')
+		# Add desktops before the current one
+		for desktop in $(seq 0 $((cur_desktop - 1))); do
+			# Reset switches
+			occupied=0
+			urgent=0
+			# Get desktop name
+			desktop_name="$1" && { [ $# -ne 0 ] && shift; }
+			# Check whether any window belongs to this desktop
+			for id in $win_ids; do
+				win_desktop=$(xdotool get_desktop_for_window "$id" 2>/dev/null) || continue
+				if [ "$win_desktop" -eq "$desktop" ]; then
+					# Set occupied switch
+					occupied=1
+					# Check if urgent bit is set
+					xprop -id "$id" WM_HINTS | grep -q 'The urgency hint bit is set' && urgent=1
+				fi
+			done
+			# Add desktop to line
+			if [ "$urgent" -eq 1 ]; then
+				wm_line="${wm_line}:u$((desktop+1))_${desktop_name}"
+			elif [ "$occupied" -eq 1 ]; then
+				wm_line="${wm_line}:o$((desktop+1))_${desktop_name}"
 			fi
 		done
-		# Add desktop to line
-		if [ "$urgent" -eq 1 ]; then
-			wm_line="${wm_line}:u$((desktop+1))_${desktop_name}"
-		elif [ "$occupied" -eq 1 ]; then
-			wm_line="${wm_line}:o$((desktop+1))_${desktop_name}"
-		fi
-	done
-	# Add current desktop
-	wm_line="${wm_line}:O$((cur_desktop+1))_${1}" && { [ $# -ne 0 ] && shift; }
-	# Add desktops after the current one
-	for desktop in $(seq $((cur_desktop + 1)) $num_desktops); do
-		# Reset switches
-		occupied=0
-		urgent=0
-		# Get desktop name
-		desktop_name="$1" && { [ $# -ne 0 ] && shift; }
-		# Check whether any window belongs to this desktop
-		for id in $win_ids; do
-			win_desktop=$(xdotool get_desktop_for_window "$id" 2>/dev/null) || continue
-			if [ "$win_desktop" -eq "$desktop" ]; then
-				# Set occupied switch
-				occupied=1
-				# Check if urgent bit is set
-				xprop -id "$id" WM_HINTS | grep -q 'The urgency hint bit is set' && urgent=1
+		# Add current desktop
+		wm_line="${wm_line}:O$((cur_desktop+1))_${1}" && { [ $# -ne 0 ] && shift; }
+		# Add desktops after the current one
+		for desktop in $(seq $((cur_desktop + 1)) $num_desktops); do
+			# Reset switches
+			occupied=0
+			urgent=0
+			# Get desktop name
+			desktop_name="$1" && { [ $# -ne 0 ] && shift; }
+			# Check whether any window belongs to this desktop
+			for id in $win_ids; do
+				win_desktop=$(xdotool get_desktop_for_window "$id" 2>/dev/null) || continue
+				if [ "$win_desktop" -eq "$desktop" ]; then
+					# Set occupied switch
+					occupied=1
+					# Check if urgent bit is set
+					xprop -id "$id" WM_HINTS | grep -q 'The urgency hint bit is set' && urgent=1
+				fi
+			done
+			# Add desktop to line
+			if [ "$urgent" -eq 1 ]; then
+				wm_line="${wm_line}:u$((desktop+1))_${desktop_name}"
+			elif [ "$occupied" -eq 1 ]; then
+				wm_line="${wm_line}:o$((desktop+1))_${desktop_name}"
 			fi
 		done
-		# Add desktop to line
-		if [ "$urgent" -eq 1 ]; then
-			wm_line="${wm_line}:u$((desktop+1))_${desktop_name}"
-		elif [ "$occupied" -eq 1 ]; then
-			wm_line="${wm_line}:o$((desktop+1))_${desktop_name}"
-		fi
-	done
 
-	# Dump information to file
-	printf '%s\n' "$wm_line"
+		# Dump information to file
+		printf '%s\n' "$wm_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Active window information
-while true; do
-	# Interval between checks in seconds
-	wait=0.1
-	# Create line
-	title_line="TTL"
-	# Get title and cut long lines
-	win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)" \
-	    && title_line="${title_line} $(cut "$win_title" 120)"
+	# Active window information
+	while true; do
+		# Interval between checks in seconds
+		wait=0.1
+		# Create line
+		title_line="TTL"
+		# Get title and cut long lines
+		win_title="$(xdotool getactivewindow getwindowname 2>/dev/null)" \
+		    && title_line="${title_line} $(cut "$win_title" 120)"
 
-	# Dump information to file
-	printf '%s\n' "$title_line"
+		# Dump information to file
+		printf '%s\n' "$title_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# System information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	sys_line="SYS"
-	# cpu information
-	cpu_info=$(getCPU.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvtc -name popup -g $TERM_BIG -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
-	# Memory information
-	mem_info=$(getMem.sh -e %) \
-	    && sys_line="${sys_line} %{A:urxvtc -name popup -g $TERM_BIG -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
+	# System information
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		sys_line="SYS"
+		# cpu information
+		cpu_info=$(getCPU.sh -e %) \
+		    && sys_line="${sys_line} %{A:urxvtc -name popup -g $TERM_BIG -e htop --sort-key PERCENT_cpu:}%{F$COLOR_FREE_FG}cpu%{F-} ${cpu_info}%{A}"
+		# Memory information
+		mem_info=$(getMem.sh -e %) \
+		    && sys_line="${sys_line} %{A:urxvtc -name popup -g $TERM_BIG -e htop --sort-key PERCENT_MEM:}%{F$COLOR_FREE_FG}ram%{F-} ${mem_info}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$sys_line"
+		# Dump information to file
+		printf '%s\n' "$sys_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Network information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	net_line="NET"
 	# Network information
-	net_info=$(getNetwork.sh) \
-	    && net_line="${net_line} %{A:urxvtc -name popup -g $TERM_SMALL -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		net_line="NET"
+		# Network information
+		net_info=$(getNetwork.sh) \
+		    && net_line="${net_line} %{A:urxvtc -name popup -g $TERM_SMALL -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$net_line"
+		# Dump information to file
+		printf '%s\n' "$net_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Power information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	pwr_line="PWR"
 	# Power information
-	bat_info=$(getBattery.sh -e %) \
-	    && pwr_line="${pwr_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		pwr_line="PWR"
+		# Power information
+		bat_info=$(getBattery.sh -e %) \
+		    && pwr_line="${pwr_line} %{F$COLOR_FREE_FG}bat%{F-} ${bat_info}"
 
-	# Dump information to file
-	printf '%s\n' "$pwr_line"
+		# Dump information to file
+		printf '%s\n' "$pwr_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Volume information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	vol_line="VOL"
 	# Volume information
-	vol_info=$(getVolume.sh -e % Master) \
-	    && vol_line="${vol_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		vol_line="VOL"
+		# Volume information
+		vol_info=$(getVolume.sh -e % Master) \
+		    && vol_line="${vol_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e alsamixer:}%{A2:amixer -q sset Master toggle:}%{A4:amixer -q sset Master 2%+:}%{A5:amixer -q sset Master 2%-:}%{F$COLOR_FREE_FG}vol%{F-} ${vol_info}%{A}%{A}%{A}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$vol_line"
+		# Dump information to file
+		printf '%s\n' "$vol_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Date information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	clk_line="CLK"
 	# Date information
-	date_info=$(getDate.sh) \
-	    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		clk_line="CLK"
+		# Date information
+		date_info=$(getDate.sh) \
+		    && clk_line="${clk_line} %{F$COLOR_FREE_FG}clk%{F-} $date_info "
 
-	# Dump information to file
-	printf '%s\n' "$clk_line"
+		# Dump information to file
+		printf '%s\n' "$clk_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Keyboard information
-while true; do
-	# Interval between checks in seconds
-	wait=1
-	# Create line
-	kbd_line="KBD"
 	# Keyboard information
-	kbd_info=$(mngKbd.sh -g) \
-	    && kbd_line="${kbd_line} %{A1:mngKbd.sh -p:}%{A2:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}%{A}"
+	while true; do
+		# Interval between checks in seconds
+		wait=1
+		# Create line
+		kbd_line="KBD"
+		# Keyboard information
+		kbd_info=$(mngKbd.sh -g) \
+		    && kbd_line="${kbd_line} %{A1:mngKbd.sh -p:}%{A2:mngKbd.sh:}%{F$COLOR_FREE_FG}kbd%{F-} $kbd_info%{A}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$kbd_line"
+		# Dump information to file
+		printf '%s\n' "$kbd_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Music Player Daemon information
-while true; do
-	# Interval between checks in seconds
-	wait=1
-	# Create line
-	mpd_line="MPD"
-	# Get MPD information and cut long lines
-	HOST="${MPDHOST-localhost}"
-	mpd_info=$(getSong.sh "$HOST") \
-	    && mpd_line="${mpd_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 75)%{A}%{A}%{A}%{A}"
+	# Music Player Daemon information
+	while true; do
+		# Interval between checks in seconds
+		wait=1
+		# Create line
+		mpd_line="MPD"
+		# Get MPD information and cut long lines
+		HOST="${MPDHOST-localhost}"
+		mpd_info=$(getSong.sh "$HOST") \
+		    && mpd_line="${mpd_line} %{A1:urxvtc -name popup -g $TERM_SMALL -e ncmpcpp -h $HOST:}%{A2:mpc -h $HOST toggle:}%{A4:mpc -h $HOST prev:}%{A5:mpc -h $HOST next:}%{F$COLOR_FREE_FG}mpd%{F-} $(cut "$mpd_info" 75)%{A}%{A}%{A}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$mpd_line"
+		# Dump information to file
+		printf '%s\n' "$mpd_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# OpenWeatherMap information
-while true; do
-	# Interval between checks in seconds
-	wait=300
-	# Create line
-	owm_line="OWM"
-	# Temperature information
-	temp_info=$(getWeather.sh) \
-	    && owm_line="${owm_line} %{A:urxvtc -name popup -g $TERM_BIG -e lynx http\://wttr.in/:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
+	# OpenWeatherMap information
+	while true; do
+		# Interval between checks in seconds
+		wait=300
+		# Create line
+		owm_line="OWM"
+		# Temperature information
+		temp_info=$(getWeather.sh) \
+		    && owm_line="${owm_line} %{A:urxvtc -name popup -g $TERM_BIG -e lynx http\://wttr.in/:}%{F$COLOR_FREE_FG}tem%{F-} ${temp_info}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$owm_line"
+		# Dump information to file
+		printf '%s\n' "$owm_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# ToDo information
-while true; do
-	# Interval between checks in seconds
-	wait=0.2
-	# Create line
-	tsk_line="TSK"
 	# ToDo information
-	tasks_info=$(getTasks.sh) \
-	    && tsk_line="${tsk_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
+	while true; do
+		# Interval between checks in seconds
+		wait=0.2
+		# Create line
+		tsk_line="TSK"
+		# ToDo information
+		tasks_info=$(getTasks.sh) \
+		    && tsk_line="${tsk_line} %{A:gvim -o ~/todo.txt ~/done.txt:}%{F$COLOR_FREE_FG}tsk%{F-} ${tasks_info}%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$tsk_line"
+		# Dump information to file
+		printf '%s\n' "$tsk_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
 
-# Mail information
-while true; do
-	# Interval between checks in seconds
-	wait=30
-	# Create line
-	msg_line="MSG"
-	# Mail messages
-	msg_info=$(getMail.sh) \
-	    && msg_line="${msg_line} %{A:urxvtc -name popup -g $TERM_BIG -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
+	# Mail information
+	while true; do
+		# Interval between checks in seconds
+		wait=30
+		# Create line
+		msg_line="MSG"
+		# Mail messages
+		msg_info=$(getMail.sh) \
+		    && msg_line="${msg_line} %{A:urxvtc -name popup -g $TERM_BIG -e env LANG=en_US.UTF-8 mutt:}%{F$COLOR_FREE_FG}msg%{F-} $msg_info%{A}"
 
-	# Dump information to file
-	printf '%s\n' "$msg_line"
+		# Dump information to file
+		printf '%s\n' "$msg_line"
 
-	# Wait before repeating
-	sleep $wait
-done &
+		# Wait before repeating
+		sleep $wait
+	done &
+}
+
+# Print information
+getInfo
 
 wait
 
-exit
 # vim: set ts=8 sw=8 tw=0 noet :
