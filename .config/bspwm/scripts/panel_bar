@@ -59,7 +59,9 @@ while read -r line ; do
 			set -- ${line#?}
 			while [ $# -gt 0 ] ; do
 				item=$1
-				name=${item#?}
+				id=${item#?}
+				num=${id%_*}
+				name=${id#*_}
 				case $item in
 					M*)
 						# active monitor
