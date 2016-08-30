@@ -59,18 +59,18 @@ case $selection in
 		logout
 		;;
 	hibernate)
-		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Hibernate
+		systemctl hibernate
 		;;
 	suspend)
-		dbus-send --system --print-reply --dest="org.freedesktop.DeviceKit.Power" /org/freedesktop/DeviceKit/Power org.freedesktop.DeviceKit.Power.Suspend
+		systemctl suspend
 		;;
 	reboot)
 		logout
-		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+		systemctl reboot
 		;;
 	halt|poweroff|shutdown)
 		logout
-		dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+		systemctl poweroff
 		;;
 esac
 
