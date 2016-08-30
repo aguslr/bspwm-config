@@ -78,23 +78,23 @@ while read -r line ; do
 						;;
 					O*)
 						# focused occupied desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_OCCUPIED_FG}%{B$COLOR_FOCUSED_OCCUPIED_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_OCCUPIED_FG}%{B$COLOR_FOCUSED_OCCUPIED_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:xdotool key super+Left:}%{A5:xdotool key super+Right:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					F*)
 						# focused free desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_FOCUSED_FREE_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_FOCUSED_FREE_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:xdotool key super+Left:}%{A5:xdotool key super+Right:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					U*)
 						# focused urgent desktop
-						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_URGENT_FG}%{B$COLOR_FOCUSED_URGENT_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_FOCUSED_URGENT_FG}%{B$COLOR_FOCUSED_URGENT_BG}%{U$COLOR_UNDERLINE}%{+u}%{A4:xdotool key super+Left:}%{A5:xdotool key super+Right:} ${name} %{A}%{A}%{-u}%{B-}%{F-}"
 						;;
 					o*)
 						# occupied desktop
-						wm_infos="${wm_infos}%{F$COLOR_OCCUPIED_FG}%{B$COLOR_OCCUPIED_BG}%{A1:bspc desktop --focus ${name}:}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_OCCUPIED_FG}%{B$COLOR_OCCUPIED_BG}%{A1:xdotool key super+${num}:}%{A4:xdotool key super+Left:}%{A5:xdotool key super+Right:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
 						;;
 					u*)
 						# urgent desktop
-						wm_infos="${wm_infos}%{F$COLOR_URGENT_FG}%{B$COLOR_URGENT_BG}%{A1:bspc desktop --focus ${name}:}%{A4:bspc desktop --focus prev.occupied:}%{A5:bspc desktop --focus next.occupied:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
+						wm_infos="${wm_infos}%{F$COLOR_URGENT_FG}%{B$COLOR_URGENT_BG}%{A1:xdotool key super+${num}:}%{A4:xdotool key super+Left:}%{A5:xdotool key super+Right:} ${name} %{A}%{A}%{A}%{B-}%{F-}"
 						;;
 				esac
 				shift
