@@ -32,7 +32,7 @@ bspc query --tree --node | grep --silent '"state":"floating"' || exit 10
 getInfo
 
 # Check arguments
-while [ $# -gt 0 ]; do
+while [ "$#" -gt 0 ]; do
 	case $1 in
 		left|west)
 			# Move window left
