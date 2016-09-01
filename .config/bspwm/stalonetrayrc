@@ -1,6 +1,6 @@
 background "#fefefe"
 decorations none
-dockapp_mode none
+dockapp_mode simple
 fuzzy_edges 0
 geometry 1x1-0-0
 grow_gravity NE
@@ -10,7 +10,7 @@ log_level err
 kludges force_icons_size
 max_geometry 200x1
 no_shrink false
-parent_bg false
+parent_bg true
 scrollbars none
 slot_size 20
 skip_taskbar true
