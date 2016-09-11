@@ -15,7 +15,9 @@ fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-bspc config top_padding $(($(bspc config top_padding) + BARHEIGHT + EDGEWIDTH))
+# If bspwm is running get top_padding
+pgrep -u "$USER" bspwm >/dev/null \
+    && bspc config top_padding $(($(bspc config top_padding) + BARHEIGHT + EDGEWIDTH))
 
 # Function to cut long lines
 cut() {
