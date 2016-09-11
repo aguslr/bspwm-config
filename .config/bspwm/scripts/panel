@@ -309,7 +309,7 @@ getInfo() {
 }
 
 # Get number of monitors
-num_mon=$(bspc query -M | wc -l)
+num_mon=$(xrandr -q | grep -c ' connected')
 
 # Parse information
 getInfo | while read -r line; do
