@@ -159,7 +159,7 @@ getInfo() {
 		net_line="NET"
 		# Network information
 		net_info=$(getNetwork.sh) \
-		    && net_line="${net_line} %{A:urxvtc -name popup -g $TERM_SMALL -e bash -c \"/sbin/ifconfig 2>/dev/null && read -rsp 'Press any key to continue...' -n 1 key\":}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
+		    && net_line="${net_line} %{A:/sbin/ifconfig 2>/dev/null | gmessage -file -:}%{F$COLOR_FREE_FG}net%{F-} ${net_info}%{A}"
 
 		# Dump information to file
 		printf '%s\n' "$net_line"
