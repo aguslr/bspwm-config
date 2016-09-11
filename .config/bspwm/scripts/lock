@@ -47,9 +47,9 @@ while [ "$#" -gt 0 ]; do
 	esac
 done
 
-# Gets the (width, height) of the screen.
-read screen_width screen_height <<<$(xrandr -q | \
-    awk '/\*/ { split($1, res, "x"); print res[1], res[2]; }')
+# Gets the (width, height) of the root window.
+read screen_width screen_height <<< $(xdpyinfo | \
+    awk '/dimensions/{split($2, res, "x"); print res[1], res[2];}')
 
 # Calculate the "reduced" height and width for the down-scaling.
 reduced_width=$(( screen_width / block_size ))
