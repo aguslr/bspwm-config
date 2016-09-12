@@ -18,7 +18,7 @@ amixer -q sset Master 30%
 xset s 590 590
 # Start xautolock daemon
 pgrep -u "$USER" xautolock >/dev/null || \
-    xautolock -locker "$BSPWM_CONFIG/scripts/lock -p 50 -de -I 5" -time 10 &
+    xautolock -locker "i3lock.sh -p 50 -de -I 5" -time 10 &
 
 # Start Udisks-glue for device automonting
 pgrep -u "$USER" udisks-glue >/dev/null || udisks-glue &
