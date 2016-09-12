@@ -5,8 +5,7 @@ pgrep -u "$USER" compton >/dev/null || \
     compton -bcCG -o 0.5 -r 0 -l 2 -t 2
 
 # Launch systray
-pgrep -u "$USER" stalonetray >/dev/null || \
-    stalonetray --config "$BSPWM_CONFIG/stalonetrayrc" &
+pgrep -u "$USER" stalonetray >/dev/null || stalonetray &
 # Hide systray after 5 seconds
 (sleep 5s && xdotool search --class "stalonetray" windowunmap) &
 
