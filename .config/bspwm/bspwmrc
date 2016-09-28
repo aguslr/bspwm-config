@@ -117,7 +117,7 @@ bspc config active_private_border_color     "$blue"
 bspc config normal_private_border_color     "$black"
 
 # Set wallpaper
-hsetroot -solid "$black" -tile "${XDG_PICTURES_DIR:-$HOME/Pictures}/pattern"
+hsetroot -solid "$brightblack"
 
 # Load session
 . "$BSPWM_CONFIG/restore.cfg"
