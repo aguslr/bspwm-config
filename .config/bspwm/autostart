@@ -16,17 +16,17 @@ amixer -q sset Master 30%
 # https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling#Modifying_DPMS_and_screensaver_settings_using_xset
 xset s 590 590
 # Start xautolock daemon
-pgrep -u "$USER" xautolock >/dev/null || \
+pgrep -xu "$USER" xautolock >/dev/null || \
     xautolock -locker "i3lock.sh -p 50 -de -I 5" -time 10 &
 
 # Start Udisks-glue for device automonting
-pgrep -u "$USER" udisks-glue >/dev/null || udisks-glue &
+pgrep -xu "$USER" udisks-glue >/dev/null || udisks-glue &
 
 # Start S.M.A.R.T. notifier
-pgrep -u "$USER" smart-notifier >/dev/null || smart-notifier &
+pgrep -xu "$USER" smart-notifier >/dev/null || smart-notifier &
 
 # Start AppArmor notifier
-pgrep -u "$USER" aa-notify >/dev/null || aa-notify -p -s 1 -w 60 &
+pgrep -xu "$USER" aa-notify >/dev/null || aa-notify -p -s 1 -w 60 &
 
 # Start gxkb applet
 gxkb &
