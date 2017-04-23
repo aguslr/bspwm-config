@@ -28,6 +28,8 @@ pgrep -u "$USER" smart-notifier >/dev/null || smart-notifier &
 # Start AppArmor notifier
 pgrep -u "$USER" aa-notify >/dev/null || aa-notify -p -s 1 -w 60 &
 
+# Start gxkb applet
+gxkb &
 # Start Update-notifier
 update-notifier &
 # Start Redshift
