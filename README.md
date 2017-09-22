@@ -2,9 +2,9 @@
 
 ## About
 
-This repository stores my configuration of [bspwm][bspwm], which is *a tiling
-window manager based on binary space partitioning*, and [sxhkd][sxhkd], *a
-simple X hotkey daemon*.
+This repository stores my configuration of [bspwm][bspwm], *a tiling window
+manager based on binary space partitioning*, and [sxhkd][sxhkd], *a simple X
+hotkey daemon*.
 
 ## Getting the files
 
@@ -38,7 +38,7 @@ To easily create and manage links to the files we can use [GNU Stow][stow] as
 follows:
 
 ```sh
-stow -vt ~/.config -S .config
+stow -vt ~ -S .
 ```
 
 ## Demo
