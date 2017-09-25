@@ -14,7 +14,7 @@ If we have Git installed on the system, we can get the files directly from the
 repository:
 
 ```sh
-git clone git://github.com/aguslr/bspwm-config.git
+git clone https://github.com/aguslr/bspwm-config
 ```
 
 After this, every time we want to update the files we do:
