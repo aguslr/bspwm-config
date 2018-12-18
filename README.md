@@ -43,7 +43,7 @@ stow -vt ~ -S .
 
 ## Demo
 
-![Demo GIF](demo.gif "Demo")
+![Demo GIF](https://gitlab.com/aguslr/bspwm-config/raw/master/demo.gif "Demo")
 
 [bspwm]: https://github.com/baskerville/bspwm
 [sxhkd]: https://github.com/baskerville/sxhkd
