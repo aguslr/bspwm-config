@@ -128,7 +128,7 @@ if [ -e "$BSPWM_STATE" ] ; then
 fi
 
 # Launch keybinding daemon
-sxhkd &
+sxhkd -c "$BSPWM_CONFIG/sxhkdrc" &
 
 # Autostart
 "$BSPWM_CONFIG/autostart" &
