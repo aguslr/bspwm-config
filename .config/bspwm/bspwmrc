@@ -19,7 +19,7 @@ bspc monitor --reset-desktops term www dev chat edit play virt 8 9 10
 bspc desktop '^1' --layout monocle
 # Make windows float on specific desktops
 # https://github.com/baskerville/bspwm/issues/325
-bspc subscribe node_manage | while read event monitor desktop nodeid ipid; do
+bspc subscribe node_manage | while read -r event monitor desktop nodeid ipid; do
 	case "$desktop" in
 		www|play|6|virt|7|9)
 			bspc node "$nodeid" --state floating
@@ -100,6 +100,7 @@ bspc rule --add Uget-gtk                    state=floating
 bspc rule --add Vinagre                     state=floating
 
 # Colors
+# shellcheck source=/dev/null
 . "$HOME/.local/share/themes/colorschemes/bspwm.cfg"
 bspc config focused_border_color            "$brightwhite"
 bspc config active_border_color             "$brightblack"
@@ -120,6 +121,7 @@ bspc config normal_private_border_color     "$black"
 hsetroot -solid "$brightblack"
 
 # Load session
+# shellcheck source=/dev/null
 . "$BSPWM_CONFIG/restore.cfg"
 if [ -e "$BSPWM_STATE" ] ; then
 	bspc wm --load-state "$BSPWM_STATE"
@@ -134,6 +136,7 @@ sxhkd -c "$BSPWM_CONFIG/sxhkdrc" &
 "$BSPWM_CONFIG/autostart" &
 
 # Read panel configuration and launch it
+# shellcheck source=/dev/null
 . "${XDG_CONFIG_HOME:-$HOME/.config}/lemonbar/panel.cfg" && panel \
     | lemonbar -a 50 -g "${BARWIDTH}x${BARHEIGHT}+${EDGEWIDTH}+${EDGEWIDTH}" \
     -f "$PANEL_FONT_FAMILY" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" \
