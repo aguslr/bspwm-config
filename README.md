@@ -14,7 +14,7 @@ If we have Git installed on the system, we can get the files directly from the
 repository:
 
 ```sh
-git clone https://github.com/aguslr/bspwm-config
+git clone https://gitlab.com/aguslr/bspwm-config
 ```
 
 After this, every time we want to update the files we do:
@@ -29,7 +29,7 @@ If Git is not installed, we can still get the files as long as we have a basic
 Unix environment available:
 
 ```sh
-wget https://github.com/aguslr/bspwm-config/tarball/master -O - | tar -xzv --strip-components 1 --exclude={README.md,demo.gif}
+wget https://gitlab.com/aguslr/bspwm-config/-/archive/master/bspwm-config-master.tar.gz -O - | tar -xzv --strip-components 1 --exclude={README.md,demo.gif}
 ```
 
 ### Installing with Stow
